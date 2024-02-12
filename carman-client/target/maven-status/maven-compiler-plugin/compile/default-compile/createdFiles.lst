@@ -1,0 +1,7 @@
+com/nnj/learn/restclient/entity/Specification.class
+com/nnj/learn/restclient/entity/Color.class
+com/nnj/learn/restclient/entity/Car.class
+com/nnj/learn/restclient/CarClientApache.class
+com/nnj/learn/restclient/CarClient.class
+com/nnj/learn/restclient/Main.class
+com/nnj/learn/restclient/entity/EngineType.class
