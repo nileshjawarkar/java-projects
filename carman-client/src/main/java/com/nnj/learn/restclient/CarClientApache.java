@@ -1,11 +1,7 @@
 package com.nnj.learn.restclient;
 
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +10,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -28,7 +23,7 @@ import com.nnj.learn.restclient.entity.Color;
 import com.nnj.learn.restclient.entity.EngineType;
 import com.nnj.learn.restclient.entity.Specification;
 
-public class CarClientApache {
+public class CarClientApache implements CarClient {
 
 	private final String strURL;
 
@@ -36,6 +31,7 @@ public class CarClientApache {
 		strURL = baseUrl + "/api/v3/cars";
 	}
 
+	@Override
 	public List<String> GetCars() throws URISyntaxException, IOException, InterruptedException {
 		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 			HttpGet httpGet = new HttpGet(strURL);
@@ -60,6 +56,7 @@ public class CarClientApache {
 		return null;
 	}
 
+	@Override
 	public Car GetCar(String id) throws URISyntaxException, IOException, InterruptedException {
 		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 			HttpGet httpGet = new HttpGet(strURL + "/" + id);
@@ -86,6 +83,7 @@ public class CarClientApache {
 		return null;
 	}
 
+	@Override
 	public Car CreateCar(Specification spec) throws URISyntaxException, IOException, InterruptedException {
 		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 			HttpPost httpPost = new HttpPost(strURL);

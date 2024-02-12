@@ -2,4 +2,7 @@ trash/**
 Servers/**
 .metadata/**
 *.tar.gz
-*/target/**
+**/target/*
+**/.classpath
+**/.project
+**/.settings/**

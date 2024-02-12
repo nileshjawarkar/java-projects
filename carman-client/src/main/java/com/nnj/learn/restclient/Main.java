@@ -12,7 +12,7 @@ import com.nnj.learn.restclient.entity.Specification;
 public class Main {
 
 	public static void main(String[] args) {
-		CarClientApache carClient = new CarClientApache("http://localhost:8080/carman");
+		CarClient carClient = new CarClientApache("http://localhost:8080/carman");
 		try {
 			List<String> cars = carClient.GetCars();
 			for(String c : cars) {
