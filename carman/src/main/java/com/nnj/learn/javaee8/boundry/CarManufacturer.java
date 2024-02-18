@@ -6,6 +6,7 @@ import jakarta.ejb.Stateless;
 import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -55,7 +56,12 @@ public class CarManufacturer {
 
 	public Car retrieveCar(final String id) {
 		// -- return carRepository.findById(id);
-		return entityManager.createNamedQuery(Car.FIND_A_CAR, Car.class).setParameter("carId", id).getSingleResult();
+		try {
+			return entityManager.createNamedQuery(Car.FIND_A_CAR, Car.class).setParameter("carId", id)
+					.getSingleResult();
+		} catch (NoResultException e) {
+		}
+		return null;
 	}
 
 	public List<Car> retrieveCars() {
@@ -64,6 +70,10 @@ public class CarManufacturer {
 	}
 
 	public List<Car> retrieveCars(final String filterByAttr, final String filterByValue) {
+		if (filterByAttr == null || filterByAttr.equals("") || filterByValue == null || filterByValue.equals("")) {
+			return retrieveCars();
+		}
+
 		boolean isColorAttr = filterByAttr.equals("color");
 		boolean isETAttr = filterByAttr.equals("engineType");
 		if (isColorAttr || isETAttr) {
@@ -71,11 +81,13 @@ public class CarManufacturer {
 			CriteriaQuery<Car> cQuery = cb.createQuery(Car.class);
 			Root<Car> c = cQuery.from(Car.class);
 
-			/* Being more specific about type is more secure
-			 * ----------------------------------------------
-			ParameterExpression<Enum> paramEnumType = cb.parameter(Enum.class);
-			cQuery.select(c).where(cb.equal(c.get(filterByAttr), paramEnumType));
-			TypedQuery<Car> query = entityManager.createQuery(cQuery); */
+			/*
+			 * Being more specific about type is more secure
+			 * ---------------------------------------------- ParameterExpression<Enum>
+			 * paramEnumType = cb.parameter(Enum.class);
+			 * cQuery.select(c).where(cb.equal(c.get(filterByAttr), paramEnumType));
+			 * TypedQuery<Car> query = entityManager.createQuery(cQuery);
+			 */
 
 			TypedQuery<Car> query = null;
 			if (isETAttr) {

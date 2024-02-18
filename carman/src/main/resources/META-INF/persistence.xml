@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="prod" transaction-type="JTA">
-	    <jta-data-source>mydatasource</jta-data-source>
+	    <!-- <jta-data-source>mydatasource</jta-data-source>  -->
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property 
