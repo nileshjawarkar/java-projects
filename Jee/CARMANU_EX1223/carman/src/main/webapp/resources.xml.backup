@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+	<Resource id="mydatasource" type="DataSource">
+		JdbcDriver org.hsqldb.jdbcDriver
+		JdbcUrl jdbc:hsqldb:file:hsqldb
+		UserName sa
+		Password
+	</Resource>
+</tomee>

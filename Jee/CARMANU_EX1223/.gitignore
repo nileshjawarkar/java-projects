@@ -1,0 +1,8 @@
+trash/**
+Servers/**
+.metadata/**
+*.tar.gz
+*/*/target/**
+*/*/.classpath
+*/*/.project
+*/*/.settings/**

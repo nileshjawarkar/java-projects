@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ds.nj2</groupId>
+    <artifactId>rabbitmq-producer</artifactId>
+    <version>1.0.0</version>
+  	<packaging>war</packaging>
+
+  <dependencies>
+	<dependency>
+		<groupId>org.jboss.resteasy</groupId>
+		<artifactId>resteasy-jaxrs</artifactId>
+		<version>3.15.0.Final</version>
+		<scope>provided</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.apache.tomcat</groupId>
+		<artifactId>tomcat-servlet-api</artifactId>
+		<version>9.0.12</version>
+		<scope>provided</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>rabbitmq-client</groupId>
+		<artifactId>rabbitmq-client</artifactId>
+		<scope>system</scope>
+		<version>1.0</version>
+		<systemPath>${basedir}/ext_jars/amqp-client-5.7.1.jar</systemPath>
+	</dependency>
+
+	<!--
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+	</dependency> -->
+	
+  </dependencies>
+
+  <build>
+	<sourceDirectory>src/main/java</sourceDirectory>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+		  <configuration>
+			  <source>1.8</source>
+			  <target>1.8</target>
+		  </configuration>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+
+		<plugin>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>2.3</version>
+			<configuration>
+                <webResources>
+                    <resource>
+                        <directory>ext_jars</directory>
+                        <targetPath>WEB-INF/lib</targetPath>
+                        <includes>
+                            <include>**/*.jar</include>
+                        </includes>
+                    </resource>
+                </webResources>
+			</configuration>
+		</plugin>
+
+      </plugins>
+
+    </pluginManagement>
+</build>
+
+</project>
+
