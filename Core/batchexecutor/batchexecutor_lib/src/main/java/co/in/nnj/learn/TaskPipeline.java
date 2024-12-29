@@ -17,11 +17,12 @@ public class TaskPipeline {
         }
 
         public Connector next(final int i) {
-            if(taskDesc != null && !"".equals(taskDesc)) {
+            final boolean logDesc = (taskDesc != null && !"".equals(taskDesc));
+            if(logDesc) {
                 System.out.println("#Start# Task-" + i + ": " + taskDesc);
             }
             current.execute();
-            if(taskDesc != null && !"".equals(taskDesc)) {
+            if(logDesc) {
                 System.out.println("#End# Task-" + i + ": " + taskDesc);
             }
             return next;
