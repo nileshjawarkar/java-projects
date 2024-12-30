@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class LockTest {
+public class WaitNotifyTest {
 
     public static class Worker {
         private final List<String> jobList = new ArrayList<>();
@@ -21,8 +21,11 @@ public class LockTest {
                         jobList.add(str);
                         counter++;
                         System.out.println("Added - " + str);
-                        lock.notify();
+                        if (jobList.size() == MAX_LEN) {
+                            lock.notify();
+                        }
                     } else {
+                        System.out.println("Waiting cusumer to consume the jobs");
                         lock.wait();
                     }
                 }
@@ -31,13 +34,16 @@ public class LockTest {
 
         public void consumer() throws InterruptedException {
             synchronized (lock) {
-                while (counter < 40 || jobList.size() != 0) {
-                    if (jobList.size() == 0) {
+                while (counter < 40 || jobList.size() > 0) {
+                    if ( jobList.size() == 0 ) {
+                        System.out.println("Waiting producer to produce the jobs");
                         lock.wait();
                     } else {
                         final String str = jobList.remove(jobList.size() - 1);
                         System.out.println(str);
-                        lock.notify();
+                        if (jobList.size() == 0) {
+                            lock.notify();
+                        }
                     }
                 }
             }
