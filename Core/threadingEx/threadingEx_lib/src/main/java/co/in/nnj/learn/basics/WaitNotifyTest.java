@@ -1,4 +1,4 @@
-package co.in.nnj.learn.ex3;
+package co.in.nnj.learn.basics;
 
 import java.util.ArrayList;
 import java.util.List;

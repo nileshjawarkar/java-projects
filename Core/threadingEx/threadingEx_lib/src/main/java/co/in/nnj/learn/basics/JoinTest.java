@@ -1,4 +1,4 @@
-package co.in.nnj.learn.ex1;
+package co.in.nnj.learn.basics;
 
 import java.util.concurrent.TimeUnit;
 
