@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class SyncroList {
+public class SyncronizedListEx {
     public static void main(final String[] args) {
 
         //-- final List<Integer> numList = new ArrayList<>();
