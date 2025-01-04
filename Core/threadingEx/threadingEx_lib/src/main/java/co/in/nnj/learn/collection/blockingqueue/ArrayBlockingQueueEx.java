@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /* Main feature of ArrayBlockingQueue cunsumer automaticaly wait and block itself
- * until it get next job,
+ * until it gets next job,
  */
 public class ArrayBlockingQueueEx {
 
