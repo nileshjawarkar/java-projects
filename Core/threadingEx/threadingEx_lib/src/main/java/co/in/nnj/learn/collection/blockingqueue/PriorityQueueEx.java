@@ -1,4 +1,4 @@
-package co.in.nnj.learn.collection;
+package co.in.nnj.learn.collection.blockingqueue;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
@@ -14,18 +14,18 @@ import java.util.concurrent.TimeUnit;
  *
  * It means, hotel will process order with higher amount first.
  */
-public class BlockingQueue_PriorityQueueEx {
+public class PriorityQueueEx {
     private static class Order implements Comparable<Order> {
-        private double amount;
-        private String customer_name;
+        private final double amount;
+        private final String customer_name;
 
-        public Order(String customer_name, double amount) {
+        public Order(final String customer_name, final double amount) {
             this.customer_name = customer_name;
             this.amount = amount;
         }
 
         @Override
-        public int compareTo(Order other) {
+        public int compareTo(final Order other) {
             return Double.compare(other.amount, amount);
         }
 
@@ -38,28 +38,28 @@ public class BlockingQueue_PriorityQueueEx {
     private static class Waiter implements Runnable {
         BlockingQueue<Order> queue;
 
-        public Waiter(BlockingQueue<Order> queue) {
+        public Waiter(final BlockingQueue<Order> queue) {
             this.queue = queue;
         }
 
-        public void takeOrder(String name, double amount) {
+        public void takeOrder(final String name, final double amount) {
             try {
                 TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 e.printStackTrace();
             }
 
-            Order o = new Order(name, amount);
+            final Order o = new Order(name, amount);
             queue.add(o);
         }
 
         @Override
         public void run() {
             int i = 1;
-            Random random = new Random();
+            final Random random = new Random();
             while (true) {
-                String name = "Customer-" + i;
-                double amount = random.nextDouble(10000);
+                final String name = "Customer-" + i;
+                final double amount = random.nextDouble(10000);
                 takeOrder(name, amount);
                 i += 1;
             }
@@ -69,7 +69,7 @@ public class BlockingQueue_PriorityQueueEx {
     private static class Hotel implements Runnable {
         BlockingQueue<Order> queue;
 
-        public Hotel(BlockingQueue<Order> queue) {
+        public Hotel(final BlockingQueue<Order> queue) {
             this.queue = queue;
         }
 
@@ -81,20 +81,20 @@ public class BlockingQueue_PriorityQueueEx {
         }
 
         private void processOrder() {
-            Order o = queue.poll();
+            final Order o = queue.poll();
             try {
                 TimeUnit.SECONDS.sleep(2);
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 e.printStackTrace();
             }
             System.out.println("Order ready - " + o);
         }
     }
 
-    public static void main(String[] args) {
-        BlockingQueue<Order> queue = new PriorityBlockingQueue<>();
-        Waiter waiter = new Waiter(queue);
-        Hotel hotel = new Hotel(queue);
+    public static void main(final String[] args) {
+        final BlockingQueue<Order> queue = new PriorityBlockingQueue<>();
+        final Waiter waiter = new Waiter(queue);
+        final Hotel hotel = new Hotel(queue);
 
         waiter.takeOrder("Pradnya", 6000);
         waiter.takeOrder("Shrikant", 7000);

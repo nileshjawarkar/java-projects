@@ -1,4 +1,4 @@
-package co.in.nnj.learn.collection;
+package co.in.nnj.learn.collection.blockingqueue;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.DelayQueue;
@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * Element added to the queue will be available for access only after when delay time is crossed.
  * How queue knows it? By using getDelay method, which return remainig  time.
  */
-public class BlockingQueue_DelayedQueueEx {
+public class DelayedQueueEx {
 
     public static class DelayedElement implements Delayed {
         private final long duration;

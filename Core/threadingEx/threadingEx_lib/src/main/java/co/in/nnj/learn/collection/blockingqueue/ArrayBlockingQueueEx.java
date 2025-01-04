@@ -1,4 +1,4 @@
-package co.in.nnj.learn.collection;
+package co.in.nnj.learn.collection.blockingqueue;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 /* Main feature of ArrayBlockingQueue cunsumer automaticaly wait and block itself
  * until it get next job,
  */
-public class BlockingQueue_ArrayEx {
+public class ArrayBlockingQueueEx {
 
     private static class Producer implements Runnable {
         private final BlockingQueue<Integer> queue;
