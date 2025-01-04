@@ -5,7 +5,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class ArrayBlockingQueueEx {
+public class BlockingQueue_ArrayEx {
 
     private static class Producer implements Runnable {
         private final BlockingQueue<Integer> queue;

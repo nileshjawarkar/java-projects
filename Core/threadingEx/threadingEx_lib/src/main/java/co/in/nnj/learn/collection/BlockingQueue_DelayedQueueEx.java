@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * Element added to the queue will be available for access only after when delay time is crossed.
  * How queue knows it? By using getDelay method, which return remainig  time.
  */
-public class DelayedQueueEx {
+public class BlockingQueue_DelayedQueueEx {
 
     public static class DelayedElement implements Delayed {
         private final long duration;
