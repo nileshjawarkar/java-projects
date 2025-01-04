@@ -82,13 +82,12 @@ public class BlockingQueue_PriorityQueueEx {
 
         private void processOrder() {
             Order o = queue.poll();
-            System.out.println("Processing - " + o);
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("Ready - " + o);
+            System.out.println("Order ready - " + o);
         }
     }
 
@@ -97,12 +96,12 @@ public class BlockingQueue_PriorityQueueEx {
         Waiter waiter = new Waiter(queue);
         Hotel hotel = new Hotel(queue);
 
-        waiter.takeOrder("Pradnya", 500);
+        waiter.takeOrder("Pradnya", 6000);
+        waiter.takeOrder("Shrikant", 7000);
+        waiter.takeOrder("Tanu", 8000);
         waiter.takeOrder("Manu", 10000);
-        waiter.takeOrder("Shrikant", 2000);
-        waiter.takeOrder("Tanu", 5000);
 
-        new Thread(hotel).start();
         new Thread(waiter).start();
+        new Thread(hotel).start();
     }
 }
