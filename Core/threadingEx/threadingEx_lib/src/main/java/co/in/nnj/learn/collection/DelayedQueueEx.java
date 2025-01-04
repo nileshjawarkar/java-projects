@@ -5,6 +5,11 @@ import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 
+/* DelayedQueue is another impl of BlockingQueue.
+ * It is used to consume objects after some delayed time/elapse time.
+ * Element added to the queue will be available for access only after when delay time is crossed.
+ * How queue knows it? By using getDelay method, which return remainig  time.
+ */
 public class DelayedQueueEx {
 
     public static class DelayedElement implements Delayed {
