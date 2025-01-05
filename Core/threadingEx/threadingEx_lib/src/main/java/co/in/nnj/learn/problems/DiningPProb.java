@@ -1,5 +1,7 @@
 package co.in.nnj.learn.problems;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -61,6 +63,9 @@ public class DiningPProb {
         private final ChopStick right;
         private final String id;
         private PhilosopherMode mode;
+        private long counter = 0;
+
+        private boolean isFull = false;
 
         public Philosopher(final String id, final ChopStick right, final ChopStick left) {
             this.id = id;
@@ -74,10 +79,13 @@ public class DiningPProb {
             return "Philosopher {id=" + id + ", mode=" + mode + "}";
         }
 
-        public boolean tryToEat() {
+        public void setFull() {
+            isFull = true;
+        }
+
+        public boolean acquireChopsticks() {
             if (left.acquire(this, ChopStickSide.LEFT)) {
                 if (right.acquire(this, ChopStickSide.RIGHT)) {
-                    mode = PhilosopherMode.EATTING;
                     return true;
                 } else {
                     left.release();
@@ -86,27 +94,42 @@ public class DiningPProb {
             return false;
         }
 
-        public void endEatting() {
+        public void releaseChopsticks() {
             if (mode == PhilosopherMode.EATTING) {
                 left.release();
                 right.release();
-                mode = PhilosopherMode.THINKING;
             }
+        }
+
+        public void eat() {
+            mode = PhilosopherMode.EATTING;
+            counter += 1;
+        }
+
+        public void think() {
+            mode = PhilosopherMode.THINKING;
+        }
+
+        public long getCouter() {
+            return counter;            
         }
 
         @Override
         public void run() {
-            while (true) {
-                if (mode == PhilosopherMode.THINKING) {
-                    tryToEat();
+            while (!isFull) {
+                long jobTime = 3;
+                if (mode == PhilosopherMode.THINKING && acquireChopsticks()) {
+                    eat();
+                    jobTime = 2;
                 } else {
-                    endEatting();
+                    releaseChopsticks();
+                    think();
                 }
-
                 System.out.println(this);
                 try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (final InterruptedException e) {
+                    TimeUnit.SECONDS.sleep(jobTime);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -126,11 +149,48 @@ public class DiningPProb {
         final Philosopher p4 = new Philosopher("P4", s4, s5);
         final Philosopher p5 = new Philosopher("P5", s5, s1);
 
+        /*
         new Thread(p1).start();
         new Thread(p2).start();
         new Thread(p3).start();
         new Thread(p4).start();
-        new Thread(p5).start();
+        new Thread(p5).start(); */
+
+        //-- Start the threads
+        ExecutorService service = Executors.newFixedThreadPool(5);
+        service.execute(p1);
+        service.execute(p2);
+        service.execute(p3);
+        service.execute(p4);
+        service.execute(p5);
+
+        //-- Wait for 20 SECONDS
+        try {
+            TimeUnit.SECONDS.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //-- End the execution
+        p1.setFull();
+        p2.setFull();
+        p3.setFull();
+        p4.setFull();
+        p5.setFull();
+
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        //-- Stop all the threads
+        service.shutdown();
+        System.out.println("p1 eatting count - " + p1.getCouter());
+        System.out.println("p2 eatting count - " + p2.getCouter());
+        System.out.println("p3 eatting count - " + p3.getCouter());
+        System.out.println("p4 eatting count - " + p4.getCouter());
+        System.out.println("p5 eatting count - " + p5.getCouter());
 
     }
 }
