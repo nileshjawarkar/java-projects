@@ -30,7 +30,6 @@ public class CopyOnWriteArrayEx {
                 if (idx < 10) {
                     list.set(idx, value);
                 }
-                System.out.println(list.toString());
 
                 try {
                     TimeUnit.SECONDS.sleep(2);
@@ -41,12 +40,30 @@ public class CopyOnWriteArrayEx {
         }
     }
 
+    public static class Reader implements Runnable {
+        private final List<Integer> list;
+
+        public Reader(final List<Integer> arrayList) {
+            list = arrayList;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                System.out.println(list.toString());
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (final InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     public static void main(final String[] args) {
         final List<Integer> arrayList = new CopyOnWriteArrayList<>();
         arrayList.addAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
 
         new Thread(new Updater(arrayList)).start();
-        new Thread(new Updater(arrayList)).start();
-
+        new Thread(new Reader(arrayList)).start();
     }
 }
