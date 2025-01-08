@@ -7,22 +7,11 @@ import co.in.nnj.learn.util.TimeLogger;
 
 public class FibonacciGenEx {
 
-    public static class FibonacciGeneratorSeq {
-        private final int num;
-        public FibonacciGeneratorSeq(final int num) {
-            this.num = num;
+    private static Integer genFibonacciNumber(final int num) {
+        if (num <= 1) {
+            return num;
         }
-
-        public Integer compute() {
-            return compute(num);
-        }
-
-        private Integer compute(final int num) {
-            if (num <= 1) {
-                return num;
-            }
-            return compute(num - 1) + compute(num - 2);
-        }
+        return genFibonacciNumber(num - 1) + genFibonacciNumber(num - 2);
     }
 
     public static class FibonacciGenerator extends RecursiveTask<Integer> {
@@ -35,11 +24,11 @@ public class FibonacciGenEx {
         @Override
         protected Integer compute() {
             // -- Step 1: Define base condition for recursion to end
-            if (num <= 20) { 
-                //-- return num;
+            if (num <= 20) {
+                // -- return num;
                 // Sequential algo work perfectly good till 20, then its PCS degrades
                 // So for numbers above 20 use parallel algo
-                return new FibonacciGeneratorSeq(num).compute();
+                return genFibonacciNumber(num);
             }
 
             // -- Step 2: Devide job in to subtasks
@@ -64,13 +53,12 @@ public class FibonacciGenEx {
     public static void main(final String[] args) {
         final TimeLogger logger = new TimeLogger();
 
-        //-- Run it Sequentially
-        final FibonacciGeneratorSeq seqGen = new FibonacciGeneratorSeq(45);
+        // -- Run it Sequentially
         logger.init("Sequential");
-        System.out.println("Fibonacci of 45 => " + seqGen.compute());
+        System.out.println("Fibonacci of 45 => " + genFibonacciNumber(45));
         logger.logTimeDiff();
 
-        //-- Run it parallelly
+        // -- Run it parallelly
         final ForkJoinPool pool = new ForkJoinPool(2);
         logger.init("Parallel");
         try {
