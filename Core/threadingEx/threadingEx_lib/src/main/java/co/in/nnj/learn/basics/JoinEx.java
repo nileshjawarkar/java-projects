@@ -2,7 +2,7 @@ package co.in.nnj.learn.basics;
 
 import java.util.concurrent.TimeUnit;
 
-public class JoinTest {
+public class JoinEx {
 
     public static class Loop1 implements Runnable {
         @Override

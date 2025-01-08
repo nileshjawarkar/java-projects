@@ -4,7 +4,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ScheduleExecutorTest {
+public class ScheduleExecutorEx {
 
     private static final int INITIAL_DELAY = 2;
 

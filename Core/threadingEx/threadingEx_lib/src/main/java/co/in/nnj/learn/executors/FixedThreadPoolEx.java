@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class FixedThreadPoolTest {
+public class FixedThreadPoolEx {
 
     public static class Task implements Runnable {
         private final int counter;

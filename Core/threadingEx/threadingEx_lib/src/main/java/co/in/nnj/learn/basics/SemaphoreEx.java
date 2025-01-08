@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * this acquire method blocks its execution.
  */
 
-public class SemaphoreTest {
+public class SemaphoreEx {
     public static class Tasks{
         private int counter = 0;
 
