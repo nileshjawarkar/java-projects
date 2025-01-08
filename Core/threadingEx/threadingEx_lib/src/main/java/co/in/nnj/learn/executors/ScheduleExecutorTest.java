@@ -8,6 +8,7 @@ public class ScheduleExecutorTest {
 
     private static final int INITIAL_DELAY = 2;
 
+
     public static class Task implements Runnable {
         private final int timePeriod;
         private final int id;
