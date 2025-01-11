@@ -41,6 +41,9 @@ public class Ex2_MapAndFlatMap {
         final List<List<Integer>> resList1 = numList1.stream()
                 .flatMap(n -> numList2.stream().map(n1 -> Arrays.asList(n, n1)))
                 .collect(Collectors.toList());
+        //-- Here note that as flatmap get stream as input from, it will just flaten the data.
+        //-- but if previous funtion didnt supply the stream, we need to provide some funtion 
+        //-- to flatmap to create the stream as we did in case of example 1
         resList1.stream().forEach(l -> System.out.print(l + " "));
     }
 }
