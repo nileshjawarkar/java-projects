@@ -4,9 +4,8 @@ import java.util.Comparator;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class Intro {
+public class Ex1_FilterAndSorting {
     public static void main(final String[] args) {
-
         // -- int streams
         // Printing
         // -- Stream.of(1, 20, -9, 30, 5, 8, 10).forEach(System.out::println);;
