@@ -49,11 +49,11 @@ public class Ex3_CategoriesLimitAndReduce {
         top2BooksWithMaxPage.stream().forEach(System.out::println);
 
         //-- Find maximum number of pages
-        Optional<Integer> maxPages = books.stream().map(b -> b.getPages()).reduce(Integer::max);
+        final Optional<Integer> maxPages = books.stream().map(b -> b.getPages()).reduce(Integer::max);
         maxPages.ifPresent(p -> System.out.println("\n\nMax Pages : " + p));
 
         //-- Find book having max pages
-        Optional<Book> bookWithMaxPage = books.stream().reduce((b1, b2) -> b1.getPages() > b2.getPages() ? b1 : b2);
+        final Optional<Book> bookWithMaxPage = books.stream().reduce((b1, b2) -> b1.getPages() > b2.getPages() ? b1 : b2);
         System.out.println("\n\nLongest book =" + bookWithMaxPage.get() );
     }
 }
