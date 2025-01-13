@@ -5,10 +5,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ScheduleExecutorEx {
-
     private static final int INITIAL_DELAY = 2;
-
-
     public static class Task implements Runnable {
         private final int timePeriod;
         private final int id;
