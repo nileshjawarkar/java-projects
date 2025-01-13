@@ -3,12 +3,13 @@ package co.in.nnj.learn.streams;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import co.in.nnj.learn.streams.model.Book;
 import co.in.nnj.learn.streams.model.Book.Type;
 
-public class Ex3_CategoriesAndLimit {
+public class Ex3_CategoriesLimitAndReduce {
     public static void main(final String[] args) {
         // Ex1 - Find max number of pages
         final List<Book> books = new ArrayList<>();
@@ -46,5 +47,13 @@ public class Ex3_CategoriesAndLimit {
 
         System.out.println("\n\nExample 2 = Top 2 books with max number of page\n");
         top2BooksWithMaxPage.stream().forEach(System.out::println);
+
+        //-- Find maximum number of pages
+        Optional<Integer> maxPages = books.stream().map(b -> b.getPages()).reduce(Integer::max);
+        maxPages.ifPresent(p -> System.out.println("\n\nMax Pages : " + p));
+
+        //-- Find book having max pages
+        Optional<Book> bookWithMaxPage = books.stream().reduce((b1, b2) -> b1.getPages() > b2.getPages() ? b1 : b2);
+        System.out.println("\n\nLongest book =" + bookWithMaxPage.get() );
     }
 }
