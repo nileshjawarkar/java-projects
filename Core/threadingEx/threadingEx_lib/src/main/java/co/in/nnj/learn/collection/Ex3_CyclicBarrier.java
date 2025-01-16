@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class CyclicBarrierEx {
+public class Ex3_CyclicBarrier {
     private static final int MAX_THREADS = 5;
 
     public static class Task implements Runnable {

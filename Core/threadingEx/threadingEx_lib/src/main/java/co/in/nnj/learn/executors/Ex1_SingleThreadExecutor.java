@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class FixedThreadPoolEx {
+public class Ex1_SingleThreadExecutor {
 
     public static class Task implements Runnable {
         private final int counter;
@@ -26,10 +26,9 @@ public class FixedThreadPoolEx {
     }
 
     public static void main(final String[] args) {
-        final ExecutorService service = Executors.newFixedThreadPool(3);
+        final ExecutorService service = Executors.newSingleThreadExecutor();
         for (int i = 0; i < 15; i++) {
             service.execute(new Task(i));
         }
-        service.shutdown();
-   }
+    }
 }

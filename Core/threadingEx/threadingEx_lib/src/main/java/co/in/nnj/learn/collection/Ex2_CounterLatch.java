@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class CounterLatchEx {
+public class Ex2_CounterLatch {
     public static class Task implements Runnable {
         private final int counter;
         private final CountDownLatch countDownLatch;

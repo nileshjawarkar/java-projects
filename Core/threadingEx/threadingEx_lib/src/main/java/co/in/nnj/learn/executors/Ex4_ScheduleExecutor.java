@@ -4,7 +4,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ScheduleExecutorEx {
+public class Ex4_ScheduleExecutor {
     private static final int INITIAL_DELAY = 2;
     public static class Task implements Runnable {
         private final int timePeriod;

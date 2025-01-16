@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class WaitNotifyEx {
+public class Ex3_WaitNotify {
 
     public static class Worker {
         private final List<String> jobList = new ArrayList<>();

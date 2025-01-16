@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * 1) Read operation is also blocking in Syncronised arrayList, but its not in CopyOnWriteArrayList.
  * 2) CopyOnWriteArrayList makes copy underline data before write, so reading can continue without any issue as it can read underline data.
  */
-public class CopyOnWriteArrayEx {
+public class Ex4_CopyOnWriteArray {
 
     public static class Updater implements Runnable {
         private final List<Integer> list;

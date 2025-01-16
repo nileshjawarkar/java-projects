@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  * This reduces overall blocking time and improve performance.
  */
 
-public class SyncroEx {
+public class Ex2_Syncronization {
 
     public static class State {
         private int counter1 = 0;

@@ -3,7 +3,7 @@ package co.in.nnj.learn.collection;
 import java.util.concurrent.Exchanger;
 import java.util.concurrent.TimeUnit;
 
-public class ExchangerEx {
+public class Ex5_Exchanger {
 
     public static void main(final String[] args) {
         final Exchanger<Integer> exchanger = new Exchanger<>();
