@@ -264,6 +264,5 @@ public class Ex6_AdvLocks {
         writter.interrupt();
         reader.interrupt();
         remover.interrupt();
-
     }
 }
