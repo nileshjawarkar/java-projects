@@ -25,7 +25,7 @@ public class Ex7_Semaphore_PCModel2 {
                 final String message = Thread.currentThread().getName() + ", Message time - "
                         + System.currentTimeMillis();
                 lock.lock();
-                System.out.println("Gen - " + message);
+                System.out.println("Added - " + message);
                 msgs.add(message);
             } finally {
                 lock.unlock();
