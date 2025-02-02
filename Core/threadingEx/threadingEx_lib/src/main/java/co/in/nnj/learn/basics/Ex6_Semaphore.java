@@ -14,7 +14,7 @@ public class Ex6_Semaphore {
             try {
                 empty.acquire();
                 message = "Message gen at - " + System.currentTimeMillis();
-                TimeUnit.MILLISECONDS.sleep(10);
+                TimeUnit.MILLISECONDS.sleep(1);
             } finally {
                 full.release();
             }
