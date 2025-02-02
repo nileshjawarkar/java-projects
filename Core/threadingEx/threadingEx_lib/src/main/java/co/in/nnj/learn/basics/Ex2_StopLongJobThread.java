@@ -19,7 +19,7 @@ public class Ex2_StopLongJobThread {
             for (final BigInteger i = BigInteger.ZERO; i.compareTo(pow) != 0; i.add(BigInteger.ONE)) {
                 //-- Need to add this check to stop the tread.
                 //-- Otherwise even if it is interrupted, it will not stop
-                if( Thread.interrupted() ) {
+                if( Thread.currentThread().isInterrupted() ) {
                     result = BigInteger.ZERO;
                     System.out.println("Big job interrupted");
                     break;
@@ -31,20 +31,7 @@ public class Ex2_StopLongJobThread {
     }
 
     public static void main(final String[] args) throws InterruptedException {
-
         //-- Example 1: Here we use interrupt API to stop the thread.
-        final Thread ex1 = new Thread(() -> {
-            try {
-                Thread.sleep(50000);
-            } catch (final InterruptedException e) {
-                System.out.println("Job interrupted");
-            }
-        });
-
-        ex1.start();
-        Thread.sleep(5000);
-        ex1.interrupt();
-
         //-- Example 2: In this Example simple use of interrupt will not work.
         //-- Need modification run method to break the loop on calling the interrupt.
         final Thread ex2 = new BigOps(new BigInteger("11111"), new BigInteger("11111"));

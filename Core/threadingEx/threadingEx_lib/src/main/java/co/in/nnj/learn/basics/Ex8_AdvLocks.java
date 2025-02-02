@@ -14,13 +14,13 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
-public class Ex6_AdvLocks {
+public class Ex8_AdvLocks {
     private final HashMap<Integer, List<String>> productIdToReviews;
     ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     ReadLock readLock = readWriteLock.readLock();
     WriteLock writeLock = readWriteLock.writeLock();
 
-    public Ex6_AdvLocks() {
+    public Ex8_AdvLocks() {
         this.productIdToReviews = new HashMap<>();
     }
 
@@ -151,10 +151,10 @@ public class Ex6_AdvLocks {
     }
 
     public static class Writter extends Thread {
-        private final Ex6_AdvLocks advLocks;
+        private final Ex8_AdvLocks advLocks;
         private final int[] prdIds;
 
-        public Writter(final Ex6_AdvLocks advLocks, final int[] prdIds) {
+        public Writter(final Ex8_AdvLocks advLocks, final int[] prdIds) {
             this.advLocks = advLocks;
             this.prdIds = prdIds;
         }
@@ -183,10 +183,10 @@ public class Ex6_AdvLocks {
     }
 
     public static class Reader extends Thread {
-        private final Ex6_AdvLocks advLocks;
+        private final Ex8_AdvLocks advLocks;
         private final int[] prdIds;
 
-        public Reader(final Ex6_AdvLocks advLocks, final int[] prdIds) {
+        public Reader(final Ex8_AdvLocks advLocks, final int[] prdIds) {
             this.advLocks = advLocks;
             this.prdIds = prdIds;
         }
@@ -217,10 +217,10 @@ public class Ex6_AdvLocks {
     }
 
     public static class Remover extends Thread {
-        private final Ex6_AdvLocks advLocks;
+        private final Ex8_AdvLocks advLocks;
         private final int[] prdIds;
 
-        public Remover(final Ex6_AdvLocks advLocks, final int[] prdIds) {
+        public Remover(final Ex8_AdvLocks advLocks, final int[] prdIds) {
             this.advLocks = advLocks;
             this.prdIds = prdIds;
         }
@@ -248,7 +248,7 @@ public class Ex6_AdvLocks {
     }
 
     public static void main(final String[] args) {
-        final Ex6_AdvLocks advLocks = new Ex6_AdvLocks();
+        final Ex8_AdvLocks advLocks = new Ex8_AdvLocks();
         final int[] prdIds = { 1, 2, 3, 4, 5 };
         final Writter writter = new Writter(advLocks, prdIds);
         final Reader reader = new Reader(advLocks, prdIds);

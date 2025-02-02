@@ -6,11 +6,11 @@ import java.util.concurrent.TimeUnit;
 /*
  * Semaphore used to limit concurrent execution of some task.
  * In this example, we will use while loop with 50 iterations, but
- * semaphore used here with 3 limit, allows only 3 concurrent threads.
+ * semaphore used here with 3 limit, allows only 3 concurrent threads/execution.
  *
- * Note - when 4rth thread statted and when it execute task method,
- * this method will try to acquire the scemaphore and ask limit of 3 crossed,
- * this acquire method blocks its execution.
+ * Note - when 4rth thread will start and execute task method,
+ * this method will try to acquire the scemaphore and as limit of 3 crossed,
+ * this acquire method get blocked.
  */
 
 public class Ex5_Semaphore {
