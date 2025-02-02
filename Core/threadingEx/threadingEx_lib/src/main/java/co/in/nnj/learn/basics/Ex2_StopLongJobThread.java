@@ -46,6 +46,7 @@ public class Ex2_StopLongJobThread {
         ex1.interrupt();
 
         //-- Example 2: In this Example simple use of interrupt will not work.
+        //-- Need modification run method to break the loop on calling the interrupt.
         final Thread ex2 = new BigOps(new BigInteger("11111"), new BigInteger("11111"));
         ex2.start();
         Thread.sleep(5000);
