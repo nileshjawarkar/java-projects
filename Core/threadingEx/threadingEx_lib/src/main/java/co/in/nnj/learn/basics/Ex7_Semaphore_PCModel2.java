@@ -11,7 +11,10 @@ public class Ex7_Semaphore_PCModel2 {
 
     public static class ProducerCosumerModel {
         private final Queue<String> msgs = new ArrayDeque<>();
-        private final Semaphore empty = new Semaphore(2);
+        //-- Producer can add max 5 message, then need to wait
+        //-- cunsumer to consume some messages to add new one.
+        //-- Added sleep to of 1 sec in consumer to visualised this
+        private final Semaphore empty = new Semaphore(5);
         private final Semaphore full = new Semaphore(0);
 
         Lock lock = new ReentrantLock();
@@ -19,12 +22,11 @@ public class Ex7_Semaphore_PCModel2 {
         public void produce_message() throws InterruptedException, IllegalMonitorStateException {
             try {
                 empty.acquire();
-                lock.lock();
                 final String message = Thread.currentThread().getName() + ", Message time - "
                         + System.currentTimeMillis();
+                lock.lock();
+                System.out.println("Gen - " + message);
                 msgs.add(message);
-                TimeUnit.MILLISECONDS.sleep(1);
-            } catch (final IllegalMonitorStateException e) {
             } finally {
                 lock.unlock();
                 full.release();
@@ -38,6 +40,8 @@ public class Ex7_Semaphore_PCModel2 {
                 System.out.println(msgs.poll());
             } finally {
                 lock.unlock();
+                //-- TimeUnit.MILLISECONDS.sleep(10);
+                TimeUnit.SECONDS.sleep(1);
                 empty.release();
             }
         }
@@ -80,7 +84,7 @@ public class Ex7_Semaphore_PCModel2 {
         consumer.start();
 
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(5);
         } catch (final InterruptedException e) {
         }
 
