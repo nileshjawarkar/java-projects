@@ -9,18 +9,17 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
-public class Ex8_AdvLocks {
+public class Ex8_ReadWriteLocks {
     private final HashMap<Integer, List<String>> productIdToReviews;
     ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     ReadLock readLock = readWriteLock.readLock();
     WriteLock writeLock = readWriteLock.writeLock();
 
-    public Ex8_AdvLocks() {
+    public Ex8_ReadWriteLocks() {
         this.productIdToReviews = new HashMap<>();
     }
 
@@ -28,14 +27,13 @@ public class Ex8_AdvLocks {
      * Adds a product ID if not present
      */
     public void addProduct(final int productId) {
-        final Lock lock = getLockForAddProduct();
-        lock.lock();
+        writeLock.lock();
         try {
             if (!productIdToReviews.containsKey(productId)) {
                 productIdToReviews.put(productId, new ArrayList<>());
             }
         } finally {
-            lock.unlock();
+            writeLock.unlock();
         }
     }
 
@@ -43,14 +41,13 @@ public class Ex8_AdvLocks {
      * Removes a product by ID if present
      */
     public void removeProduct(final int productId) {
-        final Lock lock = getLockForRemoveProduct();
-        lock.lock();
+        writeLock.lock();
         try {
             if (productIdToReviews.containsKey(productId)) {
                 productIdToReviews.remove(productId);
             }
         } finally {
-            lock.unlock();
+            writeLock.unlock();
         }
     }
 
@@ -61,15 +58,14 @@ public class Ex8_AdvLocks {
      * @param review    - text containing the product review
      */
     public void addProductReview(final int productId, final String review) {
-        final Lock lock = getLockForAddProductReview();
-        lock.lock();
+        writeLock.lock();
         try {
             if (!productIdToReviews.containsKey(productId)) {
                 productIdToReviews.put(productId, new ArrayList<>());
             }
             productIdToReviews.get(productId).add(review);
         } finally {
-            lock.unlock();
+            writeLock.unlock();
         }
     }
 
@@ -77,14 +73,13 @@ public class Ex8_AdvLocks {
      * Returns all the reviews for a given product
      */
     public List<String> getAllProductReviews(final int productId) {
-        final Lock lock = getLockForGetAllProductReviews();
-        lock.lock();
+        readLock.lock();
         try {
             if (productIdToReviews.containsKey(productId)) {
                 return Collections.unmodifiableList(productIdToReviews.get(productId));
             }
         } finally {
-            lock.unlock();
+            readLock.unlock();
         }
         return Collections.emptyList();
     }
@@ -93,16 +88,14 @@ public class Ex8_AdvLocks {
      * Returns the latest review for a product by product ID
      */
     public Optional<String> getLatestReview(final int productId) {
-        final Lock lock = getLockForGetLatestReview();
-        lock.lock();
+        readLock.lock();
         try {
-
             if (productIdToReviews.containsKey(productId) && !productIdToReviews.get(productId).isEmpty()) {
                 final List<String> reviews = productIdToReviews.get(productId);
                 return Optional.of(reviews.get(reviews.size() - 1));
             }
         } finally {
-            lock.unlock();
+            readLock.unlock();
         }
         return Optional.empty();
     }
@@ -111,8 +104,7 @@ public class Ex8_AdvLocks {
      * Returns all the product IDs that contain reviews
      */
     public Set<Integer> getAllProductIdsWithReviews() {
-        final Lock lock = getLockForGetAllProductIdsWithReviews();
-        lock.lock();
+        readLock.lock();
         try {
             final Set<Integer> productsWithReviews = new HashSet<>();
             for (final Map.Entry<Integer, List<String>> productEntry : productIdToReviews.entrySet()) {
@@ -122,39 +114,15 @@ public class Ex8_AdvLocks {
             }
             return productsWithReviews;
         } finally {
-            lock.unlock();
+            readLock.unlock();
         }
     }
 
-    Lock getLockForAddProduct() {
-        return writeLock;
-    }
-
-    Lock getLockForRemoveProduct() {
-        return writeLock;
-    }
-
-    Lock getLockForAddProductReview() {
-        return writeLock;
-    }
-
-    Lock getLockForGetAllProductReviews() {
-        return readLock;
-    }
-
-    Lock getLockForGetLatestReview() {
-        return readLock;
-    }
-
-    Lock getLockForGetAllProductIdsWithReviews() {
-        return readLock;
-    }
-
     public static class Writter extends Thread {
-        private final Ex8_AdvLocks advLocks;
+        private final Ex8_ReadWriteLocks advLocks;
         private final int[] prdIds;
 
-        public Writter(final Ex8_AdvLocks advLocks, final int[] prdIds) {
+        public Writter(final Ex8_ReadWriteLocks advLocks, final int[] prdIds) {
             this.advLocks = advLocks;
             this.prdIds = prdIds;
         }
@@ -176,17 +144,17 @@ public class Ex8_AdvLocks {
                 if (Thread.interrupted()) {
                     throw new InterruptedException();
                 }
-                final String review = "Review - " + Math.random();
-                advLocks.addProductReview(prdId, review);
+                final String review = "MSG" + (Math.random() * 100) + "#";
+                advLocks.addProductReview(prdId, review.replace(".", "#"));
             }
         }
     }
 
     public static class Reader extends Thread {
-        private final Ex8_AdvLocks advLocks;
+        private final Ex8_ReadWriteLocks advLocks;
         private final int[] prdIds;
 
-        public Reader(final Ex8_AdvLocks advLocks, final int[] prdIds) {
+        public Reader(final Ex8_ReadWriteLocks advLocks, final int[] prdIds) {
             this.advLocks = advLocks;
             this.prdIds = prdIds;
         }
@@ -217,10 +185,10 @@ public class Ex8_AdvLocks {
     }
 
     public static class Remover extends Thread {
-        private final Ex8_AdvLocks advLocks;
+        private final Ex8_ReadWriteLocks advLocks;
         private final int[] prdIds;
 
-        public Remover(final Ex8_AdvLocks advLocks, final int[] prdIds) {
+        public Remover(final Ex8_ReadWriteLocks advLocks, final int[] prdIds) {
             this.advLocks = advLocks;
             this.prdIds = prdIds;
         }
@@ -248,7 +216,7 @@ public class Ex8_AdvLocks {
     }
 
     public static void main(final String[] args) {
-        final Ex8_AdvLocks advLocks = new Ex8_AdvLocks();
+        final Ex8_ReadWriteLocks advLocks = new Ex8_ReadWriteLocks();
         final int[] prdIds = { 1, 2, 3, 4, 5 };
         final Writter writter = new Writter(advLocks, prdIds);
         final Reader reader = new Reader(advLocks, prdIds);

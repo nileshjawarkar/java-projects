@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Ex7_Semaphore_PCModel2 {
+public class Ex7_Semaphore_PCModelWithQueue {
 
     public static class ProducerCosumerModel {
         private final Queue<String> msgs = new ArrayDeque<>();
