@@ -7,28 +7,40 @@ public class Ex6_Semaphore_PCModel {
 
     public static class ProducerCosumerModel {
         private String message = null;
-        private final Semaphore empty = new Semaphore(1);
-        private final Semaphore full = new Semaphore(0);
+        private final Semaphore add_msg = new Semaphore(1);
+        private final Semaphore read_msg = new Semaphore(0);
 
         public void produce_message() throws InterruptedException {
             try {
-                empty.acquire();
+                //-- Step 1 : 1st time when following line executes and try to acquire semaphore,
+                //-- as it has size of 1, it succeeds.
+                //-- Step 5 : when 2nd time this line executes, acquire semaphore fails and execution
+                //-- blocks.
+                add_msg.acquire();
                 message = "Message gen at - " + System.currentTimeMillis();
                 TimeUnit.MILLISECONDS.sleep(1);
             } finally {
-                full.release();
+                //-- Step 3 : It releases read_msg semaphore
+                read_msg.release();
             }
         }
 
         public void consume_message() throws InterruptedException {
             try {
-                full.acquire();
+                //-- Step 2 (may be 1) : 1st time when following line executes and try to acquire semaphore,
+                //-- as it has size of 0, it fails and block the execution.
+                read_msg.acquire();
+                //-- Step 4: As read_msg semaphore released at the end of produce_message, 
+                //-- we come here and execute the following code.
                 if (message != null) {
                     System.out.println(message);
                     message = null;
                 }
             } finally {
-                empty.release();
+                //-- Step 6: After reading message, consumer release the add_msg semaphore
+                //-- which unblocks the producer and
+                //-- execution continues from step 1 again.
+                add_msg.release();
             }
         }
     }

@@ -14,16 +14,18 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class Ex5_Semaphore {
-    public static class Tasks{
+    public static class Tasks {
         private int counter = 0;
 
-        //--This scemaphore allows only 3 concurrent executions
+        // --This scemaphore allows only 3 concurrent executions
         Semaphore semaphore = new Semaphore(3, true);
 
-        public void task(){
+        public void task() {
             try {
                 semaphore.acquire();
-                counter++;
+                synchronized (this) {
+                    counter++;
+                }
                 System.out.println("TaskNo-" + counter);
                 TimeUnit.SECONDS.sleep(10);
             } catch (final InterruptedException e) {
@@ -36,11 +38,11 @@ public class Ex5_Semaphore {
     }
 
     public static void main(final String[] args) {
-        final Tasks  ts =  new Tasks();
+        final Tasks ts = new Tasks();
 
         int i = 0;
-        while(i < 100) {
-            final Thread t =  new Thread(new Runnable() {
+        while (i < 100) {
+            final Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {
                     ts.task();
