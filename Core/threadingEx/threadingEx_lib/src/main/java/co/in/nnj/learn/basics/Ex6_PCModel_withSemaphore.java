@@ -3,7 +3,7 @@ package co.in.nnj.learn.basics;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class Ex6_Semaphore_PCModel {
+public class Ex6_PCModel_withSemaphore {
 
     public static class ProducerCosumerModel {
         private String message = null;

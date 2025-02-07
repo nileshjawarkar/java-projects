@@ -7,21 +7,21 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Ex7_Semaphore_PCModelWithQueue {
+public class Ex8_PCModelQueue_withSemaphore {
 
     public static class ProducerCosumerModel {
         private final Queue<String> msgs = new ArrayDeque<>();
         //-- Producer can add max 5 message, then need to wait
         //-- cunsumer to consume some messages to add new one.
         //-- Added sleep to of 1 sec in consumer to visualised this
-        private final Semaphore empty = new Semaphore(5);
-        private final Semaphore full = new Semaphore(0);
+        private final Semaphore add_msg = new Semaphore(5);
+        private final Semaphore read_msg = new Semaphore(0);
 
         Lock lock = new ReentrantLock();
 
         public void produce_message() throws InterruptedException, IllegalMonitorStateException {
             try {
-                empty.acquire();
+                add_msg.acquire();
                 final String message = Thread.currentThread().getName() + ", Message time - "
                         + System.currentTimeMillis();
                 lock.lock();
@@ -29,20 +29,20 @@ public class Ex7_Semaphore_PCModelWithQueue {
                 msgs.add(message);
             } finally {
                 lock.unlock();
-                full.release();
+                read_msg.release();
             }
         }
 
         public void consume_message() throws InterruptedException, IllegalMonitorStateException {
             try {
-                full.acquire();
+                read_msg.acquire();
                 lock.lock();
                 System.out.println(msgs.poll());
             } finally {
                 lock.unlock();
                 //-- TimeUnit.MILLISECONDS.sleep(10);
                 TimeUnit.SECONDS.sleep(1);
-                empty.release();
+                add_msg.release();
             }
         }
     }

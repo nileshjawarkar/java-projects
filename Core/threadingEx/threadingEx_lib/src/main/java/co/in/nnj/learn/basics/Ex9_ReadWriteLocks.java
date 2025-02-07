@@ -13,13 +13,13 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
-public class Ex8_ReadWriteLocks {
+public class Ex9_ReadWriteLocks {
     private final HashMap<Integer, List<String>> productIdToReviews;
     ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     ReadLock readLock = readWriteLock.readLock();
     WriteLock writeLock = readWriteLock.writeLock();
 
-    public Ex8_ReadWriteLocks() {
+    public Ex9_ReadWriteLocks() {
         this.productIdToReviews = new HashMap<>();
     }
 
@@ -119,10 +119,10 @@ public class Ex8_ReadWriteLocks {
     }
 
     public static class Writter extends Thread {
-        private final Ex8_ReadWriteLocks advLocks;
+        private final Ex9_ReadWriteLocks advLocks;
         private final int[] prdIds;
 
-        public Writter(final Ex8_ReadWriteLocks advLocks, final int[] prdIds) {
+        public Writter(final Ex9_ReadWriteLocks advLocks, final int[] prdIds) {
             this.advLocks = advLocks;
             this.prdIds = prdIds;
         }
@@ -151,10 +151,10 @@ public class Ex8_ReadWriteLocks {
     }
 
     public static class Reader extends Thread {
-        private final Ex8_ReadWriteLocks advLocks;
+        private final Ex9_ReadWriteLocks advLocks;
         private final int[] prdIds;
 
-        public Reader(final Ex8_ReadWriteLocks advLocks, final int[] prdIds) {
+        public Reader(final Ex9_ReadWriteLocks advLocks, final int[] prdIds) {
             this.advLocks = advLocks;
             this.prdIds = prdIds;
         }
@@ -185,10 +185,10 @@ public class Ex8_ReadWriteLocks {
     }
 
     public static class Remover extends Thread {
-        private final Ex8_ReadWriteLocks advLocks;
+        private final Ex9_ReadWriteLocks advLocks;
         private final int[] prdIds;
 
-        public Remover(final Ex8_ReadWriteLocks advLocks, final int[] prdIds) {
+        public Remover(final Ex9_ReadWriteLocks advLocks, final int[] prdIds) {
             this.advLocks = advLocks;
             this.prdIds = prdIds;
         }
@@ -216,7 +216,7 @@ public class Ex8_ReadWriteLocks {
     }
 
     public static void main(final String[] args) {
-        final Ex8_ReadWriteLocks advLocks = new Ex8_ReadWriteLocks();
+        final Ex9_ReadWriteLocks advLocks = new Ex9_ReadWriteLocks();
         final int[] prdIds = { 1, 2, 3, 4, 5 };
         final Writter writter = new Writter(advLocks, prdIds);
         final Reader reader = new Reader(advLocks, prdIds);
