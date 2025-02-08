@@ -11,24 +11,29 @@ public class Ex8_PCModelQueue_withSemaphore {
 
     public static class ProducerCosumerModel {
         private final Queue<String> msgs = new ArrayDeque<>();
-        //-- Producer can add max 5 message, then need to wait
-        //-- cunsumer to consume some messages to add new one.
-        //-- Added sleep to of 1 sec in consumer to visualised this
+        // -- Producer can add max 5 message, then need to wait
+        // -- cunsumer to consume some messages to add new one.
+        // -- Added sleep to of 1 sec in consumer to visualised this
         private final Semaphore add_msg = new Semaphore(5);
         private final Semaphore read_msg = new Semaphore(0);
 
         Lock lock = new ReentrantLock();
+        int count = 0;
 
         public void produce_message() throws InterruptedException, IllegalMonitorStateException {
             try {
                 add_msg.acquire();
-                final String message = Thread.currentThread().getName() + ", Message time - "
-                        + System.currentTimeMillis();
-                lock.lock();
-                System.out.println("Added - " + message);
-                msgs.add(message);
+                try {
+                    lock.lock();
+                    count += 1;
+                    final String message = Thread.currentThread().getName() + "=> Count - " + count + ", Size - "
+                            + msgs.size();
+                    msgs.add(message);
+                    System.out.println("Added - " + message);
+                } finally {
+                    lock.unlock();
+                }
             } finally {
-                lock.unlock();
                 read_msg.release();
             }
         }
@@ -36,52 +41,68 @@ public class Ex8_PCModelQueue_withSemaphore {
         public void consume_message() throws InterruptedException, IllegalMonitorStateException {
             try {
                 read_msg.acquire();
-                lock.lock();
-                System.out.println(msgs.poll());
+                try {
+                    lock.lock();
+                    System.out.println(Thread.currentThread().getName() + ", Consumed => Queue Size = " + msgs.size() + ", Message (" + msgs.poll() + ")");
+                } finally {
+                    lock.unlock();
+                }
             } finally {
-                lock.unlock();
-                //-- TimeUnit.MILLISECONDS.sleep(10);
-                TimeUnit.SECONDS.sleep(1);
                 add_msg.release();
+                TimeUnit.SECONDS.sleep(1);
+            }
+        }
+    }
+
+    public static class Producer extends Thread {
+        private final ProducerCosumerModel model;
+
+        public Producer(final ProducerCosumerModel model) {
+            this.model = model;
+        }
+
+        @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    model.produce_message();
+                } catch (final InterruptedException | IllegalMonitorStateException e) {
+                    break;
+                }
+            }
+        }
+    }
+
+    public static class Consumer extends Thread {
+        private final ProducerCosumerModel model;
+
+        public Consumer(final ProducerCosumerModel model) {
+            this.model = model;
+        }
+
+        @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    model.consume_message();
+                } catch (final InterruptedException | IllegalMonitorStateException e) {
+                    break;
+                }
             }
         }
     }
 
     public static void main(final String[] args) {
         final ProducerCosumerModel producerCosumerModel = new ProducerCosumerModel();
-        final Thread producer1 = new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()) {
-                try {
-                    producerCosumerModel.produce_message();
-                } catch (final InterruptedException | IllegalMonitorStateException e) {
-                    break;
-                }
-            }
-        });
-
-        final Thread producer2 = new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()) {
-                try {
-                    producerCosumerModel.produce_message();
-                } catch (final InterruptedException | IllegalMonitorStateException e) {
-                    break;
-                }
-            }
-        });
-
-        final Thread consumer = new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()) {
-                try {
-                    producerCosumerModel.consume_message();
-                } catch (final InterruptedException | IllegalMonitorStateException e) {
-                    break;
-                }
-            }
-        });
+        final Producer producer1 = new Producer(producerCosumerModel);
+        final Producer producer2 = new Producer(producerCosumerModel);
+        final Consumer consumer1 = new Consumer(producerCosumerModel);
+        final Consumer consumer2 = new Consumer(producerCosumerModel);
 
         producer1.start();
         producer2.start();
-        consumer.start();
+        consumer1.start();
+        consumer2.start();
 
         try {
             TimeUnit.SECONDS.sleep(5);
@@ -90,14 +111,14 @@ public class Ex8_PCModelQueue_withSemaphore {
 
         producer1.interrupt();
         producer2.interrupt();
-
         try {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(4);
             System.out.println("Producers stoped");
         } catch (final InterruptedException e) {
         }
 
-        consumer.interrupt();
+        consumer1.interrupt();
+        consumer2.interrupt();
         System.out.println("Consumers stoped");
     }
 }
