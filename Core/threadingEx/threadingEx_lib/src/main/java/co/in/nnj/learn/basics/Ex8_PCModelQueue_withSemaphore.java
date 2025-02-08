@@ -12,8 +12,9 @@ public class Ex8_PCModelQueue_withSemaphore {
     public static class ProducerCosumerModel {
         private final Queue<String> msgs = new ArrayDeque<>();
         // -- Producer can add max 5 message, then need to wait
-        // -- cunsumer to consume some messages to add new one.
+        // -- cunsumer has to consume existing messages to add new one.
         // -- Added sleep to of 1 sec in consumer to visualised this
+
         private final Semaphore add_msg = new Semaphore(5);
         private final Semaphore read_msg = new Semaphore(0);
 
@@ -26,10 +27,10 @@ public class Ex8_PCModelQueue_withSemaphore {
                 try {
                     lock.lock();
                     count += 1;
-                    final String message = Thread.currentThread().getName() + "=> Count - " + count + ", Size - "
+                    final String message = Thread.currentThread().getName() + "=> Count - " + count
+                            + ", Gen time queue size - "
                             + msgs.size();
                     msgs.add(message);
-                    System.out.println("Added - " + message);
                 } finally {
                     lock.unlock();
                 }
@@ -43,7 +44,8 @@ public class Ex8_PCModelQueue_withSemaphore {
                 read_msg.acquire();
                 try {
                     lock.lock();
-                    System.out.println(Thread.currentThread().getName() + ", Consumed => Queue Size = " + msgs.size() + ", Message (" + msgs.poll() + ")");
+                    System.out.println(Thread.currentThread().getName() + " => Current queue size = " + msgs.size()
+                            + ", Message (" + msgs.poll() + ")");
                 } finally {
                     lock.unlock();
                 }
@@ -96,13 +98,19 @@ public class Ex8_PCModelQueue_withSemaphore {
         final ProducerCosumerModel producerCosumerModel = new ProducerCosumerModel();
         final Producer producer1 = new Producer(producerCosumerModel);
         final Producer producer2 = new Producer(producerCosumerModel);
+
         final Consumer consumer1 = new Consumer(producerCosumerModel);
         final Consumer consumer2 = new Consumer(producerCosumerModel);
+        // -- final Consumer consumer3 = new Consumer(producerCosumerModel);
+        // -- final Consumer consumer4 = new Consumer(producerCosumerModel);
 
         producer1.start();
         producer2.start();
+
         consumer1.start();
         consumer2.start();
+        // -- consumer3.start();
+        // -- consumer4.start();
 
         try {
             TimeUnit.SECONDS.sleep(5);
@@ -111,14 +119,16 @@ public class Ex8_PCModelQueue_withSemaphore {
 
         producer1.interrupt();
         producer2.interrupt();
+        System.out.println("Producers stoped");
         try {
             TimeUnit.SECONDS.sleep(4);
-            System.out.println("Producers stoped");
         } catch (final InterruptedException e) {
         }
 
         consumer1.interrupt();
         consumer2.interrupt();
+        // -- consumer3.interrupt();
+        // -- consumer4.interrupt();
         System.out.println("Consumers stoped");
     }
 }
