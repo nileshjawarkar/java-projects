@@ -29,7 +29,9 @@ public class SimpleServerWithSelectors {
             while (true) {
                 //-- Following line will block the execution, until 
                 //-- server will get connection request from client.
-                selector.select();
+                if( 0 == selector.select()) {
+                    continue;
+                }
 
                 //-- If execution is here, it mean we have some selection event generated.
                 //-- Either it is for OP_ACCEPT, OR it is for OP_READ
