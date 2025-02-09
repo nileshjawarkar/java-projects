@@ -42,12 +42,13 @@ public class Ex8_PCModelQueue_withSemaphore {
         public void consume_message() throws InterruptedException, IllegalMonitorStateException {
             try {
                 read_msg.acquire();
-                try {
-                    lock.lock();
-                    System.out.println(Thread.currentThread().getName() + " => Current queue size = " + msgs.size()
-                            + ", Message (" + msgs.poll() + ")");
-                } finally {
-                    lock.unlock();
+                if (lock.tryLock(10, TimeUnit.MILLISECONDS)) {
+                    try {
+                        System.out.println(Thread.currentThread().getName() + " => Current queue size = " + msgs.size()
+                                + ", Message (" + msgs.poll() + ")");
+                    } finally {
+                        lock.unlock();
+                    }
                 }
             } finally {
                 add_msg.release();
