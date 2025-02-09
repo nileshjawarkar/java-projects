@@ -30,16 +30,16 @@ public class MultiThreadedServer {
         try (socket;) {
             socket.setSoTimeout(30000);
             System.out.println("Connected to client -" + client);
-            final BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            final PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-
-            while (true) {
-                final String line = inputStream.readLine();
-                if (line.compareToIgnoreCase("quit") == 0) {
-                    break;
+            try (final BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    final PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);) {
+                while (true) {
+                    final String line = inputStream.readLine();
+                    if (line.compareToIgnoreCase("quit") == 0) {
+                        break;
+                    }
+                    System.out.println("Client message - " + line);
+                    printWriter.println("Echo from server -" + line);
                 }
-                System.out.println("Client message - " + line);
-                printWriter.println("Echo from server -" + line);
             }
         } catch (final IOException e) {
             System.out.println("Error for " + client + ", " + e.getMessage());
