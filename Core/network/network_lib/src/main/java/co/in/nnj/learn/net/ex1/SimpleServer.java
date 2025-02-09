@@ -1,4 +1,4 @@
-package co.in.nnj.learn.net;
+package co.in.nnj.learn.net.ex1;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +11,7 @@ public class SimpleServer {
     public static void main(final String[] args) {
         try (ServerSocket server = new ServerSocket(5000)) {
             try (Socket socket = server.accept()) {
-                System.out.println("Connected to client -");
+                System.out.println("Connected to client -" + socket.getRemoteSocketAddress().toString());
                 final BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 final PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
 

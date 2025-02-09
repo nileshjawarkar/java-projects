@@ -1,4 +1,4 @@
-package co.in.nnj.learn.net;
+package co.in.nnj.learn.net.ex1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
