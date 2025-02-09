@@ -24,7 +24,7 @@ public class SimpleClient {
             //-- setup input reading 
             String input;
             final Scanner scanner = new Scanner(System.in);
-            System.out.print("Send message to server : ");
+            System.out.println("Send message to server : ");
 
             //-- Start the loop
             do {
