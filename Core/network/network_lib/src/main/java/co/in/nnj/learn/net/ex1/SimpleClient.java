@@ -35,7 +35,7 @@ public class SimpleClient {
                 printWriter.println(input);
 
                 //-- Wait for the reply and print it
-                //-- If quit messgae send, client will not wait, 
+                //-- If quit message send, client will not wait, 
                 //-- it will break the loop
                 if (input.compareToIgnoreCase("quit") != 0) {
                     System.out.println(inputStream.readLine());
@@ -45,7 +45,7 @@ public class SimpleClient {
         } catch (final IOException e) {
             System.out.println(e.getMessage());
         } finally {
-            System.out.println("Client finally disconneted");
+            System.out.println("Client finally disconnected");
         }
     }
 }

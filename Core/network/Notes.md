@@ -27,8 +27,8 @@
     be delivered and will wait for confirmation response from client.
     - UDP is connection less. It does not guaranty data delivery and does not wait for response for client.
 - TCP IP
-    - It describe network and data trasfer protocol.
-    - It uses TCP to trasfer data over the network of computers having IP address.
+    - It describe network and data transfer protocol.
+    - It uses TCP to transfer data over the network of computers having IP address.
 
 ## Java Packages
 
