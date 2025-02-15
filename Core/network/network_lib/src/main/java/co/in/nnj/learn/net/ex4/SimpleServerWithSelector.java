@@ -10,7 +10,7 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-public class SimpleServerWithSelectors {
+public class SimpleServerWithSelector {
 
     public static void main(final String[] args) {
         try (ServerSocketChannel serverChannel = ServerSocketChannel.open()) {

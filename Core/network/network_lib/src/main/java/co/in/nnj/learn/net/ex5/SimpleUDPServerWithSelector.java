@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class SimpleUDPServerChannel {
+public class SimpleUDPServerWithSelector {
 
     private static List<String> readQuates() {
         final ArrayList<String> quates = new ArrayList<>();

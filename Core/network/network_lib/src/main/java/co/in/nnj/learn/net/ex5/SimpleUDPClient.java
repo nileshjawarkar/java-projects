@@ -15,12 +15,16 @@ public class SimpleUDPClient {
             client.send(packet);
 
             final byte[] buf = new byte[2048];
+            final DatagramPacket resp = new DatagramPacket(buf, 2048);
             final StringBuffer msg = new StringBuffer();
             while (true) {
                 try {
-                    final DatagramPacket resp = new DatagramPacket(buf, 2048);
                     client.receive(resp);
-                    final String resp_str = new String(buf, 0, resp.getLength());
+                    final int len = resp.getLength();
+                    if(len == 0) {
+                        break;
+                    }
+                    final String resp_str = new String(buf, 0, len);
                     msg.append(resp_str);
                 } catch (final Exception e) {
                     break;
