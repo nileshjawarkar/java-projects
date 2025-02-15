@@ -30,7 +30,7 @@ public class SimpleUDPServer {
         System.out.println("Number of quates available - " + quates.size());
         return quates;
     }
-    static String getQuates(final List<String> quates) {
+    static String getAnyQuate(final List<String> quates) {
         final int index = (int) (Math.random() * quates.size());
         if (index < quates.size()) {
             return quates.get(index);
@@ -63,7 +63,7 @@ public class SimpleUDPServer {
                     System.out.println("request - " + req);
 
                     // -- Send respose as quate
-                    final String quate = getQuates(quates);
+                    final String quate = getAnyQuate(quates);
                     sendQuateToClient(quate, dgPacket, server);
                 } catch (final Exception e) {
                 }
