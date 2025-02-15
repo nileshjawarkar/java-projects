@@ -12,6 +12,24 @@ import java.util.List;
 
 public class SimpleUDPServer {
 
+    private static List<String> readQuates() {
+        final ArrayList<String> quates = new ArrayList<>();
+        final String quates_path = SimpleUDPServer.class.getResource("quotes.txt").getPath();
+        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(quates_path))) {
+            try (BufferedReader r = new BufferedReader(reader)) {
+                String line = r.readLine();
+                while (line != null) {
+                    quates.add(line);
+                    line = r.readLine();
+                }
+            }
+        } catch (final IOException e) {
+        }
+
+        // -- Start udp server
+        System.out.println("Number of quates available - " + quates.size());
+        return quates;
+    }
     static String getQuates(final List<String> quates) {
         final int index = (int) (Math.random() * quates.size());
         if (index < quates.size()) {
@@ -32,21 +50,7 @@ public class SimpleUDPServer {
 
     public static void main(final String[] args) {
         // -- Read file
-        final ArrayList<String> quates = new ArrayList<>();
-        final String quates_path = SimpleUDPServer.class.getResource("quotes.txt").getPath();
-        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(quates_path))) {
-            try (BufferedReader r = new BufferedReader(reader)) {
-                String line = r.readLine();
-                while (line != null) {
-                    quates.add(line);
-                    line = r.readLine();
-                }
-            }
-        } catch (final IOException e) {
-        }
-
-        // -- Start udp server
-        System.out.println("Number of quates available - " + quates.size());
+        final List<String> quates = readQuates();
 
         try (DatagramSocket server = new DatagramSocket(5000)) {
             // -- Read request -
