@@ -18,39 +18,39 @@ public class SimpleServerWithSelectors {
             System.out.println("Server listening on - " + serverChannel.getLocalAddress());
             serverChannel.configureBlocking(false);
 
-            //-- Create a selector and register it sever channel.
-            //-- It is registered for OP_ACCEPT, it means (i think), when server will get 
-            //-- request for connection from client, it will generated event.
+            // -- Create a selector and register it sever channel.
+            // -- It is registered for OP_ACCEPT, it means (i think), when server will get
+            // -- request for connection from client, it will generated event.
             final Selector selector = Selector.open();
-            //-- Registration 1
+            // -- Registration 1
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
 
-            //-- Listen for events
+            // -- Listen for events
             while (true) {
-                //-- Following line will block the execution, until 
-                //-- server will get connection request from client.
-                if( 0 == selector.select()) {
+                // -- Following line will block the execution, until
+                // -- server will get connection request from client.
+                if (0 == selector.select()) {
                     continue;
                 }
 
-                //-- If execution is here, it mean we have some selection event generated.
-                //-- Either it is for OP_ACCEPT, OR it is for OP_READ
-                //-- These are the 2 events, for which current impl registered for.
+                // -- If execution is here, it mean we have some selection event generated.
+                // -- Either it is for OP_ACCEPT, OR it is for OP_READ
+                // -- These are the 2 events, for which current impl registered for.
                 final Set<SelectionKey> selectedKeys = selector.selectedKeys();
                 final Iterator<SelectionKey> iterator = selectedKeys.iterator();
 
                 while (iterator.hasNext()) {
                     final SelectionKey key = iterator.next();
-                    //-- Remove event from list. **MUST
+                    // -- Remove event from list. **MUST
                     iterator.remove();
                     if (key.isAcceptable()) {
-                        //-- Accept the request and configure the channel for NB-IO
+                        // -- Accept the request and configure the channel for NB-IO
                         final SocketChannel channel = serverChannel.accept();
                         System.out.println("Connected to -" + channel.getRemoteAddress());
                         channel.configureBlocking(false);
 
-                        //-- Register for READ type event.
-                        //-- This will be trigged when user send some message
+                        // -- Register for READ type event.
+                        // -- This will be trigged when user send some message
                         channel.register(selector, SelectionKey.OP_READ);
                     } else if (key.isReadable()) {
                         manageComunication(key);
