@@ -1,8 +1,8 @@
 package co.in.nnj.learn.net.ex5;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -14,22 +14,20 @@ public class SimpleUDPServer {
 
     private static List<String> readQuates() {
         final ArrayList<String> quates = new ArrayList<>();
-        final String quates_path = SimpleUDPServer.class.getResource("quotes.txt").getPath();
-        try (InputStreamReader reader = new InputStreamReader(new FileInputStream(quates_path))) {
-            try (BufferedReader r = new BufferedReader(reader)) {
-                String line = r.readLine();
-                while (line != null) {
-                    quates.add(line);
-                    line = r.readLine();
-                }
+        final InputStream inputStream = SimpleUDPServer.class.getResourceAsStream("quotes.txt");
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line = reader.readLine();
+            while (line != null) {
+                quates.add(line);
+                line = reader.readLine();
             }
         } catch (final IOException e) {
         }
-
         // -- Start udp server
         System.out.println("Number of quates available - " + quates.size());
         return quates;
     }
+
     static String getAnyQuate(final List<String> quates) {
         final int index = (int) (Math.random() * quates.size());
         if (index < quates.size()) {
