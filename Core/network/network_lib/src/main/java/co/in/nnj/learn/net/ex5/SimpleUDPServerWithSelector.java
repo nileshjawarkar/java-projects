@@ -15,6 +15,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/*
+ * receive and send
+ */
 public class SimpleUDPServerWithSelector {
 
     private static List<String> readQuates() {
@@ -71,7 +74,8 @@ public class SimpleUDPServerWithSelector {
                         int offset = 0;
                         while (offset < anyQuate.length) {
                             buffer.clear();
-                            final int length = (anyQuate.length > buffer.remaining() ? buffer.remaining() : anyQuate.length);
+                            final int buf_len = buffer.remaining();
+                            final int length = (anyQuate.length > buf_len ? buf_len : anyQuate.length);
                             buffer.put(anyQuate, offset, length);
                             buffer.flip();
                             channel.send(buffer, socketAddress);

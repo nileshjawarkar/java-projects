@@ -10,6 +10,9 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
+/*
+ * Accept, Read, Write
+ */
 public class SimpleServerWithSelector {
 
     public static void main(final String[] args) {
