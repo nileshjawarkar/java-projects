@@ -7,7 +7,6 @@ import java.net.InetAddress;
 
 public class SimpleUDPServer {
 
-
     private static void sendQuateToClient(final String quate, final DatagramPacket packet,
             final DatagramSocket server) throws IOException {
         final InetAddress address = packet.getAddress();
@@ -21,7 +20,6 @@ public class SimpleUDPServer {
     public static void main(final String[] args) {
         // -- Read file
         Quates.init();
-
         try (DatagramSocket server = new DatagramSocket(5000)) {
             // -- Read request -
             while (true) {
