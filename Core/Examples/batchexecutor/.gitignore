@@ -1,0 +1,15 @@
+trash/**
+Servers/**
+target/**
+**/target/**
+*.tar.gz
+.metadata/**
+**/.metadata/**
+.settings/**
+**/.settings/**
+.nvim/**
+.classpath
+.project
+*.trc
+*.phd
+*.txt
