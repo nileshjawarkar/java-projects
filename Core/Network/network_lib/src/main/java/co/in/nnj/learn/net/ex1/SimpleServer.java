@@ -15,16 +15,18 @@ public class SimpleServer {
 
     public static void main(final String[] args) {
         try (ServerSocket server = new ServerSocket(5000)) {
-            try (Socket socket = server.accept()) {
-                System.out.println("Connected to client -" + socket.getRemoteSocketAddress().toString());
-                final BufferedReader inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                final PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Server listening at port 5000");
+            try (Socket socket = server.accept();
+                    final BufferedReader inputStream = new BufferedReader(
+                            new InputStreamReader(socket.getInputStream()));
+                    final PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);) {
 
-                //-- Managing comunication with the client,
-                //-- util client send "quit" message.
+                System.out.println("Connected to client -" + socket.getRemoteSocketAddress().toString());
+                // -- Managing comunication with the client,
+                // -- util client send "quit" message.
                 while (true) {
                     final String line = inputStream.readLine();
-                    if(line.compareToIgnoreCase("quit") == 0) {
+                    if (line.compareToIgnoreCase("quit") == 0) {
                         break;
                     }
                     System.out.println("Client message - " + line);
