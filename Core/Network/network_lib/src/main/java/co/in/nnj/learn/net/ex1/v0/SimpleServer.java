@@ -1,4 +1,4 @@
-package co.in.nnj.learn.net.ex1;
+package co.in.nnj.learn.net.ex1.v0;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
