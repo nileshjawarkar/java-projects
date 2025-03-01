@@ -12,9 +12,8 @@ public class SimpleServerWithNIOChannel {
 
     public static void main(final String[] args) {
         try (ServerSocketChannel serverChannel = ServerSocketChannel.open()) {
-
             // -- Setup server to listen on port 5000 and configure it for NON-BLOCKING IO
-            serverChannel.socket().bind(new InetSocketAddress(5000));
+            serverChannel.bind(new InetSocketAddress(5000));
             serverChannel.configureBlocking(false);
             System.out.println("Server listning on port - " + serverChannel.socket().getLocalPort());
 
@@ -32,20 +31,19 @@ public class SimpleServerWithNIOChannel {
                 for (int i = 0; i < clientChannels.size(); i++) {
                     try {
                         final SocketChannel channel = clientChannels.get(i);
-                        //-- Read input from client
+                        // -- Read input from client
                         final int readBytes = channel.read(buffer);
-
-                        //-- if readBytes > 0, we have input
-                        //-- if readBytes == -1, connection is closed.
+                        // -- If user didnt send any thing, then read will get blocked.
+                        // -- if read returns -1, then connection is closed.
+                        // -- if read returns value > 0, then user send some data.
                         if (readBytes > 0) {
-
-                            //-- Flip the buffer to prepare it for reading.
-                            //-- Example Buffer[pos=200, limit=1000, capacity=2000], flip will change it to 
-                            //-- Buffer[pos=0, limit=200, capacity=2000]
-                            //-- Now we can read for pos=0 to 200
+                            // -- Flip the buffer to prepare it for reading.
+                            // -- Example Buffer[pos=200, limit=1000, capacity=2000], flip will change it to
+                            // -- Buffer[pos=0, limit=200, capacity=2000]
+                            // -- Now we can read for pos=0 to 200
                             buffer.flip();
 
-                            //-- Send response to client along with the message he send to the server
+                            // -- Send response to client along with the message he send to the server
                             channel.write(ByteBuffer.wrap("Echo from server: ".getBytes()));
                             while (buffer.hasRemaining()) {
                                 channel.write(buffer);
@@ -55,8 +53,8 @@ public class SimpleServerWithNIOChannel {
                             System.out.printf("Connection to %s lost%n",
                                     channel.socket().getRemoteSocketAddress());
 
-                            //-- Close the channel and remove it entry from saved
-                            //-- list
+                            // -- Close the channel and remove it entry from saved
+                            // -- list
                             channel.close();
                             clientChannels.remove(i);
                         }

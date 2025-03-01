@@ -41,7 +41,6 @@ public class SimpleServerWithSelector {
                 // -- These are the 2 events, for which current impl registered for.
                 final Set<SelectionKey> selectedKeys = selector.selectedKeys();
                 final Iterator<SelectionKey> iterator = selectedKeys.iterator();
-
                 while (iterator.hasNext()) {
                     final SelectionKey key = iterator.next();
                     // -- Remove event from list. **MUST
@@ -51,7 +50,6 @@ public class SimpleServerWithSelector {
                         final SocketChannel channel = serverChannel.accept();
                         System.out.println("Connected to -" + channel.getRemoteAddress());
                         channel.configureBlocking(false);
-
                         // -- Register for READ type event.
                         // -- This will be trigged when user send some message
                         channel.register(selector, SelectionKey.OP_READ);
@@ -71,16 +69,15 @@ public class SimpleServerWithSelector {
             final ByteBuffer buffer = ByteBuffer.allocate(1024);
             // -- Read input from client
             final int readBytes = channel.read(buffer);
-
-            // -- if readBytes > 0, we have input
-            // -- if readBytes == -1, connection is closed.
+            // -- if read returns -1, then connection is closed.
+            // -- if read returns value > 0, then user send some data.
+            // -- As in case of simple channel example
             if (readBytes > 0) {
                 // -- Flip the buffer to prepare it for reading.
                 // -- Example Buffer[pos=200, limit=1000, capacity=2000], flip will change it to
                 // -- Buffer[pos=0, limit=200, capacity=2000]
                 // -- Now we can read for pos=0 to 200
                 buffer.flip();
-
                 // -- Send response to client along with the message he send to the server
                 channel.write(ByteBuffer.wrap("Echo from server: ".getBytes()));
                 while (buffer.hasRemaining()) {
