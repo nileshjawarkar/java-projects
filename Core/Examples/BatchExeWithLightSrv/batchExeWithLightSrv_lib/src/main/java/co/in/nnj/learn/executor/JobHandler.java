@@ -1,6 +1,6 @@
 package co.in.nnj.learn.executor;
 
-public interface JobProcessor<JR> {
+public interface JobHandler<JR> {
     boolean init();
 
     JR retrieveJob();

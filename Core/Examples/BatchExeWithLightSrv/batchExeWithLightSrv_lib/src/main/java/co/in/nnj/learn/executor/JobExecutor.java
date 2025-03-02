@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,21 +22,26 @@ public class JobExecutor<JR> implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(JobExecutor.class.getName());
 
     public static class Builder<JR> {
-        JobProcessor<JR> processor;
+        JobHandler<JR> handler;
         int jobs;
         final List<Runnable> handlers = new ArrayList<>();
         public int maxJobTime = 600;
-
+        public int maxJobRetry = 3;
         private Builder() {
         }
 
-        public Builder<JR> withProcessor(final JobProcessor<JR> processor) {
-            this.processor = processor;
+        public Builder<JR> withProcessor(final JobHandler<JR> handler) {
+            this.handler = handler;
             return this;
         }
 
         public Builder<JR> withConcurentJobs(final int jobs) {
             this.jobs = jobs;
+            return this;
+        }
+
+        public Builder<JR> withMaxRetry(final int maxJobRetry) {
+            this.maxJobRetry = maxJobRetry;
             return this;
         }
 
@@ -50,7 +56,7 @@ public class JobExecutor<JR> implements Runnable {
         }
 
         public JobExecutor<JR> build() throws InvalidAttributesException {
-            if (jobs <= 0 || processor == null) {
+            if (jobs <= 0 || handler == null) {
                 throw new InvalidAttributesException("Missing mandatory attributes - processor or jobs.");
             }
             return new JobExecutor<>(this);
@@ -61,13 +67,14 @@ public class JobExecutor<JR> implements Runnable {
         return new Builder<JR>();
     }
 
-    private final JobProcessor<JR> jobProcessor;
-    private final Queue<JR> jobQueue;
-    private final Queue<JR> retryQueue;
+    private final JobHandler<JR> jobHandler;
+    private final Queue<QueuedJob<JR>> jobQueue;
+    private final Queue<QueuedJob<JR>> retryQueue;
     private final List<Runnable> handlers;
     private final ExecutorService service;
     private final int concurrentJobsAllowed;
-    private final int MAX_JOB_TIME_IN_SEC;
+    private final int MAX_JOBTIME_IN_SEC;
+    private final int MAX_JOBRETRY_COUNT;
 
     boolean init_req = false;
     boolean execJobs = true;
@@ -75,10 +82,10 @@ public class JobExecutor<JR> implements Runnable {
 
     private JobExecutor(final Builder<JR> builder) {
         final int jobs = builder.jobs + builder.handlers.size();
-
-        this.MAX_JOB_TIME_IN_SEC = builder.maxJobTime;
+        this.MAX_JOBRETRY_COUNT = builder.maxJobRetry;
+        this.MAX_JOBTIME_IN_SEC = builder.maxJobTime;
         this.concurrentJobsAllowed = builder.jobs;
-        this.jobProcessor = builder.processor;
+        this.jobHandler = builder.handler;
         this.service = Executors.newFixedThreadPool(jobs);
         this.jobQueue = new ArrayDeque<>();
         this.retryQueue = new ArrayDeque<>();
@@ -88,7 +95,7 @@ public class JobExecutor<JR> implements Runnable {
     private boolean init() {
         boolean init_statues = false;
         if (init_req) {
-            init_statues = jobProcessor.init();
+            init_statues = jobHandler.init();
             init_req = !init_statues;
         }
         return init_statues;
@@ -98,10 +105,10 @@ public class JobExecutor<JR> implements Runnable {
         init_req = true;
     }
 
-    private void requestRetry(final JR jobReq) {
+    private void requestRetry(final QueuedJob<JR> qJob) {
         synchronized (retryQueue) {
-            LOGGER.info("Added job to the retry queue " + jobReq);
-            retryQueue.add(jobReq);
+            LOGGER.info("Added job to the retry queue " + qJob.jobReq);
+            retryQueue.add(new QueuedJob<JR>(qJob.jobReq, qJob.retryNumber + 1));
         }
     }
 
@@ -110,56 +117,60 @@ public class JobExecutor<JR> implements Runnable {
             throw new Exception("Invalid state - This api must be called after stopping the executor.");
         }
         final List<JR> jobs = new ArrayList<>();
-        for (final JR jr : jobQueue) {
-            jobs.add(jr);
+        for (final QueuedJob<JR> qJob : jobQueue) {
+            jobs.add(qJob.jobReq);
         }
-        for (final JR jr : retryQueue) {
-            jobs.add(jr);
-        }
-        for (final InworkJob<JR> job : inworkJobs) {
-            if (!job.isDone()) {
-                jobs.add(job.jobReq);
-            }
+        for (final QueuedJob<JR> qJob : retryQueue) {
+            jobs.add(qJob.jobReq);
         }
         return jobs;
     }
 
     private boolean retrieveJob() throws InterruptedException {
-        JR jobReq = null;
+        QueuedJob<JR> qJob = null;
         if (retryQueue.size() > 0) {
             synchronized (retryQueue) {
-                jobReq = retryQueue.poll();
+                qJob = retryQueue.poll();
             }
         }
 
-        if (jobReq == null) {
-            jobReq = jobProcessor.retrieveJob();
+        if (qJob == null) {
+            final JR jobReq = jobHandler.retrieveJob();
+            if (jobReq != null) {
+                qJob = new QueuedJob<JR>(jobReq);
+            }
         }
 
-        if (jobReq != null) {
-            LOGGER.info("Added job to the queue " + jobReq);
-            jobQueue.add(jobReq);
+        if (qJob != null) {
+            LOGGER.info("Added job to the queue " + qJob.jobReq);
+            jobQueue.add(qJob);
             return true;
         }
-
         TimeUnit.SECONDS.sleep(1);
         return false;
     }
 
     /* List of inwork jobs */
     private final List<InworkJob<JR>> inworkJobs = new ArrayList<>();
-    private boolean stoped = false;
+    private boolean stopped = false;
 
     /* Add job to inworkJobs queue */
-    private void addJobToInworkQueue(final JR jobReq, final Future<JobStatus> future) {
+    private void addJobToInworkQueue(final QueuedJob<JR> qJob, final Future<JobStatus> future) {
         synchronized (inworkJobs) {
-            inworkJobs.add(new InworkJob<>(jobReq, future));
+            inworkJobs.add(new InworkJob<>(qJob.jobReq, future, qJob.retryNumber + 1));
         }
     }
 
     private void cancleInworkJobs() {
-        for (final InworkJob<JR> job : inworkJobs) {
-            job.future.cancel(true);
+        final Iterator<InworkJob<JR>> iterator = inworkJobs.iterator();
+        while (iterator.hasNext()) {
+            final InworkJob<JR> job = iterator.next();
+            try {
+                job.future.cancel(true);
+            } catch (final CancellationException e) {
+                System.out.println("Job canceled [" + job.jobReq + "], added to retry queue.");
+                requestRetry(job);
+            }
         }
     }
 
@@ -179,12 +190,16 @@ public class JobExecutor<JR> implements Runnable {
                 if (job.isDone()) {
                     try {
                         final JobStatus status = job.getStatus();
-                        if (status != JobStatus.SUCCEDED) {
-                            if (status == JobStatus.FAILED_INIT_RETRY_REQ) {
-                                requestInit();
-                                requestRetry(job.jobReq);
-                            } else if (status == JobStatus.FAILED_RETRY_REQ) {
-                                requestRetry(job.jobReq);
+                        if (status != JobStatus.SUCCEEDED) {
+                            if (status == JobStatus.CANCELED) {
+                                System.out.println("Job already canceled [" + job.jobReq + "]");
+                            } else if (job.retryNumber < MAX_JOBRETRY_COUNT) {
+                                if (status == JobStatus.FAILED_INIT_RETRY_REQ) {
+                                    requestInit();
+                                    requestRetry(job);
+                                } else if (status == JobStatus.FAILED_RETRY_REQ) {
+                                    requestRetry(job);
+                                }
                             }
                         } else {
                             completedJobs++;
@@ -192,10 +207,13 @@ public class JobExecutor<JR> implements Runnable {
                     } finally {
                         iterator.remove();
                     }
-                } else if (job.isTimeOutReached(MAX_JOB_TIME_IN_SEC)) {
+                } else if (job.isTimeOutReached(MAX_JOBTIME_IN_SEC)) {
                     System.out.println("Timeout for job [" + job.jobReq + "]");
                     iterator.remove();
-                    job.future.cancel(true);
+                    try {
+                        job.future.cancel(true);
+                    } catch (final CancellationException e) {
+                    }
                 }
             }
         }
@@ -215,8 +233,8 @@ public class JobExecutor<JR> implements Runnable {
             return;
         }
 
-        final JR jobReq = jobQueue.poll();
-        if (jobReq == null) {
+        final QueuedJob<JR> qJob = jobQueue.poll();
+        if (qJob == null) {
             return;
         }
         try {
@@ -226,12 +244,12 @@ public class JobExecutor<JR> implements Runnable {
                     if (execJobs == false) {
                         return JobStatus.FAILED_RETRY_REQ;
                     }
-                    return jobProcessor.processJob(jobReq);
+                    return jobHandler.processJob(qJob.jobReq);
                 }
             });
-            addJobToInworkQueue(jobReq, future);
+            addJobToInworkQueue(qJob, future);
         } catch (final Exception e) {
-            requestRetry(jobReq);
+            requestRetry(qJob);
         }
     }
 
@@ -249,7 +267,7 @@ public class JobExecutor<JR> implements Runnable {
             Thread.currentThread().interrupt();
         }
         try {
-            while (!stoped) {
+            while (!stopped) {
                 TimeUnit.MILLISECONDS.sleep(100);
             }
         } catch (final InterruptedException e) {
@@ -295,7 +313,7 @@ public class JobExecutor<JR> implements Runnable {
                 e.printStackTrace();
             }
         }
-        stoped = true;
+        stopped = true;
         System.out.println("completedJobs [" + completedJobs + "]");
     }
 }
