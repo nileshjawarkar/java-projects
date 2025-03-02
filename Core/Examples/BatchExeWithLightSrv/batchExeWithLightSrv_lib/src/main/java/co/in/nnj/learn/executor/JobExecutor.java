@@ -27,6 +27,7 @@ public class JobExecutor<JR> implements Runnable {
         final List<Runnable> handlers = new ArrayList<>();
         public int maxJobTime = 600;
         public int maxJobRetry = 3;
+        private List<JR> existingJobs = null;
         private Builder() {
         }
 
@@ -52,6 +53,11 @@ public class JobExecutor<JR> implements Runnable {
 
         public Builder<JR> withConcurentHandler(final Runnable handler) {
             handlers.add(handler);
+            return this;
+        }
+
+        public Builder<JR> withPreviousJobs(final List<JR> jobs) {
+            this.existingJobs = jobs;
             return this;
         }
 
@@ -89,6 +95,12 @@ public class JobExecutor<JR> implements Runnable {
         this.service = Executors.newFixedThreadPool(jobs);
         this.jobQueue = new ArrayDeque<>();
         this.retryQueue = new ArrayDeque<>();
+
+        if(builder.existingJobs != null && builder.existingJobs.size() > 0) {
+            for (final JR job : builder.existingJobs) {
+               retryQueue.add(new QueuedJob<JR>(job));
+            }
+        }
         this.handlers = builder.handlers;
     }
 
