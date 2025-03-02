@@ -4,6 +4,8 @@ import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import javax.naming.directory.InvalidAttributesException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,11 +92,24 @@ public class AppMain {
     public static void main(final String[] args) {
         // -- final JobExecutor<JobRequest, Integer> executor = new JobExecutor<>(new
         // JobProcessor(), 2);
-        // final JobExecutor<JobRequest, Integer> executor = new JobExecutor.Builder<JobRequest, Integer>()
-        //        .withProcessor(new JobProcessor())
-        //        .withJobs(2).build();
-        final JobExecutor<JobRequest, Integer> executor = JobExecutor.<JobRequest,Integer>builder().withProcessor(new JobProcessor())
-            .withJobs(2).build();
-        executor.start();
+        // final JobExecutor<JobRequest, Integer> executor = new
+        // JobExecutor.Builder<JobRequest, Integer>()
+        // .withProcessor(new JobProcessor())
+        // .withJobs(2).build();
+        JobExecutor<JobRequest, Integer> executor;
+        try {
+            executor = JobExecutor.<JobRequest, Integer>builder().withProcessor(new JobProcessor())
+                    .withConcurentJobs(2).build();
+            final Thread t = new Thread(executor);
+            t.start();
+            t.join(20000);
+            executor.stop();
+            t.interrupt();
+
+        } catch (final InvalidAttributesException e) {
+            e.printStackTrace();
+        } catch (final InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
