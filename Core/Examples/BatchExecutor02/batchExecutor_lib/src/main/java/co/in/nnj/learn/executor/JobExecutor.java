@@ -85,7 +85,6 @@ public class JobExecutor<JR> implements Runnable {
 
     boolean init_req = false;
     boolean execJobs = true;
-    long completedJobs = 0;
 
     private JobExecutor(final Builder<JR> builder) {
         final int jobs = builder.jobs + builder.handlers.size();
@@ -214,9 +213,7 @@ public class JobExecutor<JR> implements Runnable {
                                     requestRetry(job);
                                 }
                             }
-                        } else {
-                            completedJobs++;
-                        }
+                        } 
                     } finally {
                         iterator.remove();
                     }
@@ -327,6 +324,5 @@ public class JobExecutor<JR> implements Runnable {
             }
         }
         stopped = true;
-        System.out.println("Completed jobs [" + completedJobs + "]");
     }
 }

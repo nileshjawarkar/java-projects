@@ -1,34 +1,25 @@
 package co.in.nnj.learn.server;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.sql.Time;
 import java.util.concurrent.TimeUnit;
 
 import co.in.nnj.learn.core.AppStatus;
+import co.in.nnj.learn.util.ByteArrayConverter;
 
 public class Client {
     // -- private static final Logger LOGGER =
     // LoggerFactory.getLogger(Client.class.getName());
-
     public AppStatus getAppStatus() {
         try (final Socket socket = new Socket("localhost", 5000)) {
             try (final OutputStream outputStream = socket.getOutputStream();) {
-
-                // -- Connvert object to byte array
-                final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                final ObjectOutputStream oos = new ObjectOutputStream(baos);
-                oos.writeObject(ServerRequest.REQ_SHARE_METRIX);
-                oos.flush();
-
-                // -- Write to socket
-                outputStream.write(baos.toByteArray());
+                // -- Connvert object to byte array & write to socket
+                final byte[] byteArray = ByteArrayConverter.toByteArray(ServerRequest.REQ_SHARE_METRIX);
+                outputStream.write(byteArray);
                 outputStream.flush();
 
                 try (final ObjectInputStream sin = new ObjectInputStream(socket.getInputStream());) {
@@ -49,13 +40,8 @@ public class Client {
         try (final Socket socket = new Socket("localhost", 5000)) {
             try (final OutputStream outputStream = socket.getOutputStream();) {
                 // -- Connvert object to byte array
-                final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                final ObjectOutputStream oos = new ObjectOutputStream(baos);
-                oos.writeObject(ServerRequest.REQ_M_LIFECYCLE_PRERESTART);
-                oos.flush();
-
-                // -- Write to socket
-                outputStream.write(baos.toByteArray());
+                final byte[] byteArray = ByteArrayConverter.toByteArray(ServerRequest.REQ_M_LIFECYCLE_PRERESTART);
+                outputStream.write(byteArray);
                 outputStream.flush();
 
                 try (final BufferedReader reader = new BufferedReader(
@@ -72,22 +58,20 @@ public class Client {
     }
 
     public static void main(final String[] args) {
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (final InterruptedException e) {
-        }
-
         final Client client = new Client();
-        final AppStatus st = client.getAppStatus();
-        if(st != null) {
-            System.out.println(st.toString());
+        System.out.println("Reading batch status ..");
+        for (int i = 0; i < 50; i++) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(300);
+            } catch (final InterruptedException e) {
+            }
+            final AppStatus st = client.getAppStatus();
+            if (st != null) {
+                System.out.println(st.toString());
+            }
         }
 
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (final InterruptedException e) {
-        }
-
+        System.out.println("Request shutdown of server.");
         client.requestShutdown();
     }
 }

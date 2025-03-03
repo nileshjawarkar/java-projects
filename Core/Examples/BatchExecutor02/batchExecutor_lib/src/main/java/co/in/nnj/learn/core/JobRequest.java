@@ -1,9 +1,10 @@
 package co.in.nnj.learn.core;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.UUID;
 
-public class JobRequest {
+public class JobRequest implements Serializable {
     private static Random random = new Random();
     public final String id;
     public final long jobTime;

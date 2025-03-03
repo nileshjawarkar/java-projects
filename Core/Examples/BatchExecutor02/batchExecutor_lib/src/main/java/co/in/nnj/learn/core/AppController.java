@@ -1,8 +1,5 @@
 package co.in.nnj.learn.core;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,37 +7,22 @@ import co.in.nnj.learn.executor.JobExecutor;
 import co.in.nnj.learn.server.Server;
 
 public class AppController {
-
     private final AppStatus appStatus;
     private JobExecutor<JobRequest> executor;
+    private final String backupFilePath;
 
     public AppController() {
         appStatus = new AppStatus();
+        backupFilePath = System.getProperty("java.io.tmpdir");
     }
 
     public AppStatus getAppStatus() {
         return appStatus;
     }
 
-    public byte[] getAppStatusAsByteArray() throws IOException {
-        final ByteArrayOutputStream baStream = new ByteArrayOutputStream();
-        final ObjectOutputStream ooStream = new ObjectOutputStream(baStream);
-        ooStream.writeObject(appStatus);
-        ooStream.flush();
-        return baStream.toByteArray();
-    }
-
     public void start() {
         try {
             executor.run();
-            /*
-             * final Thread t = new Thread(executor);
-             * t.start();
-             * t.join(25 * 1000);
-             * executor.stop();
-             * t.interrupt();
-             * System.out.println("Pending Jobs - " + executor.getJobs());
-             */
         } catch (final Exception e) {
             e.printStackTrace();
         }
@@ -50,7 +32,7 @@ public class AppController {
         try {
             executor.stop();
             final List<JobRequest> jobs = executor.getJobs();
-            if(jobs.size() > 0) {
+            if (jobs.size() > 0) {
                 System.out.println("No of jobs writing to file [" + jobs.size() + "]");
                 writeListToFile(jobs);
             }
@@ -62,9 +44,19 @@ public class AppController {
     }
 
     private void writeListToFile(final List<JobRequest> jobs) {
-        //TODO
-    }
+        if (backupFilePath == null) {
+            System.out.println("Error - Failed to tmp dir path");
+            return;
+        }
 
+        System.out.println("Tmp path - " + backupFilePath);
+        /*
+        try {
+            Files.write(Paths.get(backupFilePath, "jobListBackup.byt"), ByteArrayConverter.toByteArray(jobs));
+        } catch (final IOException e) {
+            e.printStackTrace();
+        } */
+    }
 
     public boolean setup() {
         try {
@@ -85,7 +77,26 @@ public class AppController {
 
     private List<JobRequest> loadJobsFromFile() {
         final List<JobRequest> jobs = new ArrayList<>();
-        //TODO
+        /*
+        final Path path = Paths.get(backupFilePath, "jobListBackup.byt");
+        if (Files.exists(path)) {
+            try {
+                final byte[] allBytes = Files.readAllBytes(path);
+                if (allBytes != null && allBytes.length > 0) {
+                    try (final ByteArrayInputStream baiStream = new ByteArrayInputStream(allBytes);
+                            final ObjectInputStream ooStream = new ObjectInputStream(baiStream);) {
+                        final Object obj = ooStream.readObject();
+                        if (obj instanceof List<?>) {
+                            jobs.addAll((List<JobRequest>) obj);
+                        }
+                    }
+                }
+            } catch (final IOException e) {
+                e.printStackTrace();
+            } catch (final ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } */
         return jobs;
     }
 }

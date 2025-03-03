@@ -1,8 +1,6 @@
 package co.in.nnj.learn.server;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -12,6 +10,7 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
 import co.in.nnj.learn.core.AppController;
+import co.in.nnj.learn.util.ByteArrayConverter;
 
 public class Server implements Runnable {
     private final AppController appController;
@@ -63,13 +62,10 @@ public class Server implements Runnable {
             final int numBytes = channel.read(inBuf);
             if (numBytes > 0) {
                 inBuf.flip();
-                final ByteArrayInputStream baiStream = new ByteArrayInputStream(inBuf.array());
-                final ObjectInputStream ooStream = new ObjectInputStream(baiStream);
-                final String req = (String) ooStream.readObject();
-
-                // -- final String req = StandardCharsets.UTF_8.decode(inBuf).toString();
+                final String req = ByteArrayConverter.fromByteArray(inBuf.array(), String.class);
                 if (ServerRequest.REQ_SHARE_METRIX.equals(req)) {
-                    final ByteBuffer respBuf = ByteBuffer.wrap(appController.getAppStatusAsByteArray());
+                    final ByteBuffer respBuf = ByteBuffer
+                            .wrap(ByteArrayConverter.toByteArray(appController.getAppStatus()));
                     channel.write(respBuf);
                 } else if (ServerRequest.REQ_M_LIFECYCLE_PRERESTART.equals(req)) {
                     appController.shutdownApp();
@@ -81,16 +77,9 @@ public class Server implements Runnable {
                     channel.write(respBuf);
                 }
             }
-        } catch (final IOException e) {
+        } catch (final IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } catch (final ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                channel.close();
-            } catch (final IOException e) {
-            }
-        }
+        } 
         return true;
     }
 }
