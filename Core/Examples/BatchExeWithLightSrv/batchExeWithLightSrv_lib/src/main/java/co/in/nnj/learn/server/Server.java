@@ -31,7 +31,8 @@ public class Server implements Runnable {
             final Selector selector = Selector.open();
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
 
-            while (true) {
+            boolean keepLive = true;
+            while (keepLive) {
                 if (0 == selector.select()) {
                     continue;
                 }
@@ -46,7 +47,7 @@ public class Server implements Runnable {
                         clientChannel.register(selector, SelectionKey.OP_READ);
                     } else if (key.isReadable()) {
                         final SocketChannel channel = (SocketChannel) key.channel();
-                        manageComunication(channel);
+                        keepLive = manageComunication(channel);
                     }
                 }
             }
@@ -55,7 +56,7 @@ public class Server implements Runnable {
         }
     }
 
-    private void manageComunication(final SocketChannel channel) {
+    private boolean manageComunication(final SocketChannel channel) {
         // -- Read actual side of input data
         try (channel;) {
             final ByteBuffer inBuf = ByteBuffer.allocate(1024);
@@ -74,16 +75,22 @@ public class Server implements Runnable {
                     appController.shutdownApp();
                     final ByteBuffer respBuf = ByteBuffer.wrap(ServerRequest.RESP_REQUESTED_SHUTDOWN.getBytes());
                     channel.write(respBuf);
+                    return false;
                 } else {
                     final ByteBuffer respBuf = ByteBuffer.wrap(ServerRequest.RESP_BAD_REQUEST.getBytes());
                     channel.write(respBuf);
                 }
             }
-            channel.close();
         } catch (final IOException e) {
             e.printStackTrace();
         } catch (final ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                channel.close();
+            } catch (final IOException e) {
+            }
         }
+        return true;
     }
 }

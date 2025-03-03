@@ -28,6 +28,7 @@ public class JobExecutor<JR> implements Runnable {
         public int maxJobTime = 600;
         public int maxJobRetry = 3;
         private List<JR> existingJobs = null;
+
         private Builder() {
         }
 
@@ -96,9 +97,9 @@ public class JobExecutor<JR> implements Runnable {
         this.jobQueue = new ArrayDeque<>();
         this.retryQueue = new ArrayDeque<>();
 
-        if(builder.existingJobs != null && builder.existingJobs.size() > 0) {
+        if (builder.existingJobs != null && builder.existingJobs.size() > 0) {
             for (final JR job : builder.existingJobs) {
-               retryQueue.add(new QueuedJob<JR>(job));
+                retryQueue.add(new QueuedJob<JR>(job));
             }
         }
         this.handlers = builder.handlers;
@@ -154,7 +155,7 @@ public class JobExecutor<JR> implements Runnable {
         }
 
         if (qJob != null) {
-            //-- LOGGER.info("Added job to the queue " + qJob.jobReq);
+            // -- LOGGER.info("Added job to the queue " + qJob.jobReq);
             jobQueue.add(qJob);
             return true;
         }
@@ -270,19 +271,19 @@ public class JobExecutor<JR> implements Runnable {
         try {
             service.shutdown();
             cancleInworkJobs();
-            if (service.awaitTermination(500, TimeUnit.MILLISECONDS)) {
-                service.shutdownNow();
-                service.awaitTermination(500, TimeUnit.MILLISECONDS);
-            }
-        } catch (final InterruptedException e) {
-            service.shutdownNow();
-            Thread.currentThread().interrupt();
-        }
-        try {
             while (!stopped) {
                 TimeUnit.MILLISECONDS.sleep(100);
             }
         } catch (final InterruptedException e) {
+        }
+
+        try {
+            service.shutdownNow();
+            service.awaitTermination(500, TimeUnit.MILLISECONDS);
+            System.out.println("Jobs inwork - " + service.shutdownNow().size());
+        } catch (final InterruptedException e) {
+            service.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -326,6 +327,6 @@ public class JobExecutor<JR> implements Runnable {
             }
         }
         stopped = true;
-        System.out.println("completedJobs [" + completedJobs + "]");
+        System.out.println("Completed jobs [" + completedJobs + "]");
     }
 }

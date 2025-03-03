@@ -51,6 +51,7 @@ public class AppController {
             executor.stop();
             final List<JobRequest> jobs = executor.getJobs();
             if(jobs.size() > 0) {
+                System.out.println("No of jobs writing to file [" + jobs.size() + "]");
                 writeListToFile(jobs);
             }
             return true;
