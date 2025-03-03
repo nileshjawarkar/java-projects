@@ -13,6 +13,7 @@ public class JobProcessor implements JobHandler<JobRequest> {
     private static final Logger LOGGER = LoggerFactory.getLogger(JobProcessor.class.getName());
 
     private final AppStatus appStatus;
+
     public JobProcessor(final AppStatus appStatus) {
         this.appStatus = appStatus;
     }
@@ -51,23 +52,25 @@ public class JobProcessor implements JobHandler<JobRequest> {
         if (i >= jobs.size()) {
             i = 1;
         }
+        appStatus.setJobReceived(appStatus.getJobReceived() + 1);
         return req;
     }
 
     @Override
     public JobStatus processJob(final JobRequest jobReq) {
-        LOGGER.info("Job started [" + jobReq.id + "]");
+        //-- LOGGER.info("Job started [" + jobReq.id + "]");
         try {
             TimeUnit.SECONDS.sleep(jobReq.jobTime);
         } catch (final InterruptedException e) {
         } finally {
-            LOGGER.info("Job ended [" + jobReq.id + "]");
+            //-- LOGGER.info("Job ended [" + jobReq.id + "]");
         }
 
         JobStatus status = JobStatus.FAILED;
         final int s = jobReq.result;
         if (s == 0) {
             status = JobStatus.SUCCEEDED;
+            appStatus.setJobCompleted(appStatus.getJobCompleted() + 1);
         } else if (s == 2) {
             status = JobStatus.FAILED_RETRY_REQ;
         } else if (s == 3) {

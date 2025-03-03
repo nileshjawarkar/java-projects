@@ -154,7 +154,7 @@ public class JobExecutor<JR> implements Runnable {
         }
 
         if (qJob != null) {
-            LOGGER.info("Added job to the queue " + qJob.jobReq);
+            //-- LOGGER.info("Added job to the queue " + qJob.jobReq);
             jobQueue.add(qJob);
             return true;
         }
