@@ -154,7 +154,7 @@ public class JobExecutor<JR> implements Runnable {
         }
 
         if (qJob != null) {
-            // -- LOGGER.info("Added job to the queue " + qJob.jobReq);
+            LOGGER.info("Added job to the queue " + qJob.jobReq);
             jobQueue.add(qJob);
             return true;
         }
@@ -181,8 +181,8 @@ public class JobExecutor<JR> implements Runnable {
                 job.future.cancel(true);
             } catch (final CancellationException e) {
                 System.out.println("Job canceled [" + job.jobReq + "], added to retry queue.");
-                requestRetry(job);
             }
+            requestRetry(job);
         }
     }
 
@@ -213,7 +213,7 @@ public class JobExecutor<JR> implements Runnable {
                                     requestRetry(job);
                                 }
                             }
-                        } 
+                        }
                     } finally {
                         iterator.remove();
                     }

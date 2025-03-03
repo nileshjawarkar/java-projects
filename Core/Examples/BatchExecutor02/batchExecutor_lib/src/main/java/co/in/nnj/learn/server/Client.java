@@ -62,7 +62,7 @@ public class Client {
         System.out.println("Reading batch status ..");
         for (int i = 0; i < 50; i++) {
             try {
-                TimeUnit.MILLISECONDS.sleep(300);
+                TimeUnit.MILLISECONDS.sleep(500);
             } catch (final InterruptedException e) {
             }
             final AppStatus st = client.getAppStatus();

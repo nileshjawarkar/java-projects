@@ -1,10 +1,17 @@
 package co.in.nnj.learn.core;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import co.in.nnj.learn.executor.JobExecutor;
 import co.in.nnj.learn.server.Server;
+import co.in.nnj.learn.util.ByteArrayConverter;
 
 public class AppController {
     private final AppStatus appStatus;
@@ -50,12 +57,11 @@ public class AppController {
         }
 
         System.out.println("Tmp path - " + backupFilePath);
-        /*
         try {
             Files.write(Paths.get(backupFilePath, "jobListBackup.byt"), ByteArrayConverter.toByteArray(jobs));
         } catch (final IOException e) {
             e.printStackTrace();
-        } */
+        }
     }
 
     public boolean setup() {
@@ -75,9 +81,9 @@ public class AppController {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     private List<JobRequest> loadJobsFromFile() {
         final List<JobRequest> jobs = new ArrayList<>();
-        /*
         final Path path = Paths.get(backupFilePath, "jobListBackup.byt");
         if (Files.exists(path)) {
             try {
@@ -96,7 +102,7 @@ public class AppController {
             } catch (final ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        } */
+        } 
         return jobs;
     }
 }
