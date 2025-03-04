@@ -58,7 +58,8 @@ public class AppController {
 
         System.out.println("Tmp path - " + backupFilePath);
         try {
-            Files.write(Paths.get(backupFilePath, "jobListBackup.byt"), ByteArrayConverter.toByteArray(jobs));
+            Files.write(Paths.get(backupFilePath, "jobListBackup.byt"),
+                    ByteArrayConverter.toByteArray(jobs));
         } catch (final IOException e) {
             e.printStackTrace();
         }
@@ -71,8 +72,10 @@ public class AppController {
                     .withPreviousJobs(jobs)
                     .withConcurentHandler(new Server(5000, this))
                     .withProcessor(new JobProcessor(appStatus))
-                    .withMaxJobTime(10).withMaxRetry(2)
-                    .withConcurentJobs(2).build();
+                    .withMaxJobTime(10)
+                    .withMaxRetry(2)
+                    .withConcurentJobs(2)
+                    .build();
 
             return true;
         } catch (final Exception e) {
@@ -102,7 +105,7 @@ public class AppController {
             } catch (final ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        } 
+        }
         return jobs;
     }
 }
