@@ -1,8 +1,9 @@
 package co.in.nnj.learn.core;
 
-import java.io.ByteArrayInputStream;
+import static co.in.nnj.learn.util.ByteArrayConverter.fromByteArrayToList;
+import static co.in.nnj.learn.util.ByteArrayConverter.listToByteArray;
+
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +12,6 @@ import java.util.List;
 
 import co.in.nnj.learn.executor.JobExecutor;
 import co.in.nnj.learn.server.Server;
-import co.in.nnj.learn.util.ByteArrayConverter;
 
 public class AppController {
     private final AppStatus appStatus;
@@ -50,21 +50,6 @@ public class AppController {
         return false;
     }
 
-    private void writeListToFile(final List<JobRequest> jobs) {
-        if (backupFilePath == null) {
-            System.out.println("Error - Failed to tmp dir path");
-            return;
-        }
-
-        System.out.println("Tmp path - " + backupFilePath);
-        try {
-            Files.write(Paths.get(backupFilePath, "jobListBackup.byt"),
-                ByteArrayConverter.toByteArray(jobs));
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean setup() {
         try {
             final List<JobRequest> jobs = loadJobsFromFile();
@@ -84,7 +69,20 @@ public class AppController {
         return false;
     }
 
-    @SuppressWarnings("unchecked")
+    private void writeListToFile(final List<JobRequest> jobs) {
+        if (backupFilePath == null) {
+            System.out.println("Error - Failed to tmp dir path");
+            return;
+        }
+
+        System.out.println("Tmp path - " + backupFilePath);
+        try {
+            Files.write(Paths.get(backupFilePath, "jobListBackup.byt"), listToByteArray(jobs));
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private List<JobRequest> loadJobsFromFile() {
         final List<JobRequest> jobs = new ArrayList<>();
         final Path path = Paths.get(backupFilePath, "jobListBackup.byt");
@@ -92,13 +90,9 @@ public class AppController {
             try {
                 final byte[] allBytes = Files.readAllBytes(path);
                 if (allBytes != null && allBytes.length > 0) {
-                    try (final ByteArrayInputStream baiStream = new ByteArrayInputStream(allBytes);
-                        final ObjectInputStream ooStream = new ObjectInputStream(baiStream);) {
-                        final Object obj = ooStream.readObject();
-                        if (obj instanceof List<?>) {
-                            jobs.addAll((List<JobRequest>) obj);
-                        }
-                    }
+                    final List<JobRequest> newList =
+                        fromByteArrayToList(allBytes, JobRequest.class);
+                    jobs.addAll(newList);
                 }
             } catch (final IOException e) {
                 e.printStackTrace();
