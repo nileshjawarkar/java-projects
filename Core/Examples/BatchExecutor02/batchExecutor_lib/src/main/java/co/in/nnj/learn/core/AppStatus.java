@@ -27,17 +27,18 @@ public class AppStatus implements Serializable {
         this.lastHeartBit = System.currentTimeMillis();
         this.jobCompleted = jobCompleted;
     }
+
     public long getLastHeartBit() {
         return lastHeartBit;
     }
+
     public void setLastHeartBit(final long lastHeartBit) {
         this.lastHeartBit = lastHeartBit;
     }
 
     @Override
     public String toString() {
-        return "AppStatus {jobReceived=" + jobReceived + ", jobCompleted=" + jobCompleted + ", lastHeartBit="
-                + lastHeartBit + "}";
+        return "AppStatus {jobReceived=" + jobReceived + ", jobCompleted=" + jobCompleted
+            + ", lastHeartBit=" + lastHeartBit + "}";
     }
-
 }

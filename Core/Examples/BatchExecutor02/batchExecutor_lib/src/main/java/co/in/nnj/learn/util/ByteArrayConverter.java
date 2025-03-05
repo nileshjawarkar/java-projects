@@ -7,24 +7,24 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class ByteArrayConverter {
-   public static <T> byte[] toByteArray(final T obj) throws IOException {
-      try (final ByteArrayOutputStream baStream = new ByteArrayOutputStream();
-          final ObjectOutputStream ooStream = new ObjectOutputStream(baStream);) {
-         ooStream.writeObject(obj);
-         ooStream.flush();
-         return baStream.toByteArray();
-      }
-   }
+    public static <T> byte[] toByteArray(final T obj) throws IOException {
+        try (final ByteArrayOutputStream baStream = new ByteArrayOutputStream();
+            final ObjectOutputStream ooStream = new ObjectOutputStream(baStream);) {
+            ooStream.writeObject(obj);
+            ooStream.flush();
+            return baStream.toByteArray();
+        }
+    }
 
-   public static <T> T fromByteArray(final byte[] objBytes, final Class<T> type)
-       throws IOException, ClassNotFoundException {
-      try (final ByteArrayInputStream baiStream = new ByteArrayInputStream(objBytes);
-          final ObjectInputStream ooStream = new ObjectInputStream(baiStream);) {
-         final Object obj = ooStream.readObject();
-         if (type.isInstance(obj)) {
-            return type.cast(obj);
-         }
-      }
-      return null;
-   }
+    public static <T> T fromByteArray(final byte[] objBytes, final Class<T> type)
+        throws IOException, ClassNotFoundException {
+        try (final ByteArrayInputStream baiStream = new ByteArrayInputStream(objBytes);
+            final ObjectInputStream ooStream = new ObjectInputStream(baiStream);) {
+            final Object obj = ooStream.readObject();
+            if (type.isInstance(obj)) {
+                return type.cast(obj);
+            }
+        }
+        return null;
+    }
 }

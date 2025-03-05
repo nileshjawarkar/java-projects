@@ -59,7 +59,7 @@ public class AppController {
         System.out.println("Tmp path - " + backupFilePath);
         try {
             Files.write(Paths.get(backupFilePath, "jobListBackup.byt"),
-                    ByteArrayConverter.toByteArray(jobs));
+                ByteArrayConverter.toByteArray(jobs));
         } catch (final IOException e) {
             e.printStackTrace();
         }
@@ -69,13 +69,13 @@ public class AppController {
         try {
             final List<JobRequest> jobs = loadJobsFromFile();
             executor = JobExecutor.<JobRequest>builder()
-                    .withPreviousJobs(jobs)
-                    .withConcurentHandler(new Server(5000, this))
-                    .withProcessor(new JobProcessor(appStatus))
-                    .withMaxJobTime(10)
-                    .withMaxRetry(2)
-                    .withConcurentJobs(2)
-                    .build();
+                           .withPreviousJobs(jobs)
+                           .withConcurentHandler(new Server(5000, this))
+                           .withProcessor(new JobProcessor(appStatus))
+                           .withMaxJobTime(10)
+                           .withMaxRetry(2)
+                           .withConcurentJobs(2)
+                           .build();
 
             return true;
         } catch (final Exception e) {
@@ -93,7 +93,7 @@ public class AppController {
                 final byte[] allBytes = Files.readAllBytes(path);
                 if (allBytes != null && allBytes.length > 0) {
                     try (final ByteArrayInputStream baiStream = new ByteArrayInputStream(allBytes);
-                            final ObjectInputStream ooStream = new ObjectInputStream(baiStream);) {
+                        final ObjectInputStream ooStream = new ObjectInputStream(baiStream);) {
                         final Object obj = ooStream.readObject();
                         if (obj instanceof List<?>) {
                             jobs.addAll((List<JobRequest>) obj);

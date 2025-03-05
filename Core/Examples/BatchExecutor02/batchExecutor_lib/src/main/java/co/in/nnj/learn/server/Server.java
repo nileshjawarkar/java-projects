@@ -64,22 +64,24 @@ public class Server implements Runnable {
                 inBuf.flip();
                 final String req = ByteArrayConverter.fromByteArray(inBuf.array(), String.class);
                 if (ServerRequest.REQ_SHARE_METRIX.equals(req)) {
-                    final ByteBuffer respBuf = ByteBuffer
-                            .wrap(ByteArrayConverter.toByteArray(appController.getAppStatus()));
+                    final ByteBuffer respBuf = ByteBuffer.wrap(
+                        ByteArrayConverter.toByteArray(appController.getAppStatus()));
                     channel.write(respBuf);
                 } else if (ServerRequest.REQ_M_LIFECYCLE_PRERESTART.equals(req)) {
                     appController.shutdownApp();
-                    final ByteBuffer respBuf = ByteBuffer.wrap(ServerRequest.RESP_REQUESTED_SHUTDOWN.getBytes());
+                    final ByteBuffer respBuf =
+                        ByteBuffer.wrap(ServerRequest.RESP_REQUESTED_SHUTDOWN.getBytes());
                     channel.write(respBuf);
                     return false;
                 } else {
-                    final ByteBuffer respBuf = ByteBuffer.wrap(ServerRequest.RESP_BAD_REQUEST.getBytes());
+                    final ByteBuffer respBuf =
+                        ByteBuffer.wrap(ServerRequest.RESP_BAD_REQUEST.getBytes());
                     channel.write(respBuf);
                 }
             }
         } catch (final IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } 
+        }
         return true;
     }
 }

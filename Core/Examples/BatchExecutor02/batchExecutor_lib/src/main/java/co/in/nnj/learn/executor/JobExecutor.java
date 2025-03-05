@@ -29,8 +29,7 @@ public class JobExecutor<JR> implements Runnable {
         public int maxJobRetry = 3;
         private List<JR> existingJobs = null;
 
-        private Builder() {
-        }
+        private Builder() {}
 
         public Builder<JR> withProcessor(final JobHandler<JR> handler) {
             this.handler = handler;
@@ -64,7 +63,8 @@ public class JobExecutor<JR> implements Runnable {
 
         public JobExecutor<JR> build() throws InvalidAttributesException {
             if (jobs <= 0 || handler == null) {
-                throw new InvalidAttributesException("Missing mandatory attributes - processor or jobs.");
+                throw new InvalidAttributesException(
+                    "Missing mandatory attributes - processor or jobs.");
             }
             return new JobExecutor<>(this);
         }
@@ -126,7 +126,8 @@ public class JobExecutor<JR> implements Runnable {
 
     public List<JR> getJobs() throws Exception {
         if (execJobs) {
-            throw new Exception("Invalid state - This api must be called after stopping the executor.");
+            throw new Exception(
+                "Invalid state - This api must be called after stopping the executor.");
         }
         final List<JR> jobs = new ArrayList<>();
         for (final QueuedJob<JR> qJob : jobQueue) {

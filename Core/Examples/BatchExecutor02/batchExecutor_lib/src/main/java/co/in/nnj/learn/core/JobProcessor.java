@@ -18,20 +18,12 @@ public class JobProcessor implements JobHandler<JobRequest> {
         this.appStatus = appStatus;
     }
 
-    static List<JobRequest> jobs = List.<JobRequest>of(
-            new JobRequest(20, 0),
-            new JobRequest(), new JobRequest(),
-            new JobRequest(), new JobRequest(),
-            new JobRequest(), new JobRequest(),
-            new JobRequest(), new JobRequest(),
-            new JobRequest(), new JobRequest(),
-            new JobRequest(), new JobRequest(),
-            new JobRequest(), new JobRequest(),
-            new JobRequest(), new JobRequest(),
-            new JobRequest(), new JobRequest(),
-            new JobRequest(2, 1), new JobRequest(1, 2),
-            new JobRequest(2, 3), new JobRequest(1, 4),
-            new JobRequest(), new JobRequest());
+    static List<JobRequest> jobs = List.<JobRequest>of(new JobRequest(20, 0), new JobRequest(),
+        new JobRequest(), new JobRequest(), new JobRequest(), new JobRequest(), new JobRequest(),
+        new JobRequest(), new JobRequest(), new JobRequest(), new JobRequest(), new JobRequest(),
+        new JobRequest(), new JobRequest(), new JobRequest(), new JobRequest(), new JobRequest(),
+        new JobRequest(), new JobRequest(), new JobRequest(2, 1), new JobRequest(1, 2),
+        new JobRequest(2, 3), new JobRequest(1, 4), new JobRequest(), new JobRequest());
 
     @Override
     public boolean init() {
