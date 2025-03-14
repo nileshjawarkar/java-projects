@@ -22,17 +22,17 @@ public class JobExecutor<JR> implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(JobExecutor.class.getName());
 
     public static class Builder<JR> {
-        JobHandler<JR> handler;
+        JobHandler<JR> jobExecHandler;
         int jobs;
-        final List<Runnable> handlers = new ArrayList<>();
+        final List<Runnable> longJobExecHandlers = new ArrayList<>();
         public int maxJobTime = 600;
         public int maxJobRetry = 3;
         private List<JR> existingJobs = null;
 
         private Builder() {}
 
-        public Builder<JR> withProcessor(final JobHandler<JR> handler) {
-            this.handler = handler;
+        public Builder<JR> withJobHandler(final JobHandler<JR> handler) {
+            this.jobExecHandler = handler;
             return this;
         }
 
@@ -51,8 +51,8 @@ public class JobExecutor<JR> implements Runnable {
             return this;
         }
 
-        public Builder<JR> withConcurentHandler(final Runnable handler) {
-            handlers.add(handler);
+        public Builder<JR> withLongJobHandler(final Runnable handler) {
+            longJobExecHandlers.add(handler);
             return this;
         }
 
@@ -62,7 +62,7 @@ public class JobExecutor<JR> implements Runnable {
         }
 
         public JobExecutor<JR> build() throws InvalidAttributesException {
-            if (jobs <= 0 || handler == null) {
+            if (jobs <= 0 || jobExecHandler == null) {
                 throw new InvalidAttributesException(
                     "Missing mandatory attributes - processor or jobs.");
             }
@@ -77,21 +77,21 @@ public class JobExecutor<JR> implements Runnable {
     private final JobHandler<JR> jobHandler;
     private final Queue<QueuedJob<JR>> jobQueue;
     private final Queue<QueuedJob<JR>> retryQueue;
-    private final List<Runnable> handlers;
+    private final List<Runnable> longJobHandlers;
     private final ExecutorService service;
-    private final int concurrentJobsAllowed;
+    private final int numJobsAllowed;
     private final int MAX_JOBTIME_IN_SEC;
     private final int MAX_JOBRETRY_COUNT;
 
-    boolean init_req = false;
+    boolean init_req = true;
     boolean execJobs = true;
 
     private JobExecutor(final Builder<JR> builder) {
-        final int jobs = builder.jobs + builder.handlers.size();
+        final int jobs = builder.jobs + builder.longJobExecHandlers.size();
         this.MAX_JOBRETRY_COUNT = builder.maxJobRetry;
         this.MAX_JOBTIME_IN_SEC = builder.maxJobTime;
-        this.concurrentJobsAllowed = builder.jobs;
-        this.jobHandler = builder.handler;
+        this.numJobsAllowed = builder.jobs;
+        this.jobHandler = builder.jobExecHandler;
         this.service = Executors.newFixedThreadPool(jobs);
         this.jobQueue = new ArrayDeque<>();
         this.retryQueue = new ArrayDeque<>();
@@ -101,7 +101,7 @@ public class JobExecutor<JR> implements Runnable {
                 retryQueue.add(new QueuedJob<JR>(job));
             }
         }
-        this.handlers = builder.handlers;
+        this.longJobHandlers = builder.longJobExecHandlers;
     }
 
     private boolean init() {
@@ -288,7 +288,7 @@ public class JobExecutor<JR> implements Runnable {
     @Override
     public void run() {
         // -- Schedule execution of all the handlers.
-        for (final Runnable runnable : handlers) {
+        for (final Runnable runnable : longJobHandlers) {
             service.execute(runnable);
         }
 
@@ -307,7 +307,7 @@ public class JobExecutor<JR> implements Runnable {
                     continue;
                 }
 
-                if (checkJobStatus() == concurrentJobsAllowed) {
+                if (checkJobStatus() == numJobsAllowed) {
                     TimeUnit.MILLISECONDS.sleep(250);
                     continue;
                 }

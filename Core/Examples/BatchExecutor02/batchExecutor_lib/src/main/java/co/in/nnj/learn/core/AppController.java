@@ -55,8 +55,8 @@ public class AppController {
             final List<JobRequest> jobs = loadJobsFromFile();
             executor = JobExecutor.<JobRequest>builder()
                            .withPreviousJobs(jobs)
-                           .withConcurentHandler(new Server(5000, this))
-                           .withProcessor(new JobProcessor(appStatus))
+                           .withLongJobHandler(new Server(5000, this))
+                           .withJobHandler(new JobProcessor(appStatus))
                            .withMaxJobTime(10)
                            .withMaxRetry(2)
                            .withConcurentJobs(2)
