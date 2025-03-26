@@ -23,7 +23,7 @@ public class SmallServer {
             server.configureBlocking(false);
             final Selector selector = Selector.open();
             server.register(selector, SelectionKey.OP_ACCEPT);
-
+            System.out.println("Server listeninig on port - " + port + "...");
             while (true) {
                 if (selector.select() == 0) {
                     continue;
@@ -36,7 +36,6 @@ public class SmallServer {
                         iterator.remove();
                         if (key.isAcceptable()) {
                             final SocketChannel channel = server.accept();
-                            System.out.println("Connected to -" + channel.getRemoteAddress());
                             channel.configureBlocking(false);
                             channel.register(selector, SelectionKey.OP_READ);
                         } else if (key.isReadable()) {
@@ -62,15 +61,15 @@ public class SmallServer {
                 if (httpReq.isValid()) {
                     if (httpReq.url.contains("/srv/metrixs")) {
                         final String metrix = "{\"number\": 10, \"address\": \"any-thing\"}";
-                        final String output = "HTTP/1.1 200 OK\r\n\r\n" + metrix;
+                        final String output = "HTTP/1.1 200 OK\r\n\r\n" + metrix + "\n";
                         channel.write(ByteBuffer.wrap(output.getBytes()));
                         return;
                     } else if (httpReq.url.contains("/srv/request_shutdown")) {
-                        channel.write(ByteBuffer.wrap("HTTP/1.1 200 OK\r\n\r\nRequested shutdown!".getBytes()));
+                        channel.write(ByteBuffer.wrap("HTTP/1.1 200 OK\r\n\r\nRequested shutdown!\n".getBytes()));
                         return;
                     }
                 }
-                channel.write(ByteBuffer.wrap("HTTP/1.1 403 Failed\r\n\r\nUrl not found!".getBytes()));
+                channel.write(ByteBuffer.wrap("HTTP/1.1 403 Failed\r\n\r\nUrl not found!\n".getBytes()));
             }
         }
     }
