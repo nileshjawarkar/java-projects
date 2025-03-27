@@ -10,10 +10,10 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-public class SmallServer {
+public class HttpControlServer {
     private final int port;
 
-    public SmallServer(final int port) {
+    public HttpControlServer(final int port) {
         this.port = port;
     }
 
@@ -58,24 +58,33 @@ public class SmallServer {
             if (inDataLen > 0) {
                 inBuffer.flip();
                 final HttpRequestDetails httpReq = HttpRequestDetails.parse(new String(inBuffer.array(), 0, inDataLen));
+                final HttpResponseBuilder builder = new HttpResponseBuilder();
                 if (httpReq.isValid()) {
-                    if (httpReq.url.contains("/srv/metrixs")) {
+                    final String target = httpReq.getUrlTarget();
+                    if (target.startsWith("/srv/metrixs")) {
                         final String metrix = "{\"number\": 10, \"address\": \"any-thing\"}";
-                        final String output = "HTTP/1.1 200 OK\r\n\r\n" + metrix + "\n";
-                        channel.write(ByteBuffer.wrap(output.getBytes()));
+
+                        final String resp = builder.withResponseCode(HttpResponseBuilder.Status.OK)
+                                .withHeader("Content-Type", "application/json")
+                                .withResponse(metrix).build();
+                        channel.write(ByteBuffer.wrap(resp.getBytes()));
                         return;
-                    } else if (httpReq.url.contains("/srv/request_shutdown")) {
-                        channel.write(ByteBuffer.wrap("HTTP/1.1 200 OK\r\n\r\nRequested shutdown!\n".getBytes()));
+                    } else if (target.startsWith("/srv/request_shutdown")) {
+                        final String resp = builder.withResponseCode(HttpResponseBuilder.Status.OK)
+                                .withResponse("Requested shutdown!").build();
+                        channel.write(ByteBuffer.wrap(resp.getBytes()));
                         return;
                     }
                 }
-                channel.write(ByteBuffer.wrap("HTTP/1.1 403 Failed\r\n\r\nUrl not found!\n".getBytes()));
+                final String rep = builder.withResponseCode(HttpResponseBuilder.Status.NOT_FOUND)
+                    .withResponse("").build();
+                channel.write(ByteBuffer.wrap(rep.getBytes()));
             }
         }
     }
 
     public static void main(final String[] args) {
-        final SmallServer server = new SmallServer(5000);
+        final HttpControlServer server = new HttpControlServer(5000);
         server.start();
     }
 }
