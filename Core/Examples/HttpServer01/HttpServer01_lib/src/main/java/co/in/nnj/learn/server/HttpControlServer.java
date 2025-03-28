@@ -57,28 +57,28 @@ public class HttpControlServer {
             final int inDataLen = channel.read(inBuffer);
             if (inDataLen > 0) {
                 inBuffer.flip();
-                final HttpRequestDetails httpReq = HttpRequestDetails.parse(new String(inBuffer.array(), 0, inDataLen));
-                final HttpResponseBuilder builder = new HttpResponseBuilder();
+                final HttpRequest httpReq = HttpRequest.fromString(new String(inBuffer.array(), 0, inDataLen));
+                final HttpResponse.Builder respBuilder = HttpResponse.builder();
                 if (httpReq.isValid()) {
                     final String target = httpReq.getUrlTarget();
                     if (target.startsWith("/srv/metrixs")) {
                         final String metrix = "{\"number\": 10, \"address\": \"any-thing\"}";
 
-                        final String resp = builder.withResponseCode(HttpResponseBuilder.Status.OK)
+                        final HttpResponse resp = respBuilder.withResponseCode(HttpResponseCode.OK)
                                 .withHeader("Content-Type", "application/json")
-                                .withResponse(metrix).build();
-                        channel.write(ByteBuffer.wrap(resp.getBytes()));
+                                .withData(metrix).build();
+                        channel.write(ByteBuffer.wrap(resp.toBytes()));
                         return;
                     } else if (target.startsWith("/srv/request_shutdown")) {
-                        final String resp = builder.withResponseCode(HttpResponseBuilder.Status.OK)
-                                .withResponse("Requested shutdown!").build();
-                        channel.write(ByteBuffer.wrap(resp.getBytes()));
+                        final HttpResponse resp = respBuilder.withResponseCode(HttpResponseCode.OK)
+                                .withData("Requested shutdown!").build();
+                        channel.write(ByteBuffer.wrap(resp.toBytes()));
                         return;
                     }
                 }
-                final String rep = builder.withResponseCode(HttpResponseBuilder.Status.NOT_FOUND)
-                    .withResponse("").build();
-                channel.write(ByteBuffer.wrap(rep.getBytes()));
+                final HttpResponse rep = respBuilder.withResponseCode(HttpResponseCode.BAD_REQUEST)
+                        .withData("").build();
+                channel.write(ByteBuffer.wrap(rep.toBytes()));
             }
         }
     }
