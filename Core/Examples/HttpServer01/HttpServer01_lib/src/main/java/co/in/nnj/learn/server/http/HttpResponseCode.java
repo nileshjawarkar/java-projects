@@ -1,4 +1,4 @@
-package co.in.nnj.learn.server;
+package co.in.nnj.learn.server.http;
 
 public enum HttpResponseCode {
     OK(200), CREATED(201), ACCEPTED(202),

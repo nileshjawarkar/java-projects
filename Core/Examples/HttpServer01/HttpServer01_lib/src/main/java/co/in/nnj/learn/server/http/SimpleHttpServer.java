@@ -1,4 +1,4 @@
-package co.in.nnj.learn.server;
+package co.in.nnj.learn.server.http;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -7,14 +7,22 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
-public class HttpControlServer {
-    private final int port;
+public class SimpleHttpServer {
+    public static interface HttpRouter {
+        void service(HttpRequest req, HttpResponse.Builder responseBuilder);
+    }
 
-    public HttpControlServer(final int port) {
-        this.port = port;
+    private final int port;
+    private final Map<String, HttpRouter> routes;
+
+    private SimpleHttpServer(final Builder builder) {
+        this.port = builder.port;
+        this.routes = builder.routes;
     }
 
     public void start() {
@@ -58,33 +66,45 @@ public class HttpControlServer {
             if (inDataLen > 0) {
                 inBuffer.flip();
                 final HttpRequest httpReq = HttpRequest.fromString(new String(inBuffer.array(), 0, inDataLen));
-                final HttpResponse.Builder respBuilder = HttpResponse.builder();
+                final HttpResponse.Builder respBuilder = HttpResponse.builder(channel);
                 if (httpReq.isValid()) {
                     final String target = httpReq.getUrlTarget();
-                    if (target.startsWith("/srv/metrixs")) {
-                        final String metrix = "{\"number\": 10, \"address\": \"any-thing\"}";
-
-                        final HttpResponse resp = respBuilder.withResponseCode(HttpResponseCode.OK)
-                                .withHeader("Content-Type", "application/json")
-                                .withData(metrix).build();
-                        channel.write(ByteBuffer.wrap(resp.toBytes()));
-                        return;
-                    } else if (target.startsWith("/srv/request_shutdown")) {
-                        final HttpResponse resp = respBuilder.withResponseCode(HttpResponseCode.OK)
-                                .withData("Requested shutdown!").build();
-                        channel.write(ByteBuffer.wrap(resp.toBytes()));
+                    if(routes.containsKey(target)) {
+                        final HttpRouter router = routes.get(target);
+                        router.service(httpReq, respBuilder);
                         return;
                     }
                 }
                 final HttpResponse rep = respBuilder.withResponseCode(HttpResponseCode.BAD_REQUEST)
-                        .withData("").build();
+                        .withData("Route not found. Please check your inputs.").build();
                 channel.write(ByteBuffer.wrap(rep.toBytes()));
             }
         }
     }
 
-    public static void main(final String[] args) {
-        final HttpControlServer server = new HttpControlServer(5000);
-        server.start();
+    public static class Builder {
+        private int port = -1;
+        private final Map<String, HttpRouter> routes = new HashMap<>();
+
+        public Builder withPort(final int port) {
+            this.port = port;
+            return this;
+        }
+
+        public Builder withRoute(final String path, final HttpRouter route) {
+            routes.put(path, route);
+            return this;
+        }
+
+        public SimpleHttpServer build() {
+            if(port < 1 || routes.size() == 0) {
+                throw new RuntimeException("Missing mandatory arguments - port or routes.");
+            }
+            return new SimpleHttpServer(this);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

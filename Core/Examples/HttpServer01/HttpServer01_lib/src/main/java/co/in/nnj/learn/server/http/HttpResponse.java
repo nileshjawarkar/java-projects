@@ -1,5 +1,8 @@
-package co.in.nnj.learn.server;
+package co.in.nnj.learn.server.http;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,11 +10,13 @@ public class HttpResponse {
     private final Map<String, String> headers;
     private final String data;
     private final HttpResponseCode status_code;
+    private final SocketChannel channel;
 
     public HttpResponse(final Builder builder) {
         this.headers = builder.headers;
         this.data = builder.data;
         this.status_code = builder.status_code;
+        this.channel = builder.channel;
     }
 
     public String getHeaders(final String key) {
@@ -24,6 +29,12 @@ public class HttpResponse {
 
     public HttpResponseCode getStatusCode() {
         return status_code;
+    }
+
+    public void send() throws IOException {
+        if (channel != null) {
+            channel.write(ByteBuffer.wrap(this.toBytes()));
+        }
     }
 
     @Override
@@ -54,6 +65,14 @@ public class HttpResponse {
         private HttpResponseCode status_code = HttpResponseCode.BAD_REQUEST;
         private String data = null;
         private Map<String, String> headers = null;
+        private SocketChannel channel = null;
+
+        public Builder() {
+        }
+
+        public Builder(final SocketChannel channel) {
+            this.channel = channel;
+        }
 
         public Builder withResponseCode(final int code) {
             status_code = HttpResponseCode.fromInt(code);
@@ -88,6 +107,10 @@ public class HttpResponse {
         }
     }
 
+    public static Builder builder(final SocketChannel channel) {
+        return new Builder(channel);
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -99,4 +122,5 @@ public class HttpResponse {
     public byte[] toBytes() {
         return toString().getBytes();
     }
+
 }

@@ -1,4 +1,4 @@
-package co.in.nnj.learn.server;
+package co.in.nnj.learn.server.http;
 
 import java.util.HashMap;
 import java.util.Map;
