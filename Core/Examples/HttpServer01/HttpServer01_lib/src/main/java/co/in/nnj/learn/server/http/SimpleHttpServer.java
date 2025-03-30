@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class SimpleHttpServer {
+
+    @FunctionalInterface
     public static interface HttpRouter {
         void service(HttpRequest req, HttpResponse.Builder responseBuilder);
     }
@@ -69,7 +71,7 @@ public class SimpleHttpServer {
                 final HttpResponse.Builder respBuilder = HttpResponse.builder(channel);
                 if (httpReq.isValid()) {
                     final String target = httpReq.getUrlTarget();
-                    if(routes.containsKey(target)) {
+                    if (routes.containsKey(target)) {
                         final HttpRouter router = routes.get(target);
                         router.service(httpReq, respBuilder);
                         return;
@@ -97,7 +99,7 @@ public class SimpleHttpServer {
         }
 
         public SimpleHttpServer build() {
-            if(port < 1 || routes.size() == 0) {
+            if (port < 1 || routes.size() == 0) {
                 throw new RuntimeException("Missing mandatory arguments - port or routes.");
             }
             return new SimpleHttpServer(this);

@@ -57,7 +57,8 @@ public class HttpRequest {
             buf.append("?");
             final StringBuffer urlPrmBuf = new StringBuffer();
             for (final String param_name : urlParam.keySet()) {
-                if(secondItr) urlPrmBuf.append("&");
+                if (secondItr)
+                    urlPrmBuf.append("&");
                 urlPrmBuf.append(param_name);
                 urlPrmBuf.append("=");
                 urlPrmBuf.append(urlParam.get(param_name));
@@ -127,8 +128,8 @@ public class HttpRequest {
             if (idxOfQ != -1) {
                 this.url_target = url_target.substring(0, idxOfQ);
                 final String args = url_target.substring(idxOfQ + 1);
-                //-- System.out.println("url_target = [" + this.url_target + "]");
-                //-- System.out.println("args = [" + args + "]");
+                // -- System.out.println("url_target = [" + this.url_target + "]");
+                // -- System.out.println("args = [" + args + "]");
                 if (args != null && args.length() > 0) {
                     this.url_param = new HashMap<>();
                     final String[] arg_lines = args.split("&");
@@ -136,7 +137,8 @@ public class HttpRequest {
                         for (final String arg_line : arg_lines) {
                             final String[] keyNValue = arg_line.split("=");
                             if (keyNValue != null && keyNValue.length == 2) {
-                                //-- System.out.println("key/value = [" + keyNValue[0] + "/" + keyNValue[1] + "]");
+                                // -- System.out.println("key/value = [" + keyNValue[0] + "/" + keyNValue[1] +
+                                // "]");
                                 this.url_param.put(keyNValue[0], keyNValue[1]);
                             }
                         }
