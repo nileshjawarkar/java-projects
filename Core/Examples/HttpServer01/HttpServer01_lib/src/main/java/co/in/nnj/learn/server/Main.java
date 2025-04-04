@@ -26,7 +26,6 @@ public class Main {
                     } catch (final IOException e) {
                     }
                 }).build();
-
         httpSimpleServer.start();
     }
 }
