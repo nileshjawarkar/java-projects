@@ -15,5 +15,10 @@ public class HttpRequestTest {
                 .withData("client=any").build();
 
         Assertions.assertEquals(req.getData(), "client=any");
+        final String reqStr = req.toString();
+        System.out.println("Http Request [" + reqStr + "]");
+        Assertions.assertEquals(true, reqStr.contains("GET"));
+        Assertions.assertEquals(true, reqStr.contains("http://google.co.in"));
+        Assertions.assertEquals(false, reqStr.contains("client=any"));
     }
 }

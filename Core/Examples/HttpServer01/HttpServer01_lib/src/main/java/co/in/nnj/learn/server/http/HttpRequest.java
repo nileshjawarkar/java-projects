@@ -115,6 +115,7 @@ public class HttpRequest {
         public Builder withHeader(final String key, final String value) {
             if (headers == null)
                 headers = new HashMap<>();
+            headers.put(key, value);
             return this;
         }
 
