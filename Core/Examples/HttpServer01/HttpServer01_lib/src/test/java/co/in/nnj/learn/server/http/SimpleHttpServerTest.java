@@ -70,7 +70,6 @@ public class SimpleHttpServerTest {
                 output.write(req.toString().getBytes());
                 output.flush();
                 final byte[] buf = input.readAllBytes();
-
                 return HttpResponse.fromString(new String(buf, 0, buf.length));
             }
         } catch (final IOException e) {
