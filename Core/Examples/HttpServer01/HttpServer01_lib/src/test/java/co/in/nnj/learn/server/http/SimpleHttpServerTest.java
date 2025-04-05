@@ -55,36 +55,70 @@ public class SimpleHttpServerTest {
         new Thread(server).start();
     }
 
-    String outputStr = null;
+    HttpResponse executeMethod(final String method, final String url, final String data) {
+        try (final Socket socket = new Socket(HOST, PORT)) {
+            System.out.println("Connected to server ..");
+            try (final DataOutputStream output = new DataOutputStream(
+                    new BufferedOutputStream(socket.getOutputStream()));
+                    final DataInputStream input = new DataInputStream(
+                            new BufferedInputStream(socket.getInputStream()));) {
+                final HttpRequest req = HttpRequest.builder()
+                        .withMethod(method).withUrlTarget(url)
+                        .withData(data)
+                        .build();
+
+                output.write(req.toString().getBytes());
+                output.flush();
+                final byte[] buf = input.readAllBytes();
+
+                return HttpResponse.fromString(new String(buf, 0, buf.length));
+            }
+        } catch (final IOException e) {
+            System.out.println("Error Message - " + e.getMessage());
+        }
+        return HttpResponse.builder().withResponseCode(HttpResponseCode.SERVICE_UNAVAILABLE).build();
+    }
 
     @Test
     void getMethodTest() {
         Assertions.assertTimeout(ofMinutes(2), () -> {
-            try (final Socket socket = new Socket(HOST, PORT)) {
-                System.out.println("Connected to server ..");
-                try (final DataOutputStream output = new DataOutputStream(
-                        new BufferedOutputStream(socket.getOutputStream()));
-                        final DataInputStream input = new DataInputStream(
-                                new BufferedInputStream(socket.getInputStream()));) {
-                    final HttpRequest req = HttpRequest.builder()
-                            .withMethod("GET").withUrlTarget("/srv/metrix")
-                            .build();
+            final HttpResponse response = executeMethod("GET", "/srv/metrix", null);
+            Assertions.assertNotNull(response, "Http call output is null.");
+            System.out.println("Output [" + response.toString() + "]");
+            Assertions.assertAll("Http get output",
+                    () -> Assertions.assertTrue(response.getStatusCode() == HttpResponseCode.OK,
+                            "Expeted 200 response"),
+                    () -> Assertions.assertTrue(response.getData() != null, "Expeted response with status"),
+                    () -> Assertions.assertTrue(response.getData().contains("\"status\" : \"OK\"}"),
+                            "Expeted status message"));
+        });
+    }
 
-                    output.write(req.toString().getBytes());
-                    output.flush();
+    @Test
+    void postMethodTest() {
+        Assertions.assertTimeout(ofMinutes(2), () -> {
+            executeMethod("POST", "/srv/inccount", null);
+            final HttpResponse response = executeMethod("POST", "/srv/inccount", null);
+            Assertions.assertNotNull(response, "Http call output is null.");
+            System.out.println("Output [" + response.toString() + "]");
+            final String data = response.getData();
+            Assertions.assertAll("Http post output",
+                    () -> Assertions.assertEquals(response.getStatusCode(), HttpResponseCode.OK,
+                            "Expected 200 response code"),
+                    () -> Assertions.assertNotNull(data, "Expected response with count"),
+                    () -> Assertions.assertEquals("{\"count\" : 2}", data, "Expected response with count"));
+        });
+    }
 
-                    final byte[] buf = input.readAllBytes();
-                    outputStr = new String(buf, 0, buf.length);
-                }
-            } catch (final IOException e) {
-                System.out.println("Error Message - " + e.getMessage());
-            }
+    @Test
+    void getNotSupportedTest() {
+        Assertions.assertTimeout(ofMinutes(2), () -> {
+            final HttpResponse response = executeMethod("GET", "/srv/inccount", null);
+            Assertions.assertNotNull(response, "Http call output is null.");
+            System.out.println("Output [" + response.toString() + "]");
 
-            Assertions.assertNotNull(outputStr, "Http call output is null.");
-            System.out.println("Http output [" + outputStr + "]");
-            Assertions.assertAll("Http call output",
-                    () -> Assertions.assertTrue(outputStr.contains("200 Ok"), "Missing 200 response"),
-                    () -> Assertions.assertTrue(outputStr.contains("\"status\" : \"OK\"}"), "Missing status message"));
+            Assertions.assertEquals(response.getStatusCode(), HttpResponseCode.BAD_REQUEST,
+                    "Expected BAD_REQUEST response code");
         });
     }
 
@@ -92,5 +126,4 @@ public class SimpleHttpServerTest {
     static void tearDownAll() {
         server.stop();
     }
-
 }

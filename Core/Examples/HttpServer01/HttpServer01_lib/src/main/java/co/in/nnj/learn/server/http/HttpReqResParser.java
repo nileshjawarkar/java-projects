@@ -26,7 +26,7 @@ class HttpReqResParser {
             dataBuffer.append(content_lines[line_idx]);
             line_idx++;
         }
-        return dataBuffer.toString();
+        return dataBuffer.toString().trim();
     }
 
     public static HttpRequest parseRequest(final String content) {
@@ -65,6 +65,7 @@ class HttpReqResParser {
 
     public static HttpResponse parseResponse(final String content) {
         final HttpResponse.Builder builder = HttpResponse.builder();
+        builder.withResponseCode(HttpResponseCode.BAD_REQUEST);
         if (content != null && content.length() > 0) {
             final String contentt = content.trim();
             final String[] content_lines = contentt.split("\n");
