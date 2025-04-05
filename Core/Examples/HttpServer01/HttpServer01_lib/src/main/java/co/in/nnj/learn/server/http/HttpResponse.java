@@ -37,6 +37,10 @@ public class HttpResponse {
         }
     }
 
+    public byte[] toBytes() {
+        return toString().getBytes();
+    }
+
     @Override
     public String toString() {
         final StringBuffer buf = new StringBuffer();
@@ -117,10 +121,6 @@ public class HttpResponse {
 
     public static HttpResponse fromString(final String content) {
         return HttpReqResParser.parseResponse(content);
-    }
-
-    public byte[] toBytes() {
-        return toString().getBytes();
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-public class SimpleHttpServer {
+public class SimpleHttpServer implements Runnable {
 
     @FunctionalInterface
     public static interface HttpRouter {
@@ -25,40 +25,6 @@ public class SimpleHttpServer {
     private SimpleHttpServer(final Builder builder) {
         this.port = builder.port;
         this.routes = builder.routes;
-    }
-
-    public void start() {
-        try (ServerSocketChannel server = ServerSocketChannel.open();) {
-            server.bind(new InetSocketAddress(port));
-            server.configureBlocking(false);
-            final Selector selector = Selector.open();
-            server.register(selector, SelectionKey.OP_ACCEPT);
-            System.out.println("Server listeninig on port - " + port + "...");
-            while (true) {
-                if (selector.select() == 0) {
-                    continue;
-                }
-                try {
-                    final Set<SelectionKey> selectedKeys = selector.selectedKeys();
-                    final Iterator<SelectionKey> iterator = selectedKeys.iterator();
-                    while (iterator.hasNext()) {
-                        final SelectionKey key = iterator.next();
-                        iterator.remove();
-                        if (key.isAcceptable()) {
-                            final SocketChannel channel = server.accept();
-                            channel.configureBlocking(false);
-                            channel.register(selector, SelectionKey.OP_READ);
-                        } else if (key.isReadable()) {
-                            handleRequest((SocketChannel) key.channel());
-                        }
-                    }
-                } catch (final IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void handleRequest(final SocketChannel channel) throws IOException {
@@ -108,5 +74,46 @@ public class SimpleHttpServer {
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    private boolean keepRunning = true;
+
+    @Override
+    public void run() {
+        try (ServerSocketChannel server = ServerSocketChannel.open();) {
+            server.bind(new InetSocketAddress(port));
+            server.configureBlocking(false);
+            final Selector selector = Selector.open();
+            server.register(selector, SelectionKey.OP_ACCEPT);
+            System.out.println("Server listeninig on port - " + port + "...");
+            while (keepRunning) {
+                if (selector.select() == 0) {
+                    continue;
+                }
+                try {
+                    final Set<SelectionKey> selectedKeys = selector.selectedKeys();
+                    final Iterator<SelectionKey> iterator = selectedKeys.iterator();
+                    while (iterator.hasNext()) {
+                        final SelectionKey key = iterator.next();
+                        iterator.remove();
+                        if (key.isAcceptable()) {
+                            final SocketChannel channel = server.accept();
+                            channel.configureBlocking(false);
+                            channel.register(selector, SelectionKey.OP_READ);
+                        } else if (key.isReadable()) {
+                            handleRequest((SocketChannel) key.channel());
+                        }
+                    }
+                } catch (final IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stop() {
+        keepRunning = false;
     }
 }
