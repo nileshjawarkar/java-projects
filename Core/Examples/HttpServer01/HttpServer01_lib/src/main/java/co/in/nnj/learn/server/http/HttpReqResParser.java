@@ -21,7 +21,7 @@ class HttpReqResParser {
         if (line_idx >= content_lines.length) {
             return null;
         }
-        final StringBuffer dataBuffer = new StringBuffer();
+        final StringBuffer dataBuffer = new StringBuffer(" ");
         while (line_idx < content_lines.length) {
             dataBuffer.append(content_lines[line_idx]);
             line_idx++;
