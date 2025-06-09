@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <name>PrjCarMan_webapp</name>
+   <groupId>co.in.nnj.learn.jee</groupId>
+   <artifactId>PrjCarMan_webapp</artifactId>
+   <version>0.0.1</version>
+   <packaging>war</packaging>
+   <parent>
+      <artifactId>PrjCarMan</artifactId>
+      <groupId>co.in.nnj.learn.jee</groupId>
+      <version>0.0.1</version>
+   </parent>
+   <properties>
+      <failOnMissingWebXml>false</failOnMissingWebXml>
+   </properties>
+   <dependencies>
+      <dependency>
+         <artifactId>PrjCarMan_lib</artifactId>
+         <groupId>co.in.nnj.learn.jee</groupId>
+         <version>0.0.1</version>
+      </dependency>
+   </dependencies>
+</project>

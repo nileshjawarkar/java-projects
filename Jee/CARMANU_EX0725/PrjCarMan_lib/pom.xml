@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+   <name>PrjCarMan_lib</name>
+   <groupId>co.in.nnj.learn.jee</groupId>
+   <artifactId>PrjCarMan_lib</artifactId>
+   <version>0.0.1</version>
+   <packaging>jar</packaging>
+   <parent>
+      <artifactId>PrjCarMan</artifactId>
+      <groupId>co.in.nnj.learn.jee</groupId>
+      <version>0.0.1</version>
+   </parent>
+   <dependencies>
+      <dependency>
+         <artifactId>jakarta.jakartaee-api</artifactId>
+         <groupId>jakarta.platform</groupId>
+         <scope>provided</scope>
+      </dependency>
+      <dependency>
+         <artifactId>slf4j-api</artifactId>
+         <groupId>org.slf4j</groupId>
+      </dependency>
+      <dependency>
+         <artifactId>logback-core</artifactId>
+         <groupId>ch.qos.logback</groupId>
+      </dependency>
+      <dependency>
+         <artifactId>logback-classic</artifactId>
+         <groupId>ch.qos.logback</groupId>
+      </dependency>
+      <dependency>
+         <groupId>org.xerial</groupId>
+         <artifactId>sqlite-jdbc</artifactId>
+      </dependency>
+      <!-- <dependency>
+         <artifactId>h2</artifactId>
+         <groupId>com.h2database</groupId>
+      </dependency> -->
+      <dependency>
+         <artifactId>mockito-core</artifactId>
+         <groupId>org.mockito</groupId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <artifactId>mockito-junit-jupiter</artifactId>
+         <groupId>org.mockito</groupId>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <artifactId>junit-jupiter-api</artifactId>
+         <groupId>org.junit.jupiter</groupId>
+         <scope>test</scope>
+      </dependency>
+   </dependencies>
+</project>
