@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class Ex1_SingleThreadExecutor {
+public final class Ex1_SingleThreadExecutor {
 
     public static class Task implements Runnable {
         private final int counter;
@@ -29,17 +29,18 @@ public class Ex1_SingleThreadExecutor {
      * @param args
      */
     public static void main(final String[] args) {
-        final ExecutorService service = Executors.newSingleThreadExecutor();
-        for (int i = 0; i < 15; i++) {
-            service.execute(new Task(i));
-        }
+        try (ExecutorService service = Executors.newSingleThreadExecutor();) {
+            for (int i = 0; i < 15; i++) {
+                service.execute(new Task(i));
+            }
 
-        try {
-            service.awaitTermination(25, TimeUnit.SECONDS);
-            System.out.println("Done");
-        } catch (final InterruptedException e) {
-            e.printStackTrace();
+            try {
+                service.awaitTermination(25, TimeUnit.SECONDS);
+                System.out.println("Done");
+            } catch (final InterruptedException e) {
+                e.printStackTrace();
+            }
+            service.shutdown();
         }
-        service.shutdown();
     }
 }

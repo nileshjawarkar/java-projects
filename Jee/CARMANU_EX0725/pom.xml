@@ -10,6 +10,7 @@
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <skipTests>true</skipTests>
       <skipChecks>true</skipChecks>
+      <rootBase>${session.executionRootDirectory}</rootBase>
       <maven.compiler.source>21</maven.compiler.source>
       <maven.compiler.target>21</maven.compiler.target>
    </properties>
@@ -121,8 +122,37 @@
             <groupId>org.apache.maven.plugins</groupId>
             <version>3.4.0</version>
          </plugin>
+         <plugin>
+            <artifactId>maven-pmd-plugin</artifactId>
+            <groupId>org.apache.maven.plugins</groupId>
+            <version>3.26.0</version>
+            <configuration>
+               <failOnViolation>false</failOnViolation>
+               <printFailingErrors>true</printFailingErrors>
+               <targetJdk>17</targetJdk>
+               <rulesets>
+                  <ruleset>${rootBase}/pmd-rules.xml</ruleset>
+               </rulesets>
+            </configuration>
+            <executions>
+               <execution>
+                  <goals>
+                     <goal>check</goal>
+                  </goals>
+               </execution>
+            </executions>
+         </plugin>
       </plugins>
    </build>
+   <reporting>
+      <plugins>
+         <plugin>
+            <artifactId>maven-jxr-plugin</artifactId>
+            <groupId>org.apache.maven.plugins</groupId>
+            <version>3.6.0</version>
+         </plugin>
+      </plugins>
+   </reporting>
    <modules>
       <module>PrjCarMan_lib</module>
       <module>PrjCarMan_webapp</module>
