@@ -70,7 +70,7 @@ public class CarRWService {
             arrayBuilder.add(Json.createValue(car.getId().toString()));
         }
 
-        if(cars.isEmpty()) {
+        if(!cars.isEmpty()) {
             return Response.ok(arrayBuilder.build().toString()).build();
         }
         return Response.status(Response.Status.NO_CONTENT).build();
