@@ -16,7 +16,7 @@ import com.nnj.learn.jee.entity.Specification;
 @Stateless
 public class CarManufacturer {
 
-    Logger LOGGER = LoggerFactory.getLogger(CarManufacturer.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(CarManufacturer.class.getName());
 
     @Inject
     CarFactory carFactory;

@@ -24,11 +24,13 @@ public class Ex7_PCModel_WithWaitAndNotify {
                 synchronized (this) {
                     try {
                         if (messageQueue.size() > 4) {
+                            System.out.println(Thread.currentThread().getName() + " waiting...");
+                            this.notify();
                             this.wait();
                         }
+                        System.out.println(Thread.currentThread().getName() + " added message...");
                         messageQueue.add("message " + count + ", size = " + messageQueue.size());
                         count++;
-                        this.notify();
                     } catch (final InterruptedException e) {
                     }
                 }
@@ -41,12 +43,12 @@ public class Ex7_PCModel_WithWaitAndNotify {
                     try {
                         if (messageQueue.size() == 0) {
                             System.out.println(Thread.currentThread().getName() + " waiting...");
+                            this.notify();
                             this.wait();
                         }
 
                         TimeUnit.SECONDS.sleep(1);
                         System.out.println("Consumed = " + messageQueue.poll());
-                        this.notify();
                     } catch (final InterruptedException e) {
                     }
                 }
@@ -71,6 +73,7 @@ public class Ex7_PCModel_WithWaitAndNotify {
             }
         });
 
+        //-- Start the thread and wait for 20 SECONDS.
         t1.start();
         t2.start();
 
@@ -79,6 +82,12 @@ public class Ex7_PCModel_WithWaitAndNotify {
         } catch (final InterruptedException e) {
         }
 
+        //-- After 20 SECONDS, stop the loop.
         task.setEnd(true);
+
+        //-- At the end one of the thread will be waiting and blocked.
+        //-- So we need to kill the blocked thread here.
+        if(t1.isAlive()) t1.interrupt();
+        if(t2.isAlive()) t2.interrupt();
     }
 }
