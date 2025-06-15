@@ -15,8 +15,16 @@ import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 
 public class Ex9_ReadWriteLocks {
     private final HashMap<Integer, List<String>> productIdToReviews;
+    //-- 1 thread can acquire Reentrant lock multiple time. On acquire its acquire count is incremented by 1 and same
+    //-- way on release it acquire count decreases by 1.
     ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+
+    //-- Whne zero writeLocks acquired, multiple threads can acquire readLock. So
+    //-- it will allow multiple thread to read the data.
     ReadLock readLock = readWriteLock.readLock();
+
+    //-- Write lock can be acquire by single thread only, so only one thread can
+    //-- write.
     WriteLock writeLock = readWriteLock.writeLock();
 
     public Ex9_ReadWriteLocks() {
