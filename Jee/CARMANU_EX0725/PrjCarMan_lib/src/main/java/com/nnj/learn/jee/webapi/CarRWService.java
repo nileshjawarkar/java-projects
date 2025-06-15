@@ -25,6 +25,7 @@ import com.nnj.learn.jee.boundary.CarManufacturer;
 import com.nnj.learn.jee.entity.Car;
 import com.nnj.learn.jee.entity.Seat;
 import com.nnj.learn.jee.entity.Specification;
+import com.nnj.learn.jee.entity.SteeringWheel;
 
 @Path("/car")
 @Produces(MediaType.APPLICATION_JSON)
@@ -68,6 +69,12 @@ public class CarRWService {
                     .build());
             }
             objBuilder.add("seats", arrayBuilder.build());
+        }
+
+        final SteeringWheel steering = car.getSteeringWheel();
+        if(steering != null) {
+            objBuilder.add("steering", Json.createObjectBuilder()
+                .add("id", steering.getId()).add("type", steering.getType().toString()).build());
         }
 
         final String jsonCar = objBuilder.build().toString();

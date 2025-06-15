@@ -5,6 +5,7 @@
       <jta-data-source>carman/managed</jta-data-source>
       <class>com.nnj.learn.jee.entity.Car</class>
       <class>com.nnj.learn.jee.entity.Seat</class>
+      <class>com.nnj.learn.jee.entity.SteeringWheel</class>
       <exclude-unlisted-classes>false</exclude-unlisted-classes>
       <properties>
          <property name="eclipselink.logging.level" value="FINE"/>

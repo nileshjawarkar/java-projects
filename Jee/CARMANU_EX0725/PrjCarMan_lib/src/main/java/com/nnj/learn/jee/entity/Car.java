@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -40,9 +41,21 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private EngineType engineType;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "car", nullable = false)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "carId", nullable = false)
     private List<Seat> seats;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "steeringId", referencedColumnName = "id")
+    private SteeringWheel steeringWheel;
+
+    public SteeringWheel getSteeringWheel() {
+        return steeringWheel;
+    }
+
+    public void setSteeringWheel(final SteeringWheel steeringWheel) {
+        this.steeringWheel = steeringWheel;
+    }
 
     public Long getId() {
         return id;
@@ -71,14 +84,6 @@ public class Car {
     @Override
     public String toString() {
         return "Car {id=" + id + ", color=" + color + ", engineType=" + engineType + "}";
-    }
-
-    public static String getFindAllCars() {
-        return FIND_ALL_CARS;
-    }
-
-    public static String getFindACar() {
-        return FIND_A_CAR;
     }
 
     public List<Seat> getSeats() {

@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.nnj.learn.jee.control.BadSpecification;
 import com.nnj.learn.jee.control.CarFactory;
 import com.nnj.learn.jee.control.CarRepository;
 import com.nnj.learn.jee.entity.Car;
@@ -24,6 +25,9 @@ public class CarManufacturer {
     CarRepository carRepository;
 
     public Car manufactureCar(final Specification spec) {
+        if(spec.getEngineType() == null || spec.getColor() == null) {
+            throw new BadSpecification();
+        }
         final Car car = carFactory.createCar(spec);
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info(" Created => " + car);

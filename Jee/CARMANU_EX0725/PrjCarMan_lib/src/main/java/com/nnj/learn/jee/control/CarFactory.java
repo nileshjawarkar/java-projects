@@ -12,6 +12,8 @@ import com.nnj.learn.jee.entity.SeatBelt;
 import com.nnj.learn.jee.entity.SeatBeltModel;
 import com.nnj.learn.jee.entity.SeatMaterial;
 import com.nnj.learn.jee.entity.Specification;
+import com.nnj.learn.jee.entity.SteeringType;
+import com.nnj.learn.jee.entity.SteeringWheel;
 
 @Stateless
 public class CarFactory {
@@ -87,6 +89,10 @@ public class CarFactory {
         seats.add(bm);
         seats.add(br);
         car.setSeats(seats);
+
+        final SteeringWheel steeringWheel = new SteeringWheel();
+        steeringWheel.setType(category == Category.LUXURY ? SteeringType.ELECTRONIC : SteeringType.TELESCOPING);
+        car.setSteeringWheel(steeringWheel);
         return car;
     }
 }

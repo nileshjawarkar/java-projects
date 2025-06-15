@@ -10,8 +10,13 @@ public class Specification {
     private Color color;
     @NotNull
     private EngineType engineType;
+    private Category category;
 
-    private Category category = null;
+    public Specification() {}
+    public Specification(final EngineType engineType, final Color color) {
+        this.engineType = engineType;
+        this.color = color;
+    }
 
     public Category getCategory() {
         return category;
