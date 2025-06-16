@@ -11,7 +11,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -41,12 +40,12 @@ public class Car {
     @Enumerated(EnumType.STRING)
     private EngineType engineType;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "carId", nullable = false)
+    @OneToMany(targetEntity = Seat.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //-- @JoinColumn(name = "carId", nullable = false)
     private List<Seat> seats;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "steeringId", referencedColumnName = "id")
+    //-- @JoinColumn(name = "steeringId", referencedColumnName = "id")
     private SteeringWheel steeringWheel;
 
     public SteeringWheel getSteeringWheel() {

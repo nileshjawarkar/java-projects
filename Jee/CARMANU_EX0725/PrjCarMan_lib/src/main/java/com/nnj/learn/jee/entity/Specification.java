@@ -12,7 +12,11 @@ public class Specification {
     private EngineType engineType;
     private Category category;
 
+    /*
+     * Required for JAX-RS
+     */
     public Specification() {}
+
     public Specification(final EngineType engineType, final Color color) {
         this.engineType = engineType;
         this.color = color;
