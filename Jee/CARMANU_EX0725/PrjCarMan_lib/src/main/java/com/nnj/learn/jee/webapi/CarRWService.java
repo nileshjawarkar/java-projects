@@ -56,7 +56,9 @@ public class CarRWService {
         final JsonObjectBuilder objBuilder = Json.createObjectBuilder()
                 .add("id", car.getId().toString())
                 .add("color", car.getColor().toString())
-                .add("engineType", car.getEngineType().toString());
+                .add("engineType", car.getEngineType().toString())
+                .add("createdAt", car.getCreatedAt().toString())
+                .add("modifiedAt", car.getModifiedAt().toString());
 
         final List<Seat> seats = car.getSeats();
         if(seats != null && !seats.isEmpty()) {
