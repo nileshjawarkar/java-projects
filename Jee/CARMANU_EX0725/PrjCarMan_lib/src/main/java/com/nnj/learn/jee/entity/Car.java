@@ -8,9 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -20,17 +17,15 @@ import jakarta.persistence.Table;
 @Table(name = "cars")
 @NamedQuery(name = Car.FIND_ALL_CARS, query = "select c from Car c")
 @NamedQuery(name = Car.FIND_A_CAR, query = "select c from Car c where c.id = :Id")
-public class Car {
+public class Car extends BaseEntity {
     public static final String FIND_ALL_CARS = "Car.FindAll";
     public static final String FIND_A_CAR = "Car.FindACar";
 
     //-- @GeneratedValue(strategy = GenerationType.AUTO)
     //-- @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    //-- @GeneratedValue(strategy = GenerationType.UUID)
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    //-- private UUID id;
+    //-- @Id
+    //-- @GeneratedValue(strategy = GenerationType.AUTO)
+    //-- private Long id;
 
     @Column(name = "color")
     @Enumerated(EnumType.STRING)
@@ -54,14 +49,6 @@ public class Car {
 
     public void setSteeringWheel(final SteeringWheel steeringWheel) {
         this.steeringWheel = steeringWheel;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
     }
 
     public Color getColor() {

@@ -1,6 +1,7 @@
 package com.nnj.learn.jee.control;
 
 import java.util.List;
+import java.util.UUID;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -18,7 +19,7 @@ public class CarRepository {
         entityManager.persist(car);
     }
 
-    public Car findCar(final Long id) {
+    public Car findCar(final UUID id) {
         //-- return entityManager.find(Car.class, id);
         return entityManager.createNamedQuery(Car.FIND_A_CAR, Car.class)
             .setParameter("Id", id).getResultList().getFirst();

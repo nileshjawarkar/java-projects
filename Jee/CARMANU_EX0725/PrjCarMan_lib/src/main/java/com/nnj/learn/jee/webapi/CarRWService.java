@@ -64,7 +64,7 @@ public class CarRWService {
             for (final Seat seat : seats) {
                arrayBuilder.add(Json.createObjectBuilder()
                     .add("material", seat.getMaterial().toString())
-                    .add("id", seat.getId())
+                    .add("id", seat.getId().toString())
                     .add("seatBelt", seat.getBelt().getModel().toString())
                     .build());
             }
@@ -74,7 +74,7 @@ public class CarRWService {
         final SteeringWheel steering = car.getSteeringWheel();
         if(steering != null) {
             objBuilder.add("steering", Json.createObjectBuilder()
-                .add("id", steering.getId()).add("type", steering.getType().toString()).build());
+                .add("id", steering.getId().toString()).add("type", steering.getType().toString()).build());
         }
 
         final String jsonCar = objBuilder.build().toString();

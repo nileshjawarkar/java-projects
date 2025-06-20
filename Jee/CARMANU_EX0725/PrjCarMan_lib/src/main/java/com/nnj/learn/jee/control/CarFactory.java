@@ -56,11 +56,11 @@ public class CarFactory {
             bm.setMaterial(SeatMaterial.VINYL);
             br.setMaterial(SeatMaterial.VINYL);
 
-            b1.setModel(SeatBeltModel.NORMAL_WITH_AIRBAGS);
-            b2.setModel(SeatBeltModel.NORMAL_WITH_AIRBAGS);
-            b3.setModel(SeatBeltModel.NORMAL_WITH_AIRBAGS);
-            b4.setModel(SeatBeltModel.NORMAL_WITH_AIRBAGS);
-            b5.setModel(SeatBeltModel.NORMAL_WITH_AIRBAGS);
+            b1.setModel(SeatBeltModel.NORMAL_WITH_ABAGS);
+            b2.setModel(SeatBeltModel.NORMAL_WITH_ABAGS);
+            b3.setModel(SeatBeltModel.NORMAL_WITH_ABAGS);
+            b4.setModel(SeatBeltModel.NORMAL_WITH_ABAGS);
+            b5.setModel(SeatBeltModel.NORMAL_WITH_ABAGS);
 
         } else if (category == Category.PREMIUM || category == Category.LUXURY) {
             fl.setMaterial(SeatMaterial.LEATHER);
@@ -69,11 +69,11 @@ public class CarFactory {
             bm.setMaterial(SeatMaterial.LEATHER);
             br.setMaterial(SeatMaterial.LEATHER);
 
-            b1.setModel(SeatBeltModel.ADV_WITH_AIRBAGS);
-            b2.setModel(SeatBeltModel.ADV_WITH_AIRBAGS);
-            b3.setModel(SeatBeltModel.ADV_WITH_AIRBAGS);
-            b4.setModel(SeatBeltModel.ADV_WITH_AIRBAGS);
-            b5.setModel(SeatBeltModel.ADV_WITH_AIRBAGS);
+            b1.setModel(SeatBeltModel.ADV_WITH_ABAGS);
+            b2.setModel(SeatBeltModel.ADV_WITH_ABAGS);
+            b3.setModel(SeatBeltModel.ADV_WITH_ABAGS);
+            b4.setModel(SeatBeltModel.ADV_WITH_ABAGS);
+            b5.setModel(SeatBeltModel.ADV_WITH_ABAGS);
         }
 
         fl.setBelt(b1);
