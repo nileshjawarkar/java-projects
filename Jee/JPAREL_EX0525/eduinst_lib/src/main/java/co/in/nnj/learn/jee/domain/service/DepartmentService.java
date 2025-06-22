@@ -7,14 +7,14 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 
 import co.in.nnj.learn.jee.common.exception.ConstraintVoilationException;
-import co.in.nnj.learn.jee.domain.repository.DepartmentRepository;
+import co.in.nnj.learn.jee.domain.repository.Repository;
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
 
 @Stateless
 public class DepartmentService {
 
     @Inject
-    DepartmentRepository repository;
+    Repository<Department, UUID> repository;
 
     public Department create(final Department dept) {
         final List<Department> depts = findByName(dept.name());
@@ -29,7 +29,7 @@ public class DepartmentService {
     }
 
     public List<Department> findByName(final String name) {
-        return repository.findByName(name);
+        return repository.findBy(name);
     }
 
     public Department find(final UUID id) {

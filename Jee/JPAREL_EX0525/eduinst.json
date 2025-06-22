@@ -1,0 +1,227 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "9f479456-d6b1-4f4c-966b-ba3fb245252f",
+        "name": "eduinst"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"Computer Engineering\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "744c82fc-8c98-4e1c-a431-0985cfd34a6a",
+            "name": "Create_Dep_Comp",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"Production Engineering\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": " ${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "1bbd7baf-1121-4d7f-998f-a3813b396fa7",
+            "name": "Create_Dep_Prod",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"production enggg.\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/87b9087e-8ccf-4fe4-8e21-a8325d77c740"
+            },
+            "id": "08fe297a-7490-43ac-9f3a-ace4bf0cd3fd",
+            "name": "GET_DEP",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "47f95389-c7c0-4a1b-84b9-088b31df652c",
+            "name": "GetAll",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "name",
+                    "value": "\"Production Engineering\""
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": " ${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "397204a8-173b-484d-a0ad-5da0d6cf753a",
+            "name": "GetAll_with_name",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "environments": [
+    {
+      "id": "2d424ad6-c353-4a0a-9f69-364a3cb4878c",
+      "name": "LOCAL_TOMEE",
+      "variables": {
+        "bd93ba6a-5272-4c81-87ce-90fc6f2c0d7f": {
+          "createdAt": "2025-06-21T21:47:00.530+05:30",
+          "name": "MYAPP",
+          "value": "localhost:8080/myapp/api",
+          "enabled": true,
+          "private": false
+        }
+      }
+    }
+  ]
+}

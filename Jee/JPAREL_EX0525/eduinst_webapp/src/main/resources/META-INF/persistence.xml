@@ -7,6 +7,7 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>myapp/managed</jta-data-source>
         <class>co.in.nnj.learn.jee.port.output.entity.DepartmentEntity</class> 
+        <class>co.in.nnj.learn.jee.port.output.entity.EmployeeEntity</class> 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property

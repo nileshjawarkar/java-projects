@@ -6,28 +6,32 @@ import java.util.List;
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
 import co.in.nnj.learn.jee.port.output.entity.DepartmentEntity;
 
-public final class DepartmentMapper {
-    private DepartmentMapper() {
+public final class DepartmentMapper implements EntityMapper <DepartmentEntity, Department> {
+    @Override
+    public DepartmentEntity updateEntity(final DepartmentEntity entity, final Department vobj) {
+        entity.setName(vobj.name());
+        entity.setFunction(vobj.function());
+        return entity;
     }
 
-    public static DepartmentEntity toEntity(final Department department) {
+    @Override
+    public DepartmentEntity toEntity(final Department vobj) {
         final DepartmentEntity dept = new DepartmentEntity();
-        dept.setName(department.name());
-        dept.setFunction(department.function());
-        return dept;
+        return updateEntity(dept, vobj);
     }
 
-    public static Department toObject(final DepartmentEntity dept) {
-        return new Department(dept.getName(), dept.getFunction(), dept.getId());
+    @Override
+    public Department toValue(final DepartmentEntity entity) {
+        return new Department(entity.getName(), entity.getFunction(), entity.getId());
     }
 
-    public static List<Department> toObjectList(final List<DepartmentEntity> resultList) {
+    @Override
+    public List<Department> toValueList(final List<DepartmentEntity> listOfEntities) {
         final List<Department> deptList = new ArrayList<>();
-        for (final DepartmentEntity dept : resultList) {
-            final Department dto = toObject(dept);
+        for (final DepartmentEntity dept : listOfEntities) {
+            final Department dto = toValue(dept);
             deptList.add(dto);
         }
         return deptList;
     }
-
 }
