@@ -23,8 +23,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import co.in.nnj.learn.jee.domain.service.DepartmentService;
+import co.in.nnj.learn.jee.domain.service.EmployeeService;
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
 import co.in.nnj.learn.jee.domain.valueobjects.DepartmentType;
+import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 
 @Path("department")
 @Produces(MediaType.APPLICATION_JSON)
@@ -33,6 +35,8 @@ public class DepartmentController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentController.class.getName());
     @Inject
     DepartmentService departmentSrv;
+    @Inject
+    EmployeeService employeeService;
 
     @Context
     UriInfo uriInfo;
@@ -93,12 +97,20 @@ public class DepartmentController {
         return listToResponse(depts);
     }
 
-    @GET
+    @POST
     @Path("{id}/employee")
-    public Response addEmployee(@PathParam("id") final String id) {
-        LOGGER.info("id" + id);
-        return Response.status(Response.Status.BAD_REQUEST)
-                .entity("Error - Work in process")
-                .build();
+    public Response addEmployee(@PathParam("id") final String id, final JsonObject jsonObject) {
+        final Employee emp = JsonMapper.jsonObjToEmployee(jsonObject);
+        if (emp == null || id == null || id.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .build();
+        }
+        final Employee newEmp = employeeService.create(emp);
+        if (newEmp == null) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(String.format("Error - Failed to create employee [name = %s %s]", emp.fname(), emp.lname()))
+                    .build();
+        }
+        return Response.ok().entity(JsonMapper.employeeToJsonObj(newEmp)).build();
     }
 }

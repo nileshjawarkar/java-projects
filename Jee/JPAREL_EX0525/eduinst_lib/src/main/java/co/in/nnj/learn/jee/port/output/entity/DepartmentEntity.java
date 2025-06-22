@@ -15,7 +15,7 @@ import co.in.nnj.learn.jee.domain.valueobjects.DepartmentType;
 @NamedQuery(name = DepartmentEntity.FIND_BY, query = "select d from DepartmentEntity d where d.name = :Name")
 public class DepartmentEntity extends BaseEntity {
     public static final String FIND_ALL = "Dept.FIND_ALL";
-    public static final String FIND_BY = "Dept.FIND_ALL_BY_NAME";
+    public static final String FIND_BY = "Dept.FIND_BY_NAME";
 
     @Column(name = "name", unique = true)
     private String name;
