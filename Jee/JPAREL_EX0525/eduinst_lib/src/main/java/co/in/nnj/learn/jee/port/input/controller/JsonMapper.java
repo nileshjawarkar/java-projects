@@ -1,10 +1,9 @@
 package co.in.nnj.learn.jee.port.input.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.UUID;
 
 import jakarta.json.Json;
 import jakarta.json.JsonException;
@@ -32,7 +31,7 @@ public final class JsonMapper {
         return jsonObject;
     }
 
-    static Employee jsonObjToEmployee(final JsonObject jsonObject) {
+    static Employee jsonObjToEmployee(final JsonObject jsonObject, final String id) {
         try {
             final String eFName = jsonObject.getString("fname");
             final String eLName = jsonObject.getString("lname");
@@ -41,12 +40,13 @@ public final class JsonMapper {
             final String eQualification = jsonObject.getString("qualification");
             final String eDob = jsonObject.getString("dob");
             final String eDoj = jsonObject.getString("doj");
+            final UUID eDepartment = UUID.fromString(id);
             try {
-                final DateTimeFormatter dateFormater = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                final Date dob = Date.from(Instant.from(dateFormater.parse(eDob)));
-                final Date doj = Date.from(Instant.from(dateFormater.parse(eDoj)));
-                return new Employee(eFName, eLName, dob, doj, eQualification, eExpertices, EmployeeType.valueOf(eType));
-            } catch (final DateTimeParseException e) {
+                final SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+                final Date dob = formater.parse(eDob);
+                final Date doj = formater.parse(eDoj);
+                return new Employee(eFName, eLName, dob, doj, eQualification, eExpertices, EmployeeType.valueOf(eType), eDepartment);
+            } catch (final ParseException e) {
                 LOGGER.error(String.format("Failed to parse DOB {%s} or DOJ {%s}", eDob, eDoj));
                 LOGGER.debug(" - ", e);
             }
@@ -61,6 +61,7 @@ public final class JsonMapper {
         final SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
         final JsonObject jsonObject = Json.createObjectBuilder()
                 .add("id", emp.id().toString())
+                .add("department_id", emp.departmentId().toString())
                 .add("fname", emp.fname())
                 .add("lname", emp.lname())
                 .add("experties", emp.experties())

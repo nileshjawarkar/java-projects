@@ -8,6 +8,8 @@
         <jta-data-source>myapp/managed</jta-data-source>
         <class>co.in.nnj.learn.jee.port.output.entity.DepartmentEntity</class> 
         <class>co.in.nnj.learn.jee.port.output.entity.EmployeeEntity</class> 
+        <class>co.in.nnj.learn.jee.port.output.entity.TeachingStaffEntity</class> 
+        <class>co.in.nnj.learn.jee.port.output.entity.OperationStaffEntity</class> 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property

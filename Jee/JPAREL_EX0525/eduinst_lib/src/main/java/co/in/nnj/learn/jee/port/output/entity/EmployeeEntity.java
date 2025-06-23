@@ -6,6 +6,8 @@ import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -30,6 +32,18 @@ public class EmployeeEntity extends BaseEntity {
 
     @Temporal(TemporalType.DATE)
     private Date dob;
+
+    @ManyToOne
+    @JoinColumn(name = "deparment_id")
+    private DepartmentEntity department;
+
+    public DepartmentEntity getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(final DepartmentEntity department) {
+        this.department = department;
+    }
 
     public String getQualification() {
         return qualification;

@@ -100,7 +100,7 @@ public class DepartmentController {
     @POST
     @Path("{id}/employee")
     public Response addEmployee(@PathParam("id") final String id, final JsonObject jsonObject) {
-        final Employee emp = JsonMapper.jsonObjToEmployee(jsonObject);
+        final Employee emp = JsonMapper.jsonObjToEmployee(jsonObject, id);
         if (emp == null || id == null || id.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST)
                     .build();
