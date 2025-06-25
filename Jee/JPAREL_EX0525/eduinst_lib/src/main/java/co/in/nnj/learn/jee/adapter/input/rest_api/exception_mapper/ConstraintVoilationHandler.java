@@ -1,4 +1,4 @@
-package co.in.nnj.learn.jee.port.input.controller.exception_mapper;
+package co.in.nnj.learn.jee.adapter.input.rest_api.exception_mapper;
 
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;

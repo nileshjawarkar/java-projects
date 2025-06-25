@@ -1,10 +1,10 @@
-package co.in.nnj.learn.jee.port.output.object_mapper;
+package co.in.nnj.learn.jee.adapter.output.object_mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import co.in.nnj.learn.jee.adapter.output.db.entity.DepartmentEntity;
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
-import co.in.nnj.learn.jee.port.output.entity.DepartmentEntity;
 
 public final class DepartmentMapper implements EntityMapper <DepartmentEntity, Department> {
     @Override

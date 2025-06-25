@@ -1,4 +1,4 @@
-package co.in.nnj.learn.jee.port.input.controller;
+package co.in.nnj.learn.jee.adapter.input.rest_api;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package co.in.nnj.learn.jee.port.output.entity;
+package co.in.nnj.learn.jee.adapter.output.db.entity;
 
 import java.util.UUID;
 

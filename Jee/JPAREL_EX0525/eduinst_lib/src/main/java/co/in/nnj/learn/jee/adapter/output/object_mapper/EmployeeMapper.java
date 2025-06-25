@@ -1,14 +1,14 @@
-package co.in.nnj.learn.jee.port.output.object_mapper;
+package co.in.nnj.learn.jee.adapter.output.object_mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import co.in.nnj.learn.jee.adapter.output.db.entity.DepartmentEntity;
+import co.in.nnj.learn.jee.adapter.output.db.entity.EmployeeEntity;
+import co.in.nnj.learn.jee.adapter.output.db.entity.OperationStaffEntity;
+import co.in.nnj.learn.jee.adapter.output.db.entity.TeachingStaffEntity;
 import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 import co.in.nnj.learn.jee.domain.valueobjects.EmployeeType;
-import co.in.nnj.learn.jee.port.output.entity.DepartmentEntity;
-import co.in.nnj.learn.jee.port.output.entity.EmployeeEntity;
-import co.in.nnj.learn.jee.port.output.entity.OperationStaffEntity;
-import co.in.nnj.learn.jee.port.output.entity.TeachingStaffEntity;
 
 public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employee> {
     @Override

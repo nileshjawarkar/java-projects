@@ -1,4 +1,4 @@
-package co.in.nnj.learn.jee.port.input.controller;
+package co.in.nnj.learn.jee.adapter.input.rest_api;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,13 +22,12 @@ import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EmployeeController {
-
     @Inject
     EmployeeService employeeService;
 
     @GET
-    public Response getAll(@QueryParam("fname") final String fname) {
-        final List<Employee> emps = (fname == null ? employeeService.findAll() : employeeService.findBy(fname));
+    public Response getAll(@QueryParam("fname") final String fname, @QueryParam("lname") final String lname) {
+        final List<Employee> emps = (fname == null ? employeeService.findAll() : employeeService.findByName(fname, lname));
         if(emps == null || emps.isEmpty()) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }

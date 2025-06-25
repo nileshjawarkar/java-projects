@@ -1,4 +1,4 @@
-package co.in.nnj.learn.jee.port.output.entity;
+package co.in.nnj.learn.jee.adapter.output.db.entity;
 
 import java.util.Date;
 
@@ -18,10 +18,12 @@ import jakarta.persistence.TemporalType;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 @NamedQuery(name = EmployeeEntity.FIND_ALL, query = "select e from EmployeeEntity e")
-@NamedQuery(name = EmployeeEntity.FIND_BY, query = "select e from EmployeeEntity e where e.fname = :FName")
+@NamedQuery(name = EmployeeEntity.FIND_BY_DEPT, query = "select e from EmployeeEntity e where e.department = :Dept")
+@NamedQuery(name = EmployeeEntity.FIND_BY_NAME, query = "select e from EmployeeEntity e where e.fname = :FName and e.lname = :LName")
 public class EmployeeEntity extends BaseEntity {
     public static final String FIND_ALL = "Employee.FIND_ALL";
-    public static final String FIND_BY = "Employee.FIND_BY_NAME";
+    public static final String FIND_BY_NAME = "Employee.FIND_BY_NAME";
+    public static final String FIND_BY_DEPT = "Employee.FIND_BY_DEPT";
 
     private String fname;
     private String lname;

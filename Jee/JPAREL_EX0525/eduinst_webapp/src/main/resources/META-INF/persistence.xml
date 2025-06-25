@@ -6,10 +6,10 @@
 	<persistence-unit name="development" transaction-type="JTA">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>myapp/managed</jta-data-source>
-        <class>co.in.nnj.learn.jee.port.output.entity.DepartmentEntity</class> 
-        <class>co.in.nnj.learn.jee.port.output.entity.EmployeeEntity</class> 
-        <class>co.in.nnj.learn.jee.port.output.entity.TeachingStaffEntity</class> 
-        <class>co.in.nnj.learn.jee.port.output.entity.OperationStaffEntity</class> 
+        <class>co.in.nnj.learn.jee.adapter.output.db.entity.DepartmentEntity</class> 
+        <class>co.in.nnj.learn.jee.adapter.output.db.entity.EmployeeEntity</class> 
+        <class>co.in.nnj.learn.jee.adapter.output.db.entity.TeachingStaffEntity</class> 
+        <class>co.in.nnj.learn.jee.adapter.output.db.entity.OperationStaffEntity</class> 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property

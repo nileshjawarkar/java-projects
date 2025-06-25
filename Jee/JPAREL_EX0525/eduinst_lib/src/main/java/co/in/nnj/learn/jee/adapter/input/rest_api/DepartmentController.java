@@ -1,4 +1,4 @@
-package co.in.nnj.learn.jee.port.input.controller;
+package co.in.nnj.learn.jee.adapter.input.rest_api;
 
 import java.util.List;
 import java.util.UUID;
@@ -95,6 +95,21 @@ public class DepartmentController {
         LOGGER.info("name - " + name);
         final List<Department> depts = (name == null ? departmentSrv.findAll() : departmentSrv.findByName(name));
         return listToResponse(depts);
+    }
+
+    @GET
+    @Path("{id}/employee")
+    public Response getEmployees(@PathParam("id") final String id) {
+        final UUID uuid = (id == null || id.isEmpty()) ? null : UUID.fromString(id);
+        if( uuid != null ) {
+            final List<Employee> emps = employeeService.findByDepartment(uuid);
+            final JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+            for (final Employee emp : emps) {
+               arrayBuilder.add(JsonMapper.employeeToJsonObj(emp));
+            }
+            return  Response.ok().entity(arrayBuilder.build()).build();
+        }
+        return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
     @POST

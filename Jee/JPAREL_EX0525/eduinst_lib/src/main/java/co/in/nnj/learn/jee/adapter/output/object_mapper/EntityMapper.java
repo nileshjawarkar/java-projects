@@ -1,4 +1,4 @@
-package co.in.nnj.learn.jee.port.output.object_mapper;
+package co.in.nnj.learn.jee.adapter.output.object_mapper;
 
 import java.util.List;
 

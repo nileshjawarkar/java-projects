@@ -7,17 +7,17 @@ import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 
 import co.in.nnj.learn.jee.common.exception.ConstraintVoilationException;
-import co.in.nnj.learn.jee.domain.repository.Repository;
 import co.in.nnj.learn.jee.domain.valueobjects.Employee;
+import co.in.nnj.learn.jee.port.output.db.repository.EmployeeRepository;
 
 @Stateless
 public class EmployeeService {
 
     @Inject
-    Repository<Employee, UUID> repository;
+    EmployeeRepository repository;
 
     public Employee create(final Employee emp) {
-        final List<Employee> emps = findBy(emp.fname());
+        final List<Employee> emps = findByName(emp.fname(), emp.lname());
         if (!emps.isEmpty()) {
             throw new ConstraintVoilationException(
                     String.format("Employee with name [%s] already exist.", emp.fname()));
@@ -29,8 +29,12 @@ public class EmployeeService {
         return repository.findAll();
     }
 
-    public List<Employee> findBy(final String name) {
-        return repository.findBy(name);
+    public List<Employee> findByName(final String fname, final String lname) {
+        return repository.findByName(fname, lname);
+    }
+
+    public List<Employee> findByDepartment(final UUID id) {
+        return repository.findByDepartment(id);
     }
 
     public Employee find(final UUID id) {
