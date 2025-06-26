@@ -39,7 +39,7 @@
               "path": "/department"
             },
             "id": "744c82fc-8c98-4e1c-a431-0985cfd34a6a",
-            "name": "s1#Create_Dep_Comp",
+            "name": "a01#create_dep_computer",
             "headers": [
               {
                 "enabled": true,
@@ -80,7 +80,7 @@
               "path": "/department"
             },
             "id": "1bbd7baf-1121-4d7f-998f-a3813b396fa7",
-            "name": "s2#Create_Dep_Prod",
+            "name": "a02#create_dep_production",
             "headers": [
               {
                 "enabled": true,
@@ -118,7 +118,7 @@
               "path": "/department"
             },
             "id": "47f95389-c7c0-4a1b-84b9-088b31df652c",
-            "name": "s3#GetAll",
+            "name": "a03#get_all_departments",
             "headers": [
               {
                 "enabled": true,
@@ -158,7 +158,7 @@
               "path": "/department/${ \"DEPT_ID\" }"
             },
             "id": "08fe297a-7490-43ac-9f3a-ace4bf0cd3fd",
-            "name": "s4#GET_DEP",
+            "name": "a04#get_dep_by_dep_id",
             "headers": []
           }
         },
@@ -184,7 +184,7 @@
                   {
                     "enabled": true,
                     "name": "name",
-                    "value": "\"Production Engineering\""
+                    "value": "Computer Engineering"
                   }
                 ]
               },
@@ -196,12 +196,17 @@
               "path": "/department"
             },
             "id": "397204a8-173b-484d-a0ad-5da0d6cf753a",
-            "name": "s5#GetAll_with_name",
+            "name": "a05#get_dept_with_dept_name",
             "headers": [
               {
                 "enabled": true,
                 "name": "Content-Type",
                 "value": "application/json"
+              },
+              {
+                "enabled": true,
+                "name": "",
+                "value": ""
               }
             ]
           }
@@ -222,7 +227,7 @@
               },
               "bodyType": "Text",
               "textBodyEditorHeight": 150,
-              "textBody": "{\"fname\" : \"nilesh\", \"lname\" : \"Jawarkar\", \n \"dob\" : \"1982-06-05\", \"doj\" : \"2009-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
+              "textBody": "{\"fname\" : \"Ramesh\", \"lname\" : \"Kulkarni\", \n \"dob\" : \"1988-07-05\", \"doj\" : \"2001-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
             },
             "uri": {
               "query": {
@@ -237,7 +242,7 @@
               "path": "/department/${ \"DEPT_ID\" }/employee"
             },
             "id": "2748e020-b384-467e-971a-2a7f770421f5",
-            "name": "s6#Add_Emp_1",
+            "name": "a06#add_employee_1",
             "headers": [
               {
                 "enabled": true,
@@ -263,7 +268,7 @@
               },
               "bodyType": "Text",
               "textBodyEditorHeight": 150,
-              "textBody": "{\"fname\" : \"Riddhi\", \"lname\" : \"Jawarkar\", \n \"dob\" : \"2010-12-09\", \"doj\" : \"2024-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
+              "textBody": "{\"fname\" : \"Parvati\", \"lname\" : \"Mahadevan\", \n \"dob\" : \"2010-12-09\", \"doj\" : \"2024-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
             },
             "uri": {
               "query": {
@@ -278,7 +283,7 @@
               "path": "/department/${ \"DEPT_ID\" }/employee"
             },
             "id": "fa8260d8-6f21-4bcb-b6ed-70630a3002e3",
-            "name": "s7#Add_Emp_2",
+            "name": "a07#add_employee_2",
             "headers": [
               {
                 "enabled": true,
@@ -318,7 +323,86 @@
               "path": "/employee"
             },
             "id": "fb528441-d801-42dc-bbf3-1123d8e97796",
-            "name": "s8#GetAllEmp",
+            "name": "a08#get_all_employee",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Riddhi\", \"lname\" : \"Jawarkar\", \n \"dob\" : \"2010-12-09\", \"doj\" : \"2024-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/${ \"DEPT_ID\" }/employee"
+            },
+            "id": "a5ffed44-6d0e-40bc-ab74-38c650d1d93d",
+            "name": "a09#get_all_employee_of_dept",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Riddhi\", \"lname\" : \"Jawarkar\", \n \"dob\" : \"2010-12-09\", \"doj\" : \"2024-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "fname",
+                    "value": "Ramesh"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "lname",
+                    "value": "Kulkarni"
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/employee"
+            },
+            "id": "21ede390-28e9-4e0a-8c47-53cecd046e40",
+            "name": "a10#get_employee_with_name",
             "headers": []
           }
         }
@@ -340,7 +424,7 @@
         "4b4ea005-f126-4a7b-9019-60ff75a8ac9f": {
           "createdAt": "2025-06-23T21:52:02.769+05:30",
           "name": "DEPT_ID",
-          "value": "caae44a9-a1ff-4bce-a710-2679982de6fd",
+          "value": "4d0d4565-6dd4-4dc7-b70e-62aa855418dc",
           "enabled": true,
           "private": false
         }

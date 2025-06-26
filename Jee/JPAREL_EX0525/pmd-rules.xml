@@ -53,9 +53,9 @@
    <rule ref="category/java/codestyle.xml/GenericsNaming"/>
    <rule ref="category/java/codestyle.xml/LambdaCanBeMethodReference"/>
    <rule ref="category/java/codestyle.xml/LocalVariableNamingConventions"/>
-   <rule ref="category/java/codestyle.xml/LongVariable" />
    <rule ref="category/java/codestyle.xml/MethodNamingConventions"/>
    <rule ref="category/java/codestyle.xml/PackageCase"/>
+   <!-- <rule ref="category/java/codestyle.xml/LongVariable" /> -->
    <!-- <rule ref="category/java/codestyle.xml/LinguisticNaming" /> -->
    <!-- <rule ref="category/java/codestyle.xml/ShortClassName" /> -->
    <!-- <rule ref="category/java/codestyle.xml/ShortMethodName" /> -->
@@ -89,8 +89,8 @@
    <rule ref="category/java/codestyle.xml/UnnecessaryLocalBeforeReturn"/>
    <rule ref="category/java/codestyle.xml/UnnecessaryModifier"/>
    <rule ref="category/java/codestyle.xml/UnnecessaryReturn"/>
-   <rule ref="category/java/codestyle.xml/UselessParentheses"/>
    <rule ref="category/java/codestyle.xml/UselessQualifiedThis"/>
+   <!-- <rule ref="category/java/codestyle.xml/UselessParentheses"/> -->
    <!-- <rule ref="category/java/codestyle.xml/FieldDeclarationsShouldBeAtStartOfClass" /> -->
    <!-- <rule ref="category/java/codestyle.xml/EmptyMethodInAbstractClassShouldBeAbstract" /> -->
    <!-- <rule ref="category/java/codestyle.xml/AtLeastOneConstructor" /> -->

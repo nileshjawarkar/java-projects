@@ -41,17 +41,12 @@ public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employ
 
     @Override
     public Employee toValue(final EmployeeEntity emp) {
-        EmployeeType type = EmployeeType.OPERATIONS;
-        String experties;
-        if (emp instanceof TeachingStaffEntity) {
-            type = EmployeeType.TEACHER;
-            final TeachingStaffEntity teachingStaff = (TeachingStaffEntity) emp;
-            experties = teachingStaff.getSubExperties();
-        } else {
-            final OperationStaffEntity operationStaff = (OperationStaffEntity) emp;
-            experties = operationStaff.getOperExperties();
-        }
-        return new Employee(emp.getId(), emp.getFname(), emp.getLname(), emp.getDob(), emp.getJoiningDate(), emp.getQualification(),
+        final boolean isTeacher = (emp instanceof TeachingStaffEntity);
+        final EmployeeType type = (isTeacher ? EmployeeType.TEACHER : EmployeeType.OPERATIONS);
+        final String experties = (isTeacher ? ((TeachingStaffEntity) emp).getSubExperties()
+                : ((OperationStaffEntity) emp).getOperExperties());
+        return new Employee(emp.getId(), emp.getFname(), emp.getLname(), emp.getDob(), emp.getJoiningDate(),
+                emp.getQualification(),
                 experties, type, emp.getDepartment().getId());
     }
 

@@ -6,10 +6,15 @@ import java.util.UUID;
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
 
 public interface DepartmentRepository {
-    Department create(final Department department);
-    Department find(final UUID id);
+    Department create(Department department);
+
+    Department find(UUID id);
+
     List<Department> findAll();
-    List<Department> findByName(final String name);
-    boolean update(final Department department);
-    boolean delete(final UUID id);
+
+    List<Department> findByName(String name);
+
+    boolean update(Department department);
+
+    boolean delete(UUID id);
 }

@@ -6,16 +6,13 @@ import java.util.UUID;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import co.in.nnj.learn.jee.common.exception.ConstraintVoilationException;
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
 import co.in.nnj.learn.jee.port.output.db.repository.DepartmentRepository;
 
 @Stateless
 public class DepartmentService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentService.class.getName());
+    //-- private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentService.class.getName());
 
     @Inject
     DepartmentRepository repository;
@@ -34,9 +31,7 @@ public class DepartmentService {
     }
 
     public List<Department> findByName(final String name) {
-        final List<Department> deps = repository.findByName(name);
-        LOGGER.info("Result size = " + deps.size());
-        return deps;
+        return repository.findByName(name);
     }
 
     public Department find(final UUID id) {

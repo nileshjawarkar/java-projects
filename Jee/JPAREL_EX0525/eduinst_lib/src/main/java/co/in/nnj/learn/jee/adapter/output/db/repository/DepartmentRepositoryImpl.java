@@ -12,9 +12,10 @@ import co.in.nnj.learn.jee.domain.valueobjects.Department;
 import co.in.nnj.learn.jee.port.output.db.repository.DepartmentRepository;
 
 public class DepartmentRepositoryImpl implements DepartmentRepository {
+    //-- private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentRepositoryImpl.class.getName());
 
     EntityManager entityManager;
-    EntityMapper <DepartmentEntity, Department> mapper = new DepartmentMapper();
+    EntityMapper <DepartmentEntity, Department> mapper = new DepartmentMapper();                        
 
     public DepartmentRepositoryImpl(final EntityManager entityManager) {
         this.entityManager = entityManager;

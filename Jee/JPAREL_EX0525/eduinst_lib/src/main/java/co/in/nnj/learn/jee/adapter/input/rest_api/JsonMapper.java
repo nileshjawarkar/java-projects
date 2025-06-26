@@ -23,12 +23,11 @@ public final class JsonMapper {
     }
 
     static JsonObject departmentToJsonObj(final Department dept) {
-        final JsonObject jsonObject = Json.createObjectBuilder()
+        return Json.createObjectBuilder()
                 .add("id", dept.id().toString())
                 .add("name", dept.name())
                 .add("function", dept.function().toString())
                 .build();
-        return jsonObject;
     }
 
     static Employee jsonObjToEmployee(final JsonObject jsonObject, final String id) {
@@ -45,7 +44,8 @@ public final class JsonMapper {
                 final SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
                 final Date dob = formater.parse(eDob);
                 final Date doj = formater.parse(eDoj);
-                return new Employee(eFName, eLName, dob, doj, eQualification, eExpertices, EmployeeType.valueOf(eType), eDepartment);
+                return new Employee(eFName, eLName, dob, doj, eQualification, eExpertices, EmployeeType.valueOf(eType),
+                        eDepartment);
             } catch (final ParseException e) {
                 LOGGER.error(String.format("Failed to parse DOB {%s} or DOJ {%s}", eDob, eDoj));
                 LOGGER.debug(" - ", e);
@@ -59,7 +59,7 @@ public final class JsonMapper {
 
     static JsonObject employeeToJsonObj(final Employee emp) {
         final SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-        final JsonObject jsonObject = Json.createObjectBuilder()
+        return Json.createObjectBuilder()
                 .add("id", emp.id().toString())
                 .add("department_id", emp.departmentId().toString())
                 .add("fname", emp.fname())
@@ -69,6 +69,5 @@ public final class JsonMapper {
                 .add("dob", formater.format(emp.dob()))
                 .add("doj", formater.format(emp.dateOfJoining()))
                 .build();
-        return jsonObject;
     }
 }
