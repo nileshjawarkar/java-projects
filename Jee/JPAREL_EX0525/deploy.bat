@@ -1,14 +1,14 @@
 @echo off
 IF "-z" "%TOMEE_FOR_DEP%" (
   echo "@ Please set ENV-VAR TOMEE_FOR_DEP "
-  echo "export TOMEE_FOR_DEP=\some\tomee\path"
+  echo "set TOMEE_FOR_DEP=\some\tomee\path"
   echo " "
   exit "1"
 )
 
 IF "-z" "%WAR_FOR_DEP%" (
   echo "@ Please set ENV-VAR WAR_FOR_DEP "
-  echo "export WAR_FOR_DEP=\some\war\path"
+  echo "set WAR_FOR_DEP=\some\war\path"
   echo " "
   exit "1"
 )
@@ -18,7 +18,7 @@ IF "-z" "%WEBAPP%" (
 )
 
 echo "@ Stopping tommeeee...."
-"${TOMEE_FOR_DEP}\\bin\\shutdown.sh"
+"${TOMEE_FOR_DEP}\\bin\\shutdown.bat"
 sleep "2"
 
 IF "-d" "%TOMEE_FOR_DEP%\\webapps\\%WEBAPP%" (
