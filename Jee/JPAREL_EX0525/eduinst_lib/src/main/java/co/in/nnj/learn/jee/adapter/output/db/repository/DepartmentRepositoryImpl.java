@@ -46,8 +46,8 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     public boolean update(final Department department) {
         final DepartmentEntity dept = entityManager.find(DepartmentEntity.class, department.id());
         if (dept != null) {
-            dept.setName(department.name());
-            dept.setFunction(department.function());
+            if(department.name() != null) dept.setName(department.name());
+            if(department.function() != null) dept.setFunction(department.function());
             return true;
         }
         return false;

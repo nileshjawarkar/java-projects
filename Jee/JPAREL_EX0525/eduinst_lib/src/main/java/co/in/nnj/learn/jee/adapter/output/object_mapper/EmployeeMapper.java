@@ -13,21 +13,35 @@ import co.in.nnj.learn.jee.domain.valueobjects.EmployeeType;
 public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employee> {
     @Override
     public EmployeeEntity updateEntity(final EmployeeEntity staff, final Employee employee) {
-        if (employee.type() == EmployeeType.TEACHER) {
-            final TeachingStaffEntity teachingStaff = (TeachingStaffEntity) staff;
-            teachingStaff.setSubExperties(employee.experties());
-        } else {
-            final OperationStaffEntity operationStaff = (OperationStaffEntity) staff;
-            operationStaff.setOperExperties(employee.experties());
+        if (employee.type() != null) {
+            if (employee.type() == EmployeeType.TEACHER) {
+                final TeachingStaffEntity teachingStaff = (TeachingStaffEntity) staff;
+                teachingStaff.setSubExperties(employee.experties());
+            } else {
+                final OperationStaffEntity operationStaff = (OperationStaffEntity) staff;
+                operationStaff.setOperExperties(employee.experties());
+            }
         }
-        staff.setFname(employee.fname());
-        staff.setLname(employee.lname());
-        staff.setDob(employee.dob());
-        staff.setJoiningDate(employee.dateOfJoining());
-        staff.setQualification(employee.qualification());
+        if (employee.fname() != null) {
+            staff.setFname(employee.fname());
+        }
+        if (employee.lname() != null) {
+            staff.setLname(employee.lname());
+        }
+        if (employee.dob() != null) {
+            staff.setDob(employee.dob());
+        }
+        if (employee.dateOfJoining() != null) {
+            staff.setJoiningDate(employee.dateOfJoining());
+        }
+        if (employee.qualification() != null) {
+            staff.setQualification(employee.qualification());
+        }
         final DepartmentEntity dept = new DepartmentEntity();
         dept.setId(employee.departmentId());
-        staff.setDepartment(dept);
+        if (employee.departmentId() != null) {
+            staff.setDepartment(dept);
+        }
         return staff;
     }
 

@@ -8,8 +8,10 @@ import jakarta.json.Json;
 import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -43,33 +45,58 @@ public class DepartmentController {
 
     @POST
     public Response createDepartment(final JsonObject jsonInput) {
-        final String name = jsonInput.containsKey("name") ? jsonInput.getString("name") : null;
-        final String function = jsonInput.containsKey("function") ? jsonInput.getString("function") : null;
-        if (name == null || name.isEmpty() || function == null || function.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity("Error - name and function are mandatory attributes.")
-                    .build();
+        Response.Status status = Response.Status.BAD_REQUEST;
+        String errMessage = "Mandetory attributes are missing from input or assigned invalide values.";
+        if (jsonInput.containsKey("name") && jsonInput.containsKey("function")) {
+            try {
+                final String name = jsonInput.getString("name");
+                final Department created = departmentSrv
+                        .create(new Department(name, DepartmentType.valueOf(jsonInput.getString("function"))));
+                if (created != null) {
+                    return Response.status(Response.Status.CREATED).entity(JsonMapper.departmentToJsonObj(created))
+                            .location(uriInfo.getBaseUriBuilder().path(DepartmentController.class)
+                                    .path(DepartmentController.class, "getDepartment").build(created.id()))
+                            .build();
+                }
+                status = Response.Status.INTERNAL_SERVER_ERROR;
+                errMessage = "Failed to create deparment.";
+            } catch (final IllegalArgumentException e) {
+            }
         }
+        return Response.status(status).entity(errMessage).build();
+    }
 
-        try {
-            final DepartmentType type = DepartmentType.valueOf(function);
-            final Department created = departmentSrv.create(new Department(name, type));
-            final JsonObject jsonObject = JsonMapper.departmentToJsonObj(created);
-
-            return Response.status(Response.Status.CREATED).entity(jsonObject)
-                    .location(uriInfo.getBaseUriBuilder().path(DepartmentController.class)
-                            .path(DepartmentController.class, "findDepartment").build(created.id()))
-                    .build();
-        } catch (final IllegalArgumentException e) {
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(String.format("Error - [%s] is not valid value for function.", function))
-                    .build();
+    @PUT
+    @Path("{id}")
+    public Response updateDepartment(@PathParam("id") final String id, final JsonObject jsonInput) {
+        final boolean hasName = jsonInput.containsKey("name");
+        final boolean hasDep = jsonInput.containsKey("function");
+        if (hasName || hasDep) {
+            final Department dept = new Department(
+                    hasName ? jsonInput.getString("name") : null,
+                    hasDep ? DepartmentType.valueOf(jsonInput.getString("function")) : null,
+                    UUID.fromString(id));
+            if (departmentSrv.update(dept)) {
+                return Response.ok().build();
+            }
         }
+        return Response.status(Response.Status.BAD_REQUEST)
+                .entity(String.format("Error - Failed to update deparment with id[%s]", id))
+                .build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response deleteDepartment(@PathParam("id") final String id) {
+        if (departmentSrv.deleteDepartment(UUID.fromString(id))) {
+            return Response.ok().build();
+        }
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     @GET
     @Path("{id}")
-    public Response findDepartment(@PathParam("id") final String id) {
+    public Response getDepartment(@PathParam("id") final String id) {
         final UUID uuid = UUID.fromString(id);
         final Department dept = departmentSrv.find(uuid);
         if (dept == null) {
@@ -101,13 +128,13 @@ public class DepartmentController {
     @Path("{id}/employee")
     public Response getEmployees(@PathParam("id") final String id) {
         final UUID uuid = (id == null || id.isEmpty()) ? null : UUID.fromString(id);
-        if( uuid != null ) {
+        if (uuid != null) {
             final List<Employee> emps = employeeService.findByDepartment(uuid);
             final JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
             for (final Employee emp : emps) {
-               arrayBuilder.add(JsonMapper.employeeToJsonObj(emp));
+                arrayBuilder.add(JsonMapper.employeeToJsonObj(emp));
             }
-            return  Response.ok().entity(arrayBuilder.build()).build();
+            return Response.ok().entity(arrayBuilder.build()).build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
     }

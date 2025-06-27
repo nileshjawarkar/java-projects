@@ -40,4 +40,12 @@ public class EmployeeService {
     public Employee find(final UUID id) {
         return repository.find(id);
     }
+
+    public boolean update(final Employee emp) {
+       return repository.update(emp);
+    }
+
+    public boolean delete(final UUID id) {
+       return repository.delete(id);
+    }
 }
