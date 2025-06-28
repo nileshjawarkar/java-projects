@@ -32,7 +32,7 @@ public class DepartmentService {
     }
 
     public List<UUID> findAll(final String attr, final String value) {
-        return repository.findAll(attr, value);
+        return repository.findAllIds(attr, value);
     }
 
     public Department find(final UUID id) {
@@ -44,7 +44,7 @@ public class DepartmentService {
     }
 
     public boolean deleteDepartment(final UUID id) {
-        final List<UUID> empsInDept = empRepository.findAll("dept", id.toString());
+        final List<UUID> empsInDept = empRepository.findAllIds("dept", id.toString());
         if (!empsInDept.isEmpty()) {
             throw new UsageFound(String.format("Department has [%d] employess.", empsInDept.size()));
         }

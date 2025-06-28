@@ -41,7 +41,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
 
     @Override
-    public List<UUID> findAll(final String attr, final String value) {
+    public List<UUID> findAllIds(final String attr, final String value) {
         if (attr == null) {
             return entityManager
                     .createNamedQuery(DepartmentEntity.FIND_ALL, UUID.class)
@@ -96,7 +96,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
 
     @Override
-    public List<Department> findAllObjects(final String attr, final String value) {
+    public List<Department> findAll(final String attr, final String value) {
         throw new UnsupportedOperationException("Unimplemented method 'findAllObjects'");
     }
 }

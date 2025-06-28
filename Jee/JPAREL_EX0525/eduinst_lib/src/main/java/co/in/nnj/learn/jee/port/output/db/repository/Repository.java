@@ -7,9 +7,9 @@ public interface Repository <T,U>{
 
     T find(U id);
 
-    List<U> findAll(String attr, String value);
+    List<U> findAllIds(String attr, String value);
 
-    List<T> findAllObjects(String attr, String value);
+    List<T> findAll(String attr, String value);
 
     boolean update(T obj);
 

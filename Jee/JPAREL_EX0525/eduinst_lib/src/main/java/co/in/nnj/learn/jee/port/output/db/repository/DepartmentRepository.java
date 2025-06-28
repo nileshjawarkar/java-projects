@@ -13,10 +13,10 @@ public interface DepartmentRepository extends Repository<Department, UUID> {
     Department find(UUID id);
 
     @Override
-    List<UUID> findAll(String attr, String value);
+    List<UUID> findAllIds(String attr, String value);
 
     @Override
-    List<Department> findAllObjects(String attr, String value);
+    List<Department> findAll(String attr, String value);
 
     @Override
     boolean update(Department department);

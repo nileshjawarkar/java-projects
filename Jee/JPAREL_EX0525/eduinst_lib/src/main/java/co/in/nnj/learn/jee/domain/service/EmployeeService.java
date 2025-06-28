@@ -26,7 +26,7 @@ public class EmployeeService {
     }
 
     public List<UUID> findAll(final String attr, final String value) {
-        return repository.findAll(attr, value);
+        return repository.findAllIds(attr, value);
     }
 
     public List<UUID> findByName(final String fname, final String lname) {

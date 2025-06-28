@@ -55,7 +55,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<UUID> findAll(final String attr, final String value) {
+    public List<UUID> findAllIds(final String attr, final String value) {
         if (attr == null) {
             return entityManager
                     .createNamedQuery(EmployeeEntity.FIND_ALL, UUID.class)
@@ -80,7 +80,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> findAllObjects(final String attr, final String value) {
+    public List<Employee> findAll(final String attr, final String value) {
         throw new UnsupportedOperationException("Unimplemented method 'findAllObjects'");
     }
 

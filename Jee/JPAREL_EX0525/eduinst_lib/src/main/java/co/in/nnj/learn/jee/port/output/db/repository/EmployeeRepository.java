@@ -19,7 +19,7 @@ public interface EmployeeRepository extends Repository<Employee, UUID> {
     Employee find(UUID id);
 
     @Override
-    List<UUID> findAll(String attr, String value);
+    List<UUID> findAllIds(String attr, String value);
 
     List<UUID> findByName(String fname, String lname);
 }
