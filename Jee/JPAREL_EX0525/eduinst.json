@@ -405,6 +405,156 @@
             "name": "a10#get_employee_with_name",
             "headers": []
           }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+              "name": "PUT"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"production engineering.\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/${ \"DEPT_ID\" }"
+            },
+            "id": "02a9eee6-2ebd-4af6-903f-47aa14b21f8d",
+            "name": "a11#update_dep_by_dep_id",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+              "name": "PUT"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Rakesh\", \"lname\" : \"Kulkarni\", \n \"qualification\" : \"Bachelor of engineering\", \"experties\" : \"Computers\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/employee/${ \"EMP_ID\" }"
+            },
+            "id": "5005be64-45bb-4001-af8c-a400f2f7e7b8",
+            "name": "a12#update_emp",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+              "name": "DELETE"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"production engineering.\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/${ \"DEPT_ID\" }"
+            },
+            "id": "f370a88b-a1c6-4d0c-ae99-ff990011659c",
+            "name": "a13#delete_dep_by_dep_id",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+              "name": "DELETE"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"production engineering.\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/employee/${ \"EMP_ID\" }"
+            },
+            "id": "c6ecb9d7-0b2c-4792-9ba2-5d198404c1c4",
+            "name": "a14#delete_emp_by_emp_id",
+            "headers": []
+          }
         }
       ]
     }
@@ -424,7 +574,14 @@
         "4b4ea005-f126-4a7b-9019-60ff75a8ac9f": {
           "createdAt": "2025-06-23T21:52:02.769+05:30",
           "name": "DEPT_ID",
-          "value": "4d0d4565-6dd4-4dc7-b70e-62aa855418dc",
+          "value": "c8027e19-2227-4262-b9ae-32e9d54600a1",
+          "enabled": true,
+          "private": false
+        },
+        "8cc97a33-a8d8-4123-9f4c-54668ebdce51": {
+          "createdAt": "2025-06-28T07:48:17.585+05:30",
+          "name": "EMP_ID",
+          "value": "9d87cc74-3da9-44d8-b08f-65f65a8a4d7c",
           "enabled": true,
           "private": false
         }

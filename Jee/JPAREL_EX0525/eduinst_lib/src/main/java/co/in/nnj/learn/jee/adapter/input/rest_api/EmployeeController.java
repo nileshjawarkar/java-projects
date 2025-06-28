@@ -21,6 +21,9 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import co.in.nnj.learn.jee.domain.service.EmployeeService;
 import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 import co.in.nnj.learn.jee.domain.valueobjects.EmployeeType;
@@ -29,9 +32,9 @@ import co.in.nnj.learn.jee.domain.valueobjects.EmployeeType;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EmployeeController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class.getName());
     @Inject
     EmployeeService employeeService;
-
     @GET
     public Response getAll(@QueryParam("fname") final String fname, @QueryParam("lname") final String lname) {
         final List<Employee> emps = (fname == null ? employeeService.findAll()
@@ -95,6 +98,7 @@ public class EmployeeController {
                 }
                 status = Response.Status.INTERNAL_SERVER_ERROR;
             } catch (final ParseException e) {
+                LOGGER.error(e.getMessage(), e);
             }
         }
         return Response.status(status).build();

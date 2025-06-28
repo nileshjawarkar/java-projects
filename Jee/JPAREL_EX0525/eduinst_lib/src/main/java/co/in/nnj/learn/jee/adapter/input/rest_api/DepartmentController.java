@@ -61,6 +61,7 @@ public class DepartmentController {
                 status = Response.Status.INTERNAL_SERVER_ERROR;
                 errMessage = "Failed to create deparment.";
             } catch (final IllegalArgumentException e) {
+                LOGGER.error(e.getMessage(), e);
             }
         }
         return Response.status(status).entity(errMessage).build();
