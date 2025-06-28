@@ -5,16 +5,22 @@ import java.util.UUID;
 
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
 
-public interface DepartmentRepository {
+public interface DepartmentRepository extends Repository<Department, UUID> {
+    @Override
     Department create(Department department);
 
+    @Override
     Department find(UUID id);
 
-    List<Department> findAll();
+    @Override
+    List<UUID> findAll(String attr, String value);
 
-    List<Department> findByName(String name);
+    @Override
+    List<Department> findAllObjects(String attr, String value);
 
+    @Override
     boolean update(Department department);
 
+    @Override
     boolean delete(UUID id);
 }

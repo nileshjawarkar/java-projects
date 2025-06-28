@@ -184,7 +184,7 @@
                   {
                     "enabled": true,
                     "name": "name",
-                    "value": "Computer Engineering"
+                    "value": "Production Engineering"
                   }
                 ]
               },
@@ -202,11 +202,50 @@
                 "enabled": true,
                 "name": "Content-Type",
                 "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
               },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "function",
+                    "value": "TEACHING"
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "cef6bb24-ac2d-4cac-80b2-ee644edc5f17",
+            "name": "a05#get_dept_with_dept_type",
+            "headers": [
               {
                 "enabled": true,
-                "name": "",
-                "value": ""
+                "name": "Content-Type",
+                "value": "application/json"
               }
             ]
           }
@@ -574,14 +613,14 @@
         "4b4ea005-f126-4a7b-9019-60ff75a8ac9f": {
           "createdAt": "2025-06-23T21:52:02.769+05:30",
           "name": "DEPT_ID",
-          "value": "c8027e19-2227-4262-b9ae-32e9d54600a1",
+          "value": "f33fa4ed-1618-46dc-9261-b8efa5f9df3f",
           "enabled": true,
           "private": false
         },
         "8cc97a33-a8d8-4123-9f4c-54668ebdce51": {
           "createdAt": "2025-06-28T07:48:17.585+05:30",
           "name": "EMP_ID",
-          "value": "9d87cc74-3da9-44d8-b08f-65f65a8a4d7c",
+          "value": "5b77eb13-54a0-4366-83e5-6326a0894a8f",
           "enabled": true,
           "private": false
         }

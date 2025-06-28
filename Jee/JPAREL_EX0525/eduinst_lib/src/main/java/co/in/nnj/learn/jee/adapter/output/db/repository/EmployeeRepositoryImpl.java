@@ -1,5 +1,6 @@
 package co.in.nnj.learn.jee.adapter.output.db.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ import co.in.nnj.learn.jee.adapter.output.object_mapper.EntityMapper;
 import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 import co.in.nnj.learn.jee.port.output.db.repository.EmployeeRepository;
 
-public class EmployeeRepositoryImpl implements EmployeeRepository { 
+public class EmployeeRepositoryImpl implements EmployeeRepository {
     final EntityManager entityManager;
     final EntityMapper<EmployeeEntity, Employee> mapper = new EmployeeMapper();
 
@@ -30,7 +31,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public boolean update(final Employee employee) {
         final EmployeeEntity emp = entityManager.find(EmployeeEntity.class, employee.id());
-        if(emp != null) {
+        if (emp != null) {
             mapper.updateEntity(emp, employee);
             return true;
         }
@@ -40,7 +41,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public boolean delete(final UUID id) {
         final EmployeeEntity emp = entityManager.find(EmployeeEntity.class, id);
-        if(emp != null) {
+        if (emp != null) {
             entityManager.remove(emp);
             return true;
         }
@@ -54,29 +55,33 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public List<Employee> findAll() {
-        final List<EmployeeEntity> resultList = entityManager
-                .createNamedQuery(EmployeeEntity.FIND_ALL, EmployeeEntity.class)
-                .getResultList();
-        return mapper.toValueList(resultList);
+    public List<UUID> findAll(final String attr, final String value) {
+        if (attr == null) {
+            return entityManager
+                    .createNamedQuery(EmployeeEntity.FIND_ALL, UUID.class)
+                    .getResultList();
+        } else if ("dept".equals(attr)) {
+            final DepartmentEntity dept = new DepartmentEntity();
+            dept.setId(UUID.fromString(value));
+            return entityManager
+                    .createNamedQuery(EmployeeEntity.FIND_BY_DEPT, UUID.class)
+                    .setParameter("Dept", dept)
+                    .getResultList();
+        }
+        return new ArrayList<>();
     }
 
     @Override
-    public List<Employee> findByDepartment(final UUID deptId) {
-        final DepartmentEntity dept = new DepartmentEntity();
-        dept.setId(deptId);
-        final List<EmployeeEntity> resultList = entityManager
-                .createNamedQuery(EmployeeEntity.FIND_BY_DEPT, EmployeeEntity.class)
-                .setParameter("Dept", dept).getResultList();
-        return mapper.toValueList(resultList);
-    }
-
-    @Override
-    public List<Employee> findByName(final String fname, final String lname) {
-        final List<EmployeeEntity> resultList = entityManager
-                .createNamedQuery(EmployeeEntity.FIND_BY_NAME, EmployeeEntity.class)
+    public List<UUID> findByName(final String fname, final String lname) {
+        return entityManager
+                .createNamedQuery(EmployeeEntity.FIND_BY_NAME, UUID.class)
                 .setParameter("FName", fname)
                 .setParameter("LName", lname).getResultList();
-        return mapper.toValueList(resultList);
     }
+
+    @Override
+    public List<Employee> findAllObjects(final String attr, final String value) {
+        throw new UnsupportedOperationException("Unimplemented method 'findAllObjects'");
+    }
+
 }

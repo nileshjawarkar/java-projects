@@ -17,9 +17,9 @@ import jakarta.persistence.TemporalType;
 @Table(name = "employee")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
-@NamedQuery(name = EmployeeEntity.FIND_ALL, query = "select e from EmployeeEntity e")
-@NamedQuery(name = EmployeeEntity.FIND_BY_DEPT, query = "select e from EmployeeEntity e where e.department = :Dept")
-@NamedQuery(name = EmployeeEntity.FIND_BY_NAME, query = "select e from EmployeeEntity e where e.fname = :FName and e.lname = :LName")
+@NamedQuery(name = EmployeeEntity.FIND_ALL, query = "select e.id from EmployeeEntity e")
+@NamedQuery(name = EmployeeEntity.FIND_BY_DEPT, query = "select e.id from EmployeeEntity e where e.department = :Dept")
+@NamedQuery(name = EmployeeEntity.FIND_BY_NAME, query = "select e.id from EmployeeEntity e where e.fname = :FName and e.lname = :LName")
 public class EmployeeEntity extends BaseEntity {
     public static final String FIND_ALL = "Employee.FIND_ALL";
     public static final String FIND_BY_NAME = "Employee.FIND_BY_NAME";

@@ -17,7 +17,7 @@ public class EmployeeService {
     EmployeeRepository repository;
 
     public Employee create(final Employee emp) {
-        final List<Employee> emps = findByName(emp.fname(), emp.lname());
+        final List<UUID> emps = findByName(emp.fname(), emp.lname());
         if (!emps.isEmpty()) {
             throw new ConstraintVoilationException(
                     String.format("Employee with name [%s] already exist.", emp.fname()));
@@ -25,16 +25,12 @@ public class EmployeeService {
         return repository.create(emp);
     }
 
-    public List<Employee> findAll() {
-        return repository.findAll();
+    public List<UUID> findAll(final String attr, final String value) {
+        return repository.findAll(attr, value);
     }
 
-    public List<Employee> findByName(final String fname, final String lname) {
+    public List<UUID> findByName(final String fname, final String lname) {
         return repository.findByName(fname, lname);
-    }
-
-    public List<Employee> findByDepartment(final UUID id) {
-        return repository.findByDepartment(id);
     }
 
     public Employee find(final UUID id) {

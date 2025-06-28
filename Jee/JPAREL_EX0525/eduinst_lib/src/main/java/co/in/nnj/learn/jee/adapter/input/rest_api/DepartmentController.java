@@ -95,45 +95,54 @@ public class DepartmentController {
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 
-    @GET
-    @Path("{id}")
-    public Response getDepartment(@PathParam("id") final String id) {
-        final UUID uuid = UUID.fromString(id);
-        final Department dept = departmentSrv.find(uuid);
+    public Response deptToResponse(final Department dept) {
         if (dept == null) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
         return Response.ok().entity(JsonMapper.departmentToJsonObj(dept)).build();
     }
 
-    Response listToResponse(final List<Department> depts) {
-        if (depts == null || depts.isEmpty()) {
+    @GET
+    @Path("{id}")
+    public Response getDepartment(@PathParam("id") final String id) {
+        return deptToResponse(departmentSrv.find(UUID.fromString(id)));
+    }
+
+    Response listToResponse(final List<UUID> uuids) {
+        if (uuids == null || uuids.isEmpty()) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
 
         final JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        for (final Department dept : depts) {
-            arrayBuilder.add(JsonMapper.departmentToJsonObj(dept));
+        for (final UUID uuid : uuids) {
+            arrayBuilder.add(Json.createValue(uuid.toString()));
         }
         return Response.ok().entity(arrayBuilder.build()).build();
     }
 
     @GET
-    public Response findAll(@QueryParam("name") final String name) {
-        LOGGER.info("name - " + name);
-        final List<Department> depts = (name == null ? departmentSrv.findAll() : departmentSrv.findByName(name));
+    public Response findAll(@QueryParam("function") final String function, @QueryParam("name") final String name) {
+        String attr = null;
+        String value = null;
+        if(function != null) {
+            attr = "function";
+            value = function;
+        } else if(name != null) {
+            attr = "name";
+            value = name;
+        }
+        final List<UUID> depts = departmentSrv.findAll(attr, value);
         return listToResponse(depts);
     }
 
     @GET
     @Path("{id}/employee")
     public Response getEmployees(@PathParam("id") final String id) {
-        final UUID uuid = (id == null || id.isEmpty()) ? null : UUID.fromString(id);
-        if (uuid != null) {
-            final List<Employee> emps = employeeService.findByDepartment(uuid);
+        if (id != null) {
+            final List<UUID> emps = employeeService.findAll("dept", id);
             final JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-            for (final Employee emp : emps) {
-                arrayBuilder.add(JsonMapper.employeeToJsonObj(emp));
+            for (final UUID emp : emps) {
+                arrayBuilder.add(Json.createValue(emp.toString()));
             }
             return Response.ok().entity(arrayBuilder.build()).build();
         }

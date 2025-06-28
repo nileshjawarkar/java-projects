@@ -37,14 +37,14 @@ public class EmployeeController {
     EmployeeService employeeService;
     @GET
     public Response getAll(@QueryParam("fname") final String fname, @QueryParam("lname") final String lname) {
-        final List<Employee> emps = (fname == null ? employeeService.findAll()
+        final List<UUID> emps = (fname == null ? employeeService.findAll(null, null)
                 : employeeService.findByName(fname, lname));
         if (emps == null || emps.isEmpty()) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
         final JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        for (final Employee employee : emps) {
-            arrayBuilder.add(JsonMapper.employeeToJsonObj(employee));
+        for (final UUID uuid : emps) {
+            arrayBuilder.add(Json.createValue(uuid.toString()));
         }
         return Response.ok().entity(arrayBuilder.build()).build();
     }

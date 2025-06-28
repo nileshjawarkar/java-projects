@@ -5,18 +5,21 @@ import java.util.UUID;
 
 import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 
-public interface EmployeeRepository {
+public interface EmployeeRepository extends Repository<Employee, UUID> {
+    @Override
     Employee create(Employee employee);
 
+    @Override
     boolean update(Employee employee);
 
+    @Override
     boolean delete(UUID id);
 
+    @Override
     Employee find(UUID id);
 
-    List<Employee> findAll();
+    @Override
+    List<UUID> findAll(String attr, String value);
 
-    List<Employee> findByName(String fname, String lname);
-
-    List<Employee> findByDepartment(UUID deptId);
+    List<UUID> findByName(String fname, String lname);
 }
