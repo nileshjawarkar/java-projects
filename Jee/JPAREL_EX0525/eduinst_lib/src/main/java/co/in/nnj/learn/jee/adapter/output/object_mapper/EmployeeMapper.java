@@ -11,6 +11,8 @@ import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 import co.in.nnj.learn.jee.domain.valueobjects.EmployeeType;
 
 public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employee> {
+    private static final AddressMapper ADDRESSM = new AddressMapper();
+
     @Override
     public EmployeeEntity updateEntity(final EmployeeEntity staff, final Employee employee) {
         if (employee.type() != null) {
@@ -37,6 +39,12 @@ public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employ
         if (employee.qualification() != null) {
             staff.setQualification(employee.qualification());
         }
+        if(employee.paddress() != null) {
+            staff.setPAddress(ADDRESSM.toEntity(employee.paddress()));
+        }
+        if(employee.caddress() != null) {
+            staff.setCAddress(ADDRESSM.toEntity(employee.caddress()));
+        }
         final DepartmentEntity dept = new DepartmentEntity();
         dept.setId(employee.departmentId());
         if (employee.departmentId() != null) {
@@ -61,7 +69,8 @@ public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employ
                 : ((OperationStaffEntity) emp).getOperExperties());
         return new Employee(emp.getId(), emp.getFname(), emp.getLname(), emp.getDob(), emp.getJoiningDate(),
                 emp.getQualification(),
-                experties, type, emp.getDepartment().getId());
+                experties, type, emp.getDepartment().getId(), ADDRESSM.toValue(emp.getPAddress()),
+                ADDRESSM.toValue(emp.getCAddress()));
     }
 
     @Override

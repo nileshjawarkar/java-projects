@@ -10,6 +10,7 @@
         <class>co.in.nnj.learn.jee.adapter.output.db.entity.EmployeeEntity</class> 
         <class>co.in.nnj.learn.jee.adapter.output.db.entity.TeachingStaffEntity</class> 
         <class>co.in.nnj.learn.jee.adapter.output.db.entity.OperationStaffEntity</class> 
+        <class>co.in.nnj.learn.jee.adapter.output.db.entity.AddressEntity</class> 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property

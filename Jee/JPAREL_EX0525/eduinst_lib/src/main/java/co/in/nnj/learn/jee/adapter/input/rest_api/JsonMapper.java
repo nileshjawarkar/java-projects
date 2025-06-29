@@ -6,12 +6,12 @@ import java.util.Date;
 import java.util.UUID;
 
 import jakarta.json.Json;
-import jakarta.json.JsonException;
 import jakarta.json.JsonObject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import co.in.nnj.learn.jee.domain.valueobjects.Address;
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
 import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 import co.in.nnj.learn.jee.domain.valueobjects.EmployeeType;
@@ -30,29 +30,47 @@ public final class JsonMapper {
                 .build();
     }
 
-    static Employee jsonObjToEmployee(final JsonObject jsonObject, final String id) {
-        try {
-            final String eFName = jsonObject.getString("fname");
-            final String eLName = jsonObject.getString("lname");
-            final String eType = jsonObject.getString("type");
-            final String eExpertices = jsonObject.getString("experties");
-            final String eQualification = jsonObject.getString("qualification");
-            final String eDob = jsonObject.getString("dob");
-            final String eDoj = jsonObject.getString("doj");
-            final UUID eDepartment = UUID.fromString(id);
+    static Address jsonObjToAddress(final JsonObject jsonObject) {
+        if (jsonObject != null) {
+            return new Address(jsonObject.containsKey("street") ? jsonObject.getString("street") : null,
+                    jsonObject.containsKey("city") ? jsonObject.getString("city") : null,
+                    jsonObject.containsKey("state") ? jsonObject.getString("state") : null,
+                    jsonObject.containsKey("country") ? jsonObject.getString("country") : null,
+                    jsonObject.containsKey("pin") ? jsonObject.getString("pin") : null,
+                    jsonObject.containsKey("landscape") ? jsonObject.getString("landscape") : null);
+        }
+        return null;
+    }
+
+    static Employee jsonObjToEmployee(final JsonObject jsonObject, final String dept_id, final String id) {
+        if (jsonObject != null) {
+            final String eType = jsonObject.containsKey("type") ? jsonObject.getString("type") : null;
+            final String eDob = jsonObject.containsKey("dob") ? jsonObject.getString("dob") : null;
+            final String eDoj = jsonObject.containsKey("doj") ? jsonObject.getString("doj") : null;
+            final JsonObject paddress = jsonObject.containsKey("paddress") ? jsonObject.getJsonObject("paddress")
+                    : null;
+            final JsonObject caddress = jsonObject.containsKey("caddress") ? jsonObject.getJsonObject("caddress")
+                    : null;
             try {
                 final SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-                final Date dob = formater.parse(eDob);
-                final Date doj = formater.parse(eDoj);
-                return new Employee(eFName, eLName, dob, doj, eQualification, eExpertices, EmployeeType.valueOf(eType),
-                        eDepartment);
+                final Date dob = eDob != null ? formater.parse(eDob) : null;
+                final Date doj = eDoj != null ? formater.parse(eDoj) : null;
+                return new Employee(
+                        id != null ? UUID.fromString(id) : null,
+                        jsonObject.containsKey("fname") ? jsonObject.getString("fname") : null, jsonObject.containsKey("lname") ? jsonObject.getString("lname") : null, dob, doj,
+                        jsonObject.containsKey("qualification") ? jsonObject.getString("qualification") : null,
+                        jsonObject.containsKey("experties") ? jsonObject.getString("experties") : null,
+                        eType != null ? EmployeeType.valueOf(eType) : null,
+                        dept_id != null ? UUID.fromString(dept_id) : null,
+                        jsonObjToAddress(paddress),
+                        jsonObjToAddress(caddress));
             } catch (final ParseException e) {
                 LOGGER.error(String.format("Failed to parse DOB {%s} or DOJ {%s}", eDob, eDoj));
                 LOGGER.debug(" - ", e);
+            } catch(final IllegalStateException e) {
+                LOGGER.error(String.format("Failed to convert input attributes to required type. %s", e.getMessage()));
+                LOGGER.debug(" - ", e);
             }
-        } catch (final JsonException e) {
-            LOGGER.error("Mandetory attribute missing.");
-            LOGGER.debug(" - ", e);
         }
         return null;
     }

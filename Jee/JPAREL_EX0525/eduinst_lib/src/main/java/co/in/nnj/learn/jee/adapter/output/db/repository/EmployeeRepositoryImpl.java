@@ -6,6 +6,9 @@ import java.util.UUID;
 
 import jakarta.persistence.EntityManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import co.in.nnj.learn.jee.adapter.output.db.entity.DepartmentEntity;
 import co.in.nnj.learn.jee.adapter.output.db.entity.EmployeeEntity;
 import co.in.nnj.learn.jee.adapter.output.object_mapper.EmployeeMapper;
@@ -14,6 +17,7 @@ import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 import co.in.nnj.learn.jee.port.output.db.repository.EmployeeRepository;
 
 public class EmployeeRepositoryImpl implements EmployeeRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRepositoryImpl.class.getName());
     final EntityManager entityManager;
     final EntityMapper<EmployeeEntity, Employee> mapper = new EmployeeMapper();
 
@@ -51,6 +55,9 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public Employee find(final UUID id) {
         final EmployeeEntity emp = entityManager.find(EmployeeEntity.class, id);
+        if(emp.getPAddress()  != null) {
+            LOGGER.info("Address found.");
+        }
         return mapper.toValue(emp);
     }
 

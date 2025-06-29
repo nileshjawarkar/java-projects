@@ -2,13 +2,16 @@ package co.in.nnj.learn.jee.adapter.output.db.entity;
 
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -36,8 +39,43 @@ public class EmployeeEntity extends BaseEntity {
     private Date dob;
 
     @ManyToOne
-    @JoinColumn(name = "deparment_id")
+    @JoinColumn(name = "department_id")
     private DepartmentEntity department;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "per_addr") //-- Permanent address
+    private AddressEntity paddress;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "cor_addr")  //-- correspondence address
+    private AddressEntity caddress;
+
+    public static String getFindAll() {
+        return FIND_ALL;
+    }
+
+    public static String getFindByName() {
+        return FIND_BY_NAME;
+    }
+
+    public static String getFindByDept() {
+        return FIND_BY_DEPT;
+    }
+
+    public AddressEntity getPAddress() {
+        return paddress;
+    }
+
+    public void setPAddress(final AddressEntity address) {
+        this.paddress = address;
+    }
+
+    public AddressEntity getCAddress() {
+        return caddress;
+    }
+
+    public void setCAddress(final AddressEntity address) {
+        this.caddress = address;
+    }
 
     public DepartmentEntity getDepartment() {
         return department;
