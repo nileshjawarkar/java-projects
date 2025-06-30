@@ -20,7 +20,7 @@ public class Steering {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
@@ -28,7 +28,7 @@ public class Steering {
 		return steeringType;
 	}
 
-	public void setSteeringType(SteeringType steeringType) {
+	public void setSteeringType(final SteeringType steeringType) {
 		this.steeringType = steeringType;
 	}
 }

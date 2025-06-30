@@ -18,16 +18,16 @@ public class AppConfigurationExposer {
 		try( InputStream ios = AppConfigurationExposer.class.getResourceAsStream("/application.properties") ) {
 			configProperties = new Properties();
 			configProperties.load(ios);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 		}
 	}
 	
 	@Produces
 	@AppConfig("unused")
-	public String exposeConfig(InjectionPoint injectionPoint) {
-		String key = injectionPoint.getAnnotated().getAnnotation(AppConfig.class).value(); 
+	public String exposeConfig(final InjectionPoint injectionPoint) {
+		final String key = injectionPoint.getAnnotated().getAnnotation(AppConfig.class).value(); 
 		String value = "";
-		if(key != null && !key.equals("")) {
+		if(key != null && !"".equals(key)) {
 			value = configProperties.getProperty(key);
 		}
 		return value;

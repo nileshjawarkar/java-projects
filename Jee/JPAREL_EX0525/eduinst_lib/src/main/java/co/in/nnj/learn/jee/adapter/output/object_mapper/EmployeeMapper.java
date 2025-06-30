@@ -3,6 +3,9 @@ package co.in.nnj.learn.jee.adapter.output.object_mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import co.in.nnj.learn.jee.adapter.output.db.entity.DepartmentEntity;
 import co.in.nnj.learn.jee.adapter.output.db.entity.EmployeeEntity;
 import co.in.nnj.learn.jee.adapter.output.db.entity.OperationStaffEntity;
@@ -11,7 +14,8 @@ import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 import co.in.nnj.learn.jee.domain.valueobjects.EmployeeType;
 
 public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employee> {
-    private static final AddressMapper ADDRESSM = new AddressMapper();
+    private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeMapper.class.getName());
+    private final AddressMapper addMapper = new AddressMapper();
 
     @Override
     public EmployeeEntity updateEntity(final EmployeeEntity staff, final Employee employee) {
@@ -39,12 +43,15 @@ public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employ
         if (employee.qualification() != null) {
             staff.setQualification(employee.qualification());
         }
-        if(employee.paddress() != null) {
-            staff.setPAddress(ADDRESSM.toEntity(employee.paddress()));
+        if (employee.paddress() != null) {
+            staff.setPAddress(addMapper.toEntity(employee.paddress()));
         }
-        if(employee.caddress() != null) {
-            staff.setCAddress(ADDRESSM.toEntity(employee.caddress()));
-        }
+        /*
+         * if(employee.caddress() != null) {
+         * staff.setCAddress(ADDRESSM.toEntity(employee.caddress()));
+         * }
+         */
+
         final DepartmentEntity dept = new DepartmentEntity();
         dept.setId(employee.departmentId());
         if (employee.departmentId() != null) {
@@ -63,14 +70,20 @@ public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employ
 
     @Override
     public Employee toValue(final EmployeeEntity emp) {
+        if (emp == null) {
+            return null;
+        }
         final boolean isTeacher = (emp instanceof TeachingStaffEntity);
         final EmployeeType type = (isTeacher ? EmployeeType.TEACHER : EmployeeType.OPERATIONS);
         final String experties = (isTeacher ? ((TeachingStaffEntity) emp).getSubExperties()
                 : ((OperationStaffEntity) emp).getOperExperties());
-        return new Employee(emp.getId(), emp.getFname(), emp.getLname(), emp.getDob(), emp.getJoiningDate(),
-                emp.getQualification(),
-                experties, type, emp.getDepartment().getId(), ADDRESSM.toValue(emp.getPAddress()),
-                ADDRESSM.toValue(emp.getCAddress()));
+
+        LOGGER.info(emp.toString());
+        return new Employee(emp.getId(), emp.getFname(), emp.getLname(),
+                emp.getDob(), emp.getJoiningDate(), emp.getQualification(),
+                experties, type, emp.getDepartment().getId(),
+                addMapper.toValue(emp.getPAddress()),
+                addMapper.toValue(emp.getCAddress()));
     }
 
     @Override

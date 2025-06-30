@@ -1,6 +1,7 @@
 package com.nnj.learn.javaee8.control;
 
 import java.util.List;
+
 import com.nnj.learn.javaee8.entity.Car;
 
 public interface CarRepository {

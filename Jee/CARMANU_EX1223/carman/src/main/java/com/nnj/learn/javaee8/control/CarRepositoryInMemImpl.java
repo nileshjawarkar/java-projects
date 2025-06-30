@@ -6,17 +6,17 @@ import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import com.nnj.learn.javaee8.entity.Car;
-import com.nnj.learn.javaee8.entity.Color;
-import com.nnj.learn.javaee8.entity.EngineType;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.ejb.Singleton;
 
+import com.nnj.learn.javaee8.entity.Car;
+import com.nnj.learn.javaee8.entity.Color;
+import com.nnj.learn.javaee8.entity.EngineType;
+
 @Singleton
 public class CarRepositoryInMemImpl implements CarRepository {
-	private List<Car> list = new ArrayList<>();
+	private final List<Car> list = new ArrayList<>();
 	
 	static final Logger LOGGER = Logger.getLogger(CarRepositoryInMemImpl.class.getName());
 
@@ -55,13 +55,13 @@ public class CarRepositoryInMemImpl implements CarRepository {
 
 	@Override
 	public List<Car> getAll(final String filterByAttr, final String filterByValue) {
-		if (filterByAttr == null || filterByAttr.equals("") || filterByValue == null || filterByValue.equals(""))
+		if (filterByAttr == null || "".equals(filterByAttr) || filterByValue == null || "".equals(filterByValue))
 			return list;
 
 		return list.stream().filter(c -> {
-			if (filterByAttr.equals("color"))
+			if ("color".equals(filterByAttr))
 				return c.getColor() == Color.valueOf(filterByValue);
-			if (filterByAttr.equals("engineType"))
+			if ("engineType".equals(filterByAttr))
 				return c.getEngineType() == EngineType.valueOf(filterByValue);
 			return false;
 		}).collect(Collectors.toList());

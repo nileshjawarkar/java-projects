@@ -32,12 +32,12 @@ public class CarResourceV1 {
 	
 	@GET
 	@Path("{id}")
-	public Car getCar(@PathParam("id") @DefaultValue("zyx") String id) {
+	public Car getCar(@PathParam("id") @DefaultValue("zyx") final String id) {
 		return carManufacturer.retrieveCar(id);
 	}
 	
 	@POST
-	public Car createCar(Specification spec) throws InvalidEngine {
+	public Car createCar(final Specification spec) throws InvalidEngine {
 		return carManufacturer.createCar(spec);
 	}
 }

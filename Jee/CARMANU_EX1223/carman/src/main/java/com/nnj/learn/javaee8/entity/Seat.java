@@ -23,7 +23,7 @@ public class Seat {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
@@ -31,7 +31,7 @@ public class Seat {
 		return seatMaterial;
 	}
 
-	public void setSeatMaterial(SeatMaterial seatMaterial) {
+	public void setSeatMaterial(final SeatMaterial seatMaterial) {
 		this.seatMaterial = seatMaterial;
 	}
 
@@ -39,7 +39,7 @@ public class Seat {
 		return seatBelt;
 	}
 
-	public void setSeatBelt(SeatBelt seatBelt) {
+	public void setSeatBelt(final SeatBelt seatBelt) {
 		this.seatBelt = seatBelt;
 	}
 }

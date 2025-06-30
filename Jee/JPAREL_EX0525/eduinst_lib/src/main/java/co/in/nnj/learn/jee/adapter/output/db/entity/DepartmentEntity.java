@@ -37,4 +37,9 @@ public class DepartmentEntity extends BaseEntity {
     public void setFunction(final DepartmentType function) {
         this.function = function;
     }
+    @Override
+    public String toString() {
+        return "DepartmentEntity{name=" + name + ", getId()=" + getId() + "}";
+    }
+
 }

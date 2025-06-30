@@ -12,11 +12,11 @@ public class Specification {
 		return engineType;
 	}
 	
-	public void setColor(Color color) {
+	public void setColor(final Color color) {
 		this.color = color;
 	}
 	
-	public void setEngineType(EngineType engineType) {
+	public void setEngineType(final EngineType engineType) {
 		this.engineType = engineType;
 	}
 }

@@ -61,7 +61,7 @@ public class CarResourceV3 {
             }
 
             LOGGER.info("Number of cars - " + cars.size());
-            JsonArray jsonArray = cars.stream()
+            final JsonArray jsonArray = cars.stream()
                     .map(car -> Json.createValue(car.getId()))
                     .collect(JsonCollectors.toJsonArray());
             return Response.ok().entity(jsonArray).build();
@@ -70,13 +70,13 @@ public class CarResourceV3 {
 
     @GET
     @Path("{id}")
-    public Response getCar(@PathParam("id") @DefaultValue("zyx") String id) {
-        Car car = carManufacturer.retrieveCar(id);
+    public Response getCar(@PathParam("id") @DefaultValue("zyx") final String id) {
+        final Car car = carManufacturer.retrieveCar(id);
         if (car == null) {
             return Response.noContent().build();
         }
 
-        JsonObject jsonObj = Json.createObjectBuilder()
+        final JsonObject jsonObj = Json.createObjectBuilder()
                 .add("color", car.getColor().name())
                 .add("engineType", car.getEngineType().name())
                 .add("id", car.getId())
@@ -85,7 +85,7 @@ public class CarResourceV3 {
     }
 
     @POST
-    public void createCar(@NotNull final JsonObject jsonSpec, @Suspended AsyncResponse response) {
+    public void createCar(@NotNull final JsonObject jsonSpec, @Suspended final AsyncResponse response) {
         final String tmpCarUrl = uriInfo.getBaseUriBuilder()
                 .path(CarResourceV3.class)
                 .path(CarResourceV3.class, "getCar")
@@ -96,7 +96,7 @@ public class CarResourceV3 {
         });
     }
 
-    Response createCar(JsonObject jsonSpec, final String tmpCarUrl) {
+    Response createCar(final JsonObject jsonSpec, final String tmpCarUrl) {
         final String strColor = (jsonSpec.containsKey("color") ? jsonSpec.getString("color") : null);
         final String strEngineType = (jsonSpec.containsKey("engineType") ? jsonSpec.getString("engineType") : null);
 
@@ -105,7 +105,7 @@ public class CarResourceV3 {
             EngineType engineType = EngineType.UNKNOWN;
             try {
                 engineType = EngineType.valueOf(strEngineType);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 LOGGER.severe("Engine type - \'" + strEngineType + "\' not valid.");
             }
             spec.setEngineType(engineType);
@@ -113,7 +113,7 @@ public class CarResourceV3 {
             spec.setColor(strColor == null ? defaultColor : Color.valueOf(strColor));
             final Car car = carManufacturer.createCar(spec);
 
-            String newCarURL = tmpCarUrl.replace("CARID", car.getId());
+            final String newCarURL = tmpCarUrl.replace("CARID", car.getId());
             return Response.status(Response.Status.CREATED)
                     .header("location", newCarURL)
                     .entity(car)

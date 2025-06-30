@@ -54,11 +54,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public Employee find(final UUID id) {
-        final EmployeeEntity emp = entityManager.find(EmployeeEntity.class, id);
-        if(emp.getPAddress()  != null) {
-            LOGGER.info("Address found.");
-        }
-        return mapper.toValue(emp);
+        return mapper.toValue(entityManager.find(EmployeeEntity.class, id));
     }
 
     @Override

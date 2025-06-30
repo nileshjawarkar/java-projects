@@ -41,25 +41,12 @@ public class EmployeeEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private DepartmentEntity department;
-    
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "per_addr") //-- Permanent address
     private AddressEntity paddress;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "cor_addr")  //-- correspondence address
     private AddressEntity caddress;
-
-    public static String getFindAll() {
-        return FIND_ALL;
-    }
-
-    public static String getFindByName() {
-        return FIND_BY_NAME;
-    }
-
-    public static String getFindByDept() {
-        return FIND_BY_DEPT;
-    }
 
     public AddressEntity getPAddress() {
         return paddress;
@@ -124,4 +111,12 @@ public class EmployeeEntity extends BaseEntity {
     public void setJoiningDate(final Date joiningDate) {
         this.joiningDate = joiningDate;
     }
+
+    @Override
+    public String toString() {
+        return "EmployeeEntity{fname=" + fname + ", lname=" + lname + ", qualification=" + qualification
+                + ", job=" + joiningDate + ", dob=" + dob + ", department=" + department + ", paddress="
+                + paddress + "}";
+    }
+
 }

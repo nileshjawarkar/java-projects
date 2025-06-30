@@ -14,7 +14,7 @@ public class SeatBelt {
 		return seatModel;
 	}
 
-	public void setSeatModel(SeatBeltModel seatModel) {
+	public void setSeatModel(final SeatBeltModel seatModel) {
 		this.seatModel = seatModel;
 	}
 }

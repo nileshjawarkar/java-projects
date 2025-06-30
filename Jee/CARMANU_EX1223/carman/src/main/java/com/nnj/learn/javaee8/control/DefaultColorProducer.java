@@ -1,8 +1,9 @@
 package com.nnj.learn.javaee8.control;
 
-import com.nnj.learn.javaee8.entity.Color;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
+
+import com.nnj.learn.javaee8.entity.Color;
 
 
 public class DefaultColorProducer {

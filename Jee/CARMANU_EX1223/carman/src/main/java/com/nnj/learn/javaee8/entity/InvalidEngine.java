@@ -5,7 +5,7 @@ import jakarta.ejb.ApplicationException;
 @ApplicationException
 public class InvalidEngine extends RuntimeException {
 	private static final long serialVersionUID = 1L;
-	public InvalidEngine(String message) {
+	public InvalidEngine(final String message) {
 		super(message);
 	}
 }
