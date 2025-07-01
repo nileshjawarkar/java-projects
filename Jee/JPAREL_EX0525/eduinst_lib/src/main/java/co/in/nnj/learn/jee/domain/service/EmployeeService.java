@@ -1,6 +1,7 @@
 package co.in.nnj.learn.jee.domain.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.ejb.Stateless;
@@ -33,8 +34,8 @@ public class EmployeeService {
         return repository.findByName(fname, lname);
     }
 
-    public Employee find(final UUID id) {
-        return repository.find(id);
+    public Optional<Employee> find(final UUID id) {
+        return Optional.ofNullable(repository.find(id));
     }
 
     public boolean update(final Employee emp) {

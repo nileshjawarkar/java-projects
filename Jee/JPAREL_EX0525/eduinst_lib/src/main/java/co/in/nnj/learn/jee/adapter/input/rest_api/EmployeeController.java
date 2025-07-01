@@ -1,6 +1,7 @@
 package co.in.nnj.learn.jee.adapter.input.rest_api;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import jakarta.inject.Inject;
@@ -27,7 +28,8 @@ import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class EmployeeController {
-    //-- private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class.getName());
+    // -- private static final Logger LOGGER =
+    // LoggerFactory.getLogger(EmployeeController.class.getName());
     @Inject
     EmployeeService employeeService;
 
@@ -48,11 +50,16 @@ public class EmployeeController {
     @GET
     @Path("{id}")
     public Response getEmployee(@PathParam("id") final String id) {
-        final Employee employee = employeeService.find(UUID.fromString(id));
-        if (employee == null) {
-            return Response.status(Response.Status.NO_CONTENT).build();
-        }
-        return Response.ok().entity(JsonMapper.employeeToJsonObj(employee)).build();
+        /*
+         * final Employee employee = employeeService.find(UUID.fromString(id));
+         * if (employee == null) {
+         * return Response.status(Response.Status.NO_CONTENT).build();
+         * }
+         * return Response.ok().entity(JsonMapper.employeeToJsonObj(employee)).build();
+         */
+        return employeeService.find(UUID.fromString(id)).map(e -> {
+            return Response.ok(JsonMapper.employeeToJsonObj(e));
+        }).orElseGet(Response::noContent).build();
     }
 
     @DELETE
@@ -88,8 +95,9 @@ public class EmployeeController {
     public Response updateAddress(@PathParam("id") final String id, @PathParam("whichone") final String whichone,
             final JsonObject jsonInput) {
         Response.Status status = Response.Status.BAD_REQUEST;
-        final Employee emp = employeeService.find(UUID.fromString(id));
-        if (emp != null) {
+        final Optional<Employee> empOp = employeeService.find(UUID.fromString(id));
+        if (empOp.isPresent()) {
+            final Employee emp = empOp.get();
             final Address address = JsonMapper.jsonObjToAddress(jsonInput);
             if (address != null) {
                 Address caddress = null;

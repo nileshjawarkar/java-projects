@@ -46,11 +46,10 @@ public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employ
         if (employee.paddress() != null) {
             staff.setPAddress(addMapper.toEntity(employee.paddress()));
         }
-        /*
-         * if(employee.caddress() != null) {
-         * staff.setCAddress(ADDRESSM.toEntity(employee.caddress()));
-         * }
-         */
+
+        if (employee.caddress() != null) {
+            staff.setCAddress(addMapper.toEntity(employee.caddress()));
+        }
 
         final DepartmentEntity dept = new DepartmentEntity();
         dept.setId(employee.departmentId());

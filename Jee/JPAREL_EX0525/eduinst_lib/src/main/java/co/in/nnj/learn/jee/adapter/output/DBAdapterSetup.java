@@ -12,7 +12,6 @@ import co.in.nnj.learn.jee.port.output.db.repository.EmployeeRepository;
 
 @Stateless
 public class DBAdapterSetup {
-
     @PersistenceContext
     EntityManager entityManager;
 
@@ -20,7 +19,7 @@ public class DBAdapterSetup {
     public DepartmentRepository getDepartmentRepo() {
         return new DepartmentRepositoryImpl(entityManager);
     }
-    
+
     @Produces
     public EmployeeRepository getEmployeeRepo() {
         return new EmployeeRepositoryImpl(entityManager);
