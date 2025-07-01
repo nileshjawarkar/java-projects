@@ -10,14 +10,15 @@ import co.in.nnj.learn.jee.domain.valueobjects.Address;
 
 public class AddressMapper implements EntityMapper<AddressEntity, Address> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AddressMapper.class.getName());
+
     @Override
     public AddressEntity updateEntity(final AddressEntity entity, final Address vobj) {
         throw new UnsupportedOperationException("Unimplemented method 'updateEntity'");
-    }                                                                                   
+    }
 
     @Override
     public AddressEntity toEntity(final Address obj) {
-        if(obj == null) {
+        if (obj == null) {
             return null;
         }
         final AddressEntity entity = new AddressEntity();
