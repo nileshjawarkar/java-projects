@@ -66,7 +66,7 @@ public final class JsonMapper {
         return objectBuilder.build();
     }
 
-    static Employee jsonObjToEmployee(final JsonObject jsonObject, final String dept_id, final String id) {
+    static Employee jsonObjToEmployee(final JsonObject jsonObject, final String deptId, final String id) {
         if (jsonObject != null) {
             final String eType = jsonObject.containsKey("type") ? jsonObject.getString("type") : null;
             final String eDob = jsonObject.containsKey("dob") ? jsonObject.getString("dob") : null;
@@ -86,7 +86,7 @@ public final class JsonMapper {
                         jsonObject.containsKey("qualification") ? jsonObject.getString("qualification") : null,
                         jsonObject.containsKey("experties") ? jsonObject.getString("experties") : null,
                         eType != null ? EmployeeType.valueOf(eType) : null,
-                        dept_id != null ? UUID.fromString(dept_id) : null,
+                        deptId != null ? UUID.fromString(deptId) : null,
                         jsonObjToAddress(paddress),
                         jsonObjToAddress(caddress));
             } catch (final ParseException e) {

@@ -9,8 +9,7 @@ import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.lang.ArchRule;
 
-public class ArchChecker {
-
+public class ArchStructureTests {
     private static JavaClasses all_classes;
 
     @BeforeAll
