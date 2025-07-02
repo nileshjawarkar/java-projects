@@ -1,6 +1,6 @@
 package co.in.nnj.learn.jee;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
@@ -11,10 +11,10 @@ import com.tngtech.archunit.lang.ArchRule;
 
 public class ArchChecker {
 
-    private JavaClasses all_classes;
+    private static JavaClasses all_classes;
 
-    @BeforeEach
-    public void init() {
+    @BeforeAll
+    public static void init() {
         all_classes = new ClassFileImporter().importPackages("co.in.nnj.learn.jee");
     }
 
