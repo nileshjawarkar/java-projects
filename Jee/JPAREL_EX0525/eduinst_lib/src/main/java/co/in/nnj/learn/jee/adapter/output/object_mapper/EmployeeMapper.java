@@ -1,8 +1,5 @@
 package co.in.nnj.learn.jee.adapter.output.object_mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,10 +7,11 @@ import co.in.nnj.learn.jee.adapter.output.db.entity.DepartmentEntity;
 import co.in.nnj.learn.jee.adapter.output.db.entity.EmployeeEntity;
 import co.in.nnj.learn.jee.adapter.output.db.entity.OperationStaffEntity;
 import co.in.nnj.learn.jee.adapter.output.db.entity.TeachingStaffEntity;
+import co.in.nnj.learn.jee.common.infra.EntityMapper;
 import co.in.nnj.learn.jee.domain.valueobjects.Employee;
 import co.in.nnj.learn.jee.domain.valueobjects.EmployeeType;
 
-public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employee> {
+public final class EmployeeMapper extends EntityMapper<EmployeeEntity, Employee> {
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeMapper.class.getName());
     private final AddressMapper addressMapper = new AddressMapper();
 
@@ -83,14 +81,5 @@ public final class EmployeeMapper implements EntityMapper<EmployeeEntity, Employ
                 experties, type, emp.getDepartment().getId(),
                 addressMapper.toValue(emp.getPAddress()),
                 addressMapper.toValue(emp.getCAddress()));
-    }
-
-    @Override
-    public List<Employee> toValueList(final List<EmployeeEntity> resultList) {
-        final List<Employee> emps = new ArrayList<>();
-        for (final EmployeeEntity employeeEntity : resultList) {
-            emps.add(toValue(employeeEntity));
-        }
-        return emps;
     }
 }

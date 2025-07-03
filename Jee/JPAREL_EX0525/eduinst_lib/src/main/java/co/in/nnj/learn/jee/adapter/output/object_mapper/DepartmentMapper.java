@@ -1,12 +1,10 @@
 package co.in.nnj.learn.jee.adapter.output.object_mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import co.in.nnj.learn.jee.adapter.output.db.entity.DepartmentEntity;
+import co.in.nnj.learn.jee.common.infra.EntityMapper;
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
 
-public final class DepartmentMapper implements EntityMapper <DepartmentEntity, Department> {
+public final class DepartmentMapper extends EntityMapper <DepartmentEntity, Department> {
     @Override
     public DepartmentEntity updateEntity(final DepartmentEntity entity, final Department vobj) {
         entity.setName(vobj.name());
@@ -23,15 +21,5 @@ public final class DepartmentMapper implements EntityMapper <DepartmentEntity, D
     @Override
     public Department toValue(final DepartmentEntity entity) {
         return new Department(entity.getName(), entity.getFunction(), entity.getId());
-    }
-
-    @Override
-    public List<Department> toValueList(final List<DepartmentEntity> listOfEntities) {
-        final List<Department> deptList = new ArrayList<>();
-        for (final DepartmentEntity dept : listOfEntities) {
-            final Department dto = toValue(dept);
-            deptList.add(dto);
-        }
-        return deptList;
     }
 }

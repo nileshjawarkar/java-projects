@@ -1,4 +1,4 @@
-package co.in.nnj.learn.jee.port.output.db.repository;
+package co.in.nnj.learn.jee.common.infra;
 
 import java.util.List;
 

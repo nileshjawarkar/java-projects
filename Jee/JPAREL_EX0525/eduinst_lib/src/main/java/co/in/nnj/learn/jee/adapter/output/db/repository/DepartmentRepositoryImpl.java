@@ -8,7 +8,7 @@ import jakarta.persistence.EntityManager;
 
 import co.in.nnj.learn.jee.adapter.output.db.entity.DepartmentEntity;
 import co.in.nnj.learn.jee.adapter.output.object_mapper.DepartmentMapper;
-import co.in.nnj.learn.jee.adapter.output.object_mapper.EntityMapper;
+import co.in.nnj.learn.jee.common.infra.EntityMapper;
 import co.in.nnj.learn.jee.domain.valueobjects.Department;
 import co.in.nnj.learn.jee.domain.valueobjects.DepartmentType;
 import co.in.nnj.learn.jee.port.output.db.repository.DepartmentRepository;

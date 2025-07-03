@@ -1,14 +1,13 @@
 package co.in.nnj.learn.jee.adapter.output.object_mapper;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import co.in.nnj.learn.jee.adapter.output.db.entity.AddressEntity;
+import co.in.nnj.learn.jee.common.infra.EntityMapper;
 import co.in.nnj.learn.jee.domain.valueobjects.Address;
 
-public class AddressMapper implements EntityMapper<AddressEntity, Address> {
+public class AddressMapper extends EntityMapper<AddressEntity, Address> {
     private static final Logger LOGGER = LoggerFactory.getLogger(AddressMapper.class.getName());
 
     @Override
@@ -40,10 +39,5 @@ public class AddressMapper implements EntityMapper<AddressEntity, Address> {
         LOGGER.info(entity.toString());
         return new Address(entity.getId(), entity.getStreet(), entity.getCity(), entity.getState(), entity.getCountry(),
                 entity.getPin(), entity.getLandscape());
-    }
-
-    @Override
-    public List<Address> toValueList(final List<AddressEntity> listOfEntities) {
-        throw new UnsupportedOperationException("Unimplemented method 'toValueList'");
     }
 }
