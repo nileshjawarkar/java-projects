@@ -266,6 +266,232 @@
               }
             ]
           }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"title\" : \"course xxxx\",\n  \"description\" : \"xxyyyyy\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/course"
+            },
+            "id": "37e1f10a-1fcb-419a-a6ad-d6baf301a267",
+            "name": "c01#createCourse",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"title\" : \"course xxxx\",\n  \"description\" : \"xxyyyyy\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/course/${ COURSEID }"
+            },
+            "id": "474e354e-b11c-4c6f-b259-5da4f8202f92",
+            "name": "c02#getCourse",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"fname\" : \"namexxxxxx\",\n  \"lname\" : \"lnamexxxxxxx\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/course/${ COURSEID }/student"
+            },
+            "id": "431e92fd-6103-476c-8adc-ba3240671c41",
+            "name": "c03#addStudToCourse",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"fname\" : \"nameyyyyyy\",\n  \"lname\" : \"lnameyyyyy\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/student"
+            },
+            "id": "544552ef-62e1-4455-b23a-05e148732939",
+            "name": "c04#createStudent",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"fname\" : \"nameyyyyyy\",\n  \"lname\" : \"lnameyyyyy\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/student/${ STUDID }"
+            },
+            "id": "0210e43d-7558-4f76-a570-b34c5fbe7fc0",
+            "name": "c05#getStudent",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"title\" : \"course YYYYYYY\",\n  \"description\" : \"ZZZZZZZ\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/student/${ STUDID }/course"
+            },
+            "id": "66cb1aae-8be4-4b92-a5c7-deb2593b1a2f",
+            "name": "c06#addCourseToStudent",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
         }
       ]
     }
@@ -292,7 +518,21 @@
         "14883f54-65e5-4e68-8d85-ee8dd4d83078": {
           "createdAt": "2025-07-12T16:07:40.094+05:30",
           "name": "USERID",
-          "value": "46358733-5b23-4bbb-b34c-57f0fcbc3284",
+          "value": "d20199ae-deb7-4dc0-909d-62990c45f82b",
+          "enabled": true,
+          "private": false
+        },
+        "87f2c452-d136-4456-a2a3-4fa9fd52f6c6": {
+          "createdAt": "2025-07-12T19:06:45.052+05:30",
+          "name": "COURSEID",
+          "value": "1",
+          "enabled": true,
+          "private": false
+        },
+        "7f401300-065a-4644-895d-b78bd514c035": {
+          "createdAt": "2025-07-12T20:22:34.475+05:30",
+          "name": "STUDID",
+          "value": "1",
           "enabled": true,
           "private": false
         }

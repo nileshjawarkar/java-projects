@@ -13,6 +13,8 @@
         <class>co.in.nnj.learn.jee.persi.rel.Item</class> 
         <class>co.in.nnj.learn.jee.persi.rel.User</class> 
         <class>co.in.nnj.learn.jee.persi.rel.Address</class> 
+        <class>co.in.nnj.learn.jee.persi.rel.Student</class> 
+        <class>co.in.nnj.learn.jee.persi.rel.Course</class> 
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
             <!-- <property

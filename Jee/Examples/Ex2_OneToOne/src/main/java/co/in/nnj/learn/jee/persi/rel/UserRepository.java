@@ -24,7 +24,7 @@ public class UserRepository {
 
     public boolean assignAddress(final UUID userId, final Address address) {
         return findUser(userId).map(user -> {
-            address.setUser(user);
+            //-- address.setUser(user);
             user.setAddress(address);
             em.persist(user);
             return true;

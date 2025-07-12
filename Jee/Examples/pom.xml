@@ -154,6 +154,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	<modules>
 		<module>Ex1_ManyToOne</module>
 		<module>Ex2_OneToOne</module>
+		<module>Ex3_ManyToMany</module>
 		<module>Study_webapp</module>
 	</modules>
 </project>
