@@ -1,0 +1,302 @@
+{
+  "version": 6,
+  "entities": [
+    {
+      "entity": {
+        "type": "Project",
+        "id": "fd548b78-3a9b-4a14-87ff-314539f17c3e",
+        "name": "StudyJee"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"owner\" : \"user1\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/cart"
+            },
+            "id": "eec0a334-e67e-4a03-8ff7-8fb53c0a9d42",
+            "name": "a01#createcart",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"owner\" : \"user1\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/cart/${ \"CARTID\"}"
+            },
+            "id": "72b6e870-7843-4975-b271-7e819427e688",
+            "name": "a02#getcart",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"title\" : \"item6\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/cart/${ \"CARTID\"}/item"
+            },
+            "id": "cdbfd8f6-e8ac-4741-8c70-fab16ab7a996",
+            "name": "a03#additem",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"title\" : \"item3\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/cart/${ \"CARTID\"}/item"
+            },
+            "id": "d2f52842-bdc5-4059-9148-ed275d312205",
+            "name": "a04#getitems",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"fname\" : \"xxxx\",\n  \"lname\" : \"yyyyy\",\n  \"dob\" : \"23-09-2000\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/users"
+            },
+            "id": "7fcda508-057e-4014-8007-2051824fa337",
+            "name": "b01#createUser",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"fname\" : \"xxxx\",\n  \"lname\" : \"yyyyy\",\n  \"dob\" : \"23-09-2000\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/users/${ \"USERID\"}"
+            },
+            "id": "c610a1e7-e05f-44bb-be44-1dd3085abb57",
+            "name": "b02#getUser",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"street\" : \"xxxxx\",\n  \"city\" : \"yyyyy\",\n  \"state\" : \"zzzzzz\",\n  \"country\" : \"aaaa\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/users/${ \"USERID\"}/address"
+            },
+            "id": "c536c9da-a059-4607-a388-362241d28f27",
+            "name": "b03#updateAddress",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "environments": [
+    {
+      "id": "66389a1b-35af-44a5-960c-8cd98e2c5307",
+      "name": "STUDYEE",
+      "variables": {
+        "5d4684eb-99a6-4101-b6c1-08419dd348c1": {
+          "createdAt": "2025-06-21T21:47:00.530+05:30",
+          "name": "MYAPP",
+          "value": "localhost:8080/myapp/api",
+          "enabled": true,
+          "private": false
+        },
+        "411e2359-89dd-4c35-8484-a52f770c1772": {
+          "createdAt": "2025-07-07T22:05:35.814+05:30",
+          "name": "CARTID",
+          "value": "2771cd02-66e2-44a3-8d1c-fa7f0d5f12c3",
+          "enabled": true,
+          "private": false
+        },
+        "14883f54-65e5-4e68-8d85-ee8dd4d83078": {
+          "createdAt": "2025-07-12T16:07:40.094+05:30",
+          "name": "USERID",
+          "value": "46358733-5b23-4bbb-b34c-57f0fcbc3284",
+          "enabled": true,
+          "private": false
+        }
+      }
+    }
+  ]
+}
