@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+	<persistence-unit name="development" transaction-type="JTA">
+        <jta-data-source>myapp/managed</jta-data-source>
+	    <!-- 
+        <non-jta-data-source>myapp/unmanaged</non-jta-data-source> 
+        -->
+        <class>co.in.nnj.learn.jee.persi.rel.Cart</class> 
+        <class>co.in.nnj.learn.jee.persi.rel.Item</class> 
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+            <property
+                name="jakarta.persistence.schema-generation.database.action"
+                value="drop-and-create" />
+		</properties>		
+	</persistence-unit>
+</persistence>
+    

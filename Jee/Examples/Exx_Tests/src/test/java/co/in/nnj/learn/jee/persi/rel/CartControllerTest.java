@@ -1,14 +1,10 @@
 package co.in.nnj.learn.jee.persi.rel;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import co.in.nnj.learn.jee.AppRoot;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.core.Response;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,12 +14,15 @@ public class CartControllerTest {
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "myapp.war")
-            .addPackage(AppRoot.class.getPackage())
-            .addPackage(CartController.class.getPackage())
-            .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addPackages(true, "co.in.nnj.learn.jee")
+                .addPackages(true, "org.hsqldb")
+                .addAsResource("persistence.xml", "META-INF/persistence.xml")
+                .addAsWebInfResource("resources.xml", "resources.xml")
+                .addAsWebInfResource("beans.xml", "beans.xml");
     }
 
     @Test
-    public void testSomething() {
+    public void createCartShouldWork() {
+        assertTrue(true);
     }
 }

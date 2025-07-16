@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+    <Resource id="myapp/managed" type="DataSource">
+        JdbcDriver = org.hsqldb.jdbc.JDBCDriver
+        JdbcUrl = jdbc:hsqldb:mem:mydb
+        UserName = sa
+        Password = sa
+        jtaManaged = true
+    </Resource>
+</tomee>
+    
