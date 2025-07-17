@@ -1,7 +1,0 @@
-HTTP/1.1 200 
-Date: Fri, 20 Jun 2025 05:21:45 GMT
-Content-Type: application/json
-Content-Length: 601
-Server: Apache TomEE
-
-{"id":"a93a4bcb-5a16-4dc1-b79c-adc8de6f8709","color":"GREEN","engineType":"PETROL","seats":[{"material":"FABRIC","id":"fe6ba958-90f0-4246-a0a5-f658286146fa","seatBelt":"NORMAL"},{"material":"FABRIC","id":"5cedae74-c992-4673-b4f7-1a944794c30f","seatBelt":"NORMAL"},{"material":"FABRIC","id":"b978911f-7bdb-4bee-8bb6-71ac11637583","seatBelt":"NORMAL"},{"material":"FABRIC","id":"e35c0914-5f3b-469d-92ca-b6652627309f","seatBelt":"NORMAL"},{"material":"FABRIC","id":"57645f52-2204-4db9-9352-3674acb92378","seatBelt":"NORMAL"}],"steering":{"id":"a17452ff-4556-4ca0-a008-206da8f76a9b","type":"TELESCOPING"}}
