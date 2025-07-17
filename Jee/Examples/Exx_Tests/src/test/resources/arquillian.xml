@@ -9,10 +9,10 @@
          <property name="simpleLog">true</property>
 
          <!-- remove if exist -->
-         <property name="cleanOnStartUp">true</property>
+         <property name="cleanOnStartUp">false</property>
 
          <!-- remove default webapps -->
-         <property name="removeunusedWebapps">true</property>
+         <property name="removeUnusedWebapps">true</property>
 
          <!-- port = -1 means random -->
          <property name="httpPort">-1</property>

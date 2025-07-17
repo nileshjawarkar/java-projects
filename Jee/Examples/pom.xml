@@ -15,8 +15,8 @@
       <maven.compiler.source>21</maven.compiler.source>
       <maven.compiler.target>21</maven.compiler.target>
       <tomee.ver>10.1.0</tomee.ver>
+      <tomee.classifier>plus</tomee.classifier>
       <arqui.ver>1.10.0.Final</arqui.ver>
-      <johnzon.ver>2.0.2</johnzon.ver>
       <junit.ver>5.13.3</junit.ver>
       <mockito.ver>5.16.1</mockito.ver>
    </properties>
@@ -90,7 +90,7 @@
             <groupId>org.apache.tomee</groupId>
             <artifactId>apache-tomee</artifactId>
             <version>${tomee.ver}</version>
-            <classifier>plume</classifier>
+            <classifier>${tomee.classifier}</classifier>
             <type>zip</type>
             <scope>test</scope>
          </dependency>
@@ -104,6 +104,10 @@
             <version>3.5.3</version>
             <configuration>
                <skipTests>${skipTests}</skipTests>
+               <systemPropertyVariables>
+                  <tomee.classifier>${tomee.classifier}</tomee.classifier>
+                  <tomee.version>${tomee.ver}</tomee.version>
+               </systemPropertyVariables>
             </configuration>
          </plugin>
          <plugin>
