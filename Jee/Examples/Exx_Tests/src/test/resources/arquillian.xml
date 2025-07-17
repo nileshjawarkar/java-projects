@@ -1,6 +1,32 @@
-<container qualifier="tomee" default="true">
-    <configuration>
-        <property name="httpPort">-1</property>
-        <property name="stopPort">-1</property>
-    </configuration>
-</container>
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation=" http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+   <container qualifier="tomee" default="true">
+      <configuration>
+         <property name="debug">false</property>
+         <property name="debugPort">5005</property>
+
+         <!-- nice one line logging -->
+         <property name="simpleLog">true</property>
+
+         <!-- remove if exist -->
+         <property name="cleanOnStartUp">true</property>
+
+         <!-- remove default webapps -->
+         <property name="removeunusedWebapps">true</property>
+
+         <!-- port = -1 means random -->
+         <property name="httpPort">-1</property>
+         <property name="stopPort">-1</property>
+
+         <!-- where to create TomEE -->
+         <property name="dir">target/apache-tomee</property>
+
+         <!-- where to dump on disk applications to deploy -->
+         <property name="appWorkingDir">target/working-dir</property>
+
+         <!-- optional - limit the port allowed when random -->
+         <property name="portRange">20001-30000</property>
+
+      </configuration>
+   </container>
+</arquillian>
