@@ -70,7 +70,7 @@ public class ControllerTest {
                 } else if (id.equals(itemId2)) {
                     assertEquals(title, "item2");
                 } else {
-                    assertFalse(true, "Failed to retrieve one item.");
+                    assertFalse(true, "Failed to retrieve items!");
                     break;
                 }
             }
