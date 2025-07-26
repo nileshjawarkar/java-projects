@@ -1,6 +1,6 @@
 package co.in.nnj.learn.fun;
 
-public class ex1 {
+public class Ex1_FuncInterface {
 
     @FunctionalInterface
     public interface Operation {

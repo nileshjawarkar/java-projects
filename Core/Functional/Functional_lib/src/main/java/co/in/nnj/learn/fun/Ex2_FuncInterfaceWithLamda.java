@@ -1,6 +1,6 @@
 package co.in.nnj.learn.fun;
 
-public class ex2 {
+public class Ex2_FuncInterfaceWithLamda {
 
     @FunctionalInterface
     public interface Operation<T> {
@@ -8,12 +8,10 @@ public class ex2 {
     }
 
     public static void main(final String[] args) {
-        final Operation<Integer> addOperation = new Operation<>() {
-            @Override
-            public Integer apply(final Integer a, final Integer b) {
-                return a + b;
-            }
+        final Operation<Integer> addOperation = (a, b) -> {
+            return a + b;
         };
+
         System.out.println(addOperation.apply(20, 11));
 
         final Operation<Integer> subOperation = (a, b) -> {
