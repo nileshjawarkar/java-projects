@@ -18,6 +18,15 @@ public class Ex4_HigherOrderFunctions {
         System.out.println(randomNumFactory.get());
     }
 
+    /**
+     * API takes producer and configurator as input and return producers
+     * 
+     * @param producer<T>,       produce data of type T
+     * @param configurator<T,R>, configurator takes T type data as input and convert
+     *                           it to type R
+     * @return producer<R>, which use both the inputs and return producer which use
+     *         them to produce required output.
+     **/
     private static <T, R> Supplier<R> createFactory(final Supplier<T> producer, final Function<T, R> configurator) {
         return () -> {
             return configurator.apply(producer.get());
