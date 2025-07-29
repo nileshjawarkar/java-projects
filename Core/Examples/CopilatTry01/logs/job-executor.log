@@ -1606,3 +1606,418 @@
 2025-07-29 22:50:04.306 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Job retrieval stopped
 2025-07-29 22:50:04.310 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Application shutdown complete
 2025-07-29 22:50:04.322 [Thread-2] INFO  c.example.jobexecutor.JobExecutorApp - Shutdown hook triggered, stopping JobExecutor...
+2025-07-29 23:19:20.293 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Starting JobExecutor Demo Application
+2025-07-29 23:19:20.684 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job 3d259825-53eb-49df-a025-285c9e755be4 to available jobs queue
+2025-07-29 23:19:20.685 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job c349aa7b-98dc-42be-a301-1178923db901 to available jobs queue
+2025-07-29 23:19:20.685 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job b030427c-0ca9-478a-acd7-2c1af0392470 to available jobs queue
+2025-07-29 23:19:20.685 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Added additional jobs to the handler
+2025-07-29 23:19:20.688 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor initialized with config: JobExecutorConfig{maxConcurrentJobs=2, noJobWaitTime=PT2S, shutdownTimeout=PT30S, maxQueueSize=100, maxRetryAttempts=3, retryDelay=PT5S, jobTimeout=PT10M, enableRetry=true, enableTimeout=true}
+2025-07-29 23:19:20.705 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - JobExecutor starting. Main thread will handle job retrieval...
+2025-07-29 23:19:20.706 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting JobExecutor with 2 concurrent workers
+2025-07-29 23:19:20.707 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting job retrieval and processing in main thread
+2025-07-29 23:19:20.707 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 558e066b-112e-4b8d-80e6-2ccf2ad52f92 from queue
+2025-07-29 23:19:21.707 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:19:22.707 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:19:23.708 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:19:24.708 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:19:25.709 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:19:26.272 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 558e066b-112e-4b8d-80e6-2ccf2ad52f92 has additional context: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+2025-07-29 23:19:26.274 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 51d9aa96-be8f-4e20-a788-5459546521a0 from queue
+2025-07-29 23:19:26.274 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 558e066b-112e-4b8d-80e6-2ccf2ad52f92
+2025-07-29 23:19:26.274 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 558e066b-112e-4b8d-80e6-2ccf2ad52f92 is starting execution - Type: data_processing, Description: Process daily sales data
+2025-07-29 23:19:26.274 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing job 558e066b-112e-4b8d-80e6-2ccf2ad52f92 of type data_processing
+2025-07-29 23:19:26.275 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Processing data for job 558e066b-112e-4b8d-80e6-2ccf2ad52f92
+2025-07-29 23:19:26.393 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 51d9aa96-be8f-4e20-a788-5459546521a0 has additional context: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+2025-07-29 23:19:26.393 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 59f62175-f49d-41c3-819d-39098bb7789b from queue
+2025-07-29 23:19:26.393 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 51d9aa96-be8f-4e20-a788-5459546521a0
+2025-07-29 23:19:26.394 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 51d9aa96-be8f-4e20-a788-5459546521a0 is starting execution - Type: report_generation, Description: Generate monthly financial report
+2025-07-29 23:19:26.394 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing job 51d9aa96-be8f-4e20-a788-5459546521a0 of type report_generation
+2025-07-29 23:19:26.394 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Generating report for job 51d9aa96-be8f-4e20-a788-5459546521a0
+2025-07-29 23:19:26.508 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 59f62175-f49d-41c3-819d-39098bb7789b has additional context: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+2025-07-29 23:19:26.509 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job a294edba-ac48-4d3c-bfd0-377586b75277 from queue
+2025-07-29 23:19:26.624 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Job a294edba-ac48-4d3c-bfd0-377586b75277 has additional context: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+2025-07-29 23:19:26.625 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 26dc04b2-e84e-4e18-9f08-621484939f38 from queue
+2025-07-29 23:19:26.710 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:19:26.750 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 26dc04b2-e84e-4e18-9f08-621484939f38 has additional context: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+2025-07-29 23:19:26.750 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 9b1d2bb5-cf60-4423-a087-dfcfaa3a891f from queue
+2025-07-29 23:19:26.871 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 9b1d2bb5-cf60-4423-a087-dfcfaa3a891f has additional context: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+2025-07-29 23:19:26.871 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 3d259825-53eb-49df-a025-285c9e755be4 from queue
+2025-07-29 23:19:26.985 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 3d259825-53eb-49df-a025-285c9e755be4 has additional context: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+2025-07-29 23:19:26.986 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job c349aa7b-98dc-42be-a301-1178923db901 from queue
+2025-07-29 23:19:27.102 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Job c349aa7b-98dc-42be-a301-1178923db901 has additional context: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+2025-07-29 23:19:27.103 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job b030427c-0ca9-478a-acd7-2c1af0392470 from queue
+2025-07-29 23:19:27.219 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Job b030427c-0ca9-478a-acd7-2c1af0392470 has additional context: sunt aut facere repellat provident occaecati excepturi optio reprehenderit
+2025-07-29 23:19:27.710 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:19:28.275 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Data processing completed with warnings for job 558e066b-112e-4b8d-80e6-2ccf2ad52f92
+2025-07-29 23:19:28.276 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 558e066b-112e-4b8d-80e6-2ccf2ad52f92 completed with warnings
+2025-07-29 23:19:28.276 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 558e066b-112e-4b8d-80e6-2ccf2ad52f92 completed with warnings
+2025-07-29 23:19:28.277 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 59f62175-f49d-41c3-819d-39098bb7789b
+2025-07-29 23:19:28.278 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 59f62175-f49d-41c3-819d-39098bb7789b is starting execution - Type: file_cleanup, Description: Clean up temporary files older than 7 days
+2025-07-29 23:19:28.278 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing job 59f62175-f49d-41c3-819d-39098bb7789b of type file_cleanup
+2025-07-29 23:19:28.278 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Cleaning up files for job 59f62175-f49d-41c3-819d-39098bb7789b
+2025-07-29 23:19:28.711 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:19:29.278 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Some files could not be cleaned up for job 59f62175-f49d-41c3-819d-39098bb7789b
+2025-07-29 23:19:29.279 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 59f62175-f49d-41c3-819d-39098bb7789b completed with warnings
+2025-07-29 23:19:29.279 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 59f62175-f49d-41c3-819d-39098bb7789b completed with warnings
+2025-07-29 23:19:29.279 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: a294edba-ac48-4d3c-bfd0-377586b75277
+2025-07-29 23:19:29.279 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job a294edba-ac48-4d3c-bfd0-377586b75277 is starting execution - Type: notification, Description: Send status notifications to administrators
+2025-07-29 23:19:29.279 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing job a294edba-ac48-4d3c-bfd0-377586b75277 of type notification
+2025-07-29 23:19:29.279 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Sending notifications for job a294edba-ac48-4d3c-bfd0-377586b75277
+2025-07-29 23:19:29.394 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Report generated successfully - report_51d9aa96-be8f-4e20-a788-5459546521a0.pdf
+2025-07-29 23:19:29.395 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 51d9aa96-be8f-4e20-a788-5459546521a0 completed successfully
+2025-07-29 23:19:29.395 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 51d9aa96-be8f-4e20-a788-5459546521a0 completed successfully
+2025-07-29 23:19:29.395 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 26dc04b2-e84e-4e18-9f08-621484939f38
+2025-07-29 23:19:29.395 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 26dc04b2-e84e-4e18-9f08-621484939f38 is starting execution - Type: data_processing, Description: Process customer feedback data
+2025-07-29 23:19:29.395 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing job 26dc04b2-e84e-4e18-9f08-621484939f38 of type data_processing
+2025-07-29 23:19:29.395 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Processing data for job 26dc04b2-e84e-4e18-9f08-621484939f38
+2025-07-29 23:19:29.712 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:19:29.779 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Notifications sent to 10 recipients
+2025-07-29 23:19:29.780 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job a294edba-ac48-4d3c-bfd0-377586b75277 completed successfully
+2025-07-29 23:19:29.780 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job a294edba-ac48-4d3c-bfd0-377586b75277 completed successfully
+2025-07-29 23:19:29.788 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 9b1d2bb5-cf60-4423-a087-dfcfaa3a891f
+2025-07-29 23:19:29.788 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 9b1d2bb5-cf60-4423-a087-dfcfaa3a891f is starting execution - Type: custom_task, Description: Execute custom business logic
+2025-07-29 23:19:29.788 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing job 9b1d2bb5-cf60-4423-a087-dfcfaa3a891f of type custom_task
+2025-07-29 23:19:29.789 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing default job logic for 9b1d2bb5-cf60-4423-a087-dfcfaa3a891f
+2025-07-29 23:19:30.712 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:19:31.289 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Generic job completed - Execute custom business logic
+2025-07-29 23:19:31.289 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 9b1d2bb5-cf60-4423-a087-dfcfaa3a891f completed successfully
+2025-07-29 23:19:31.289 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 9b1d2bb5-cf60-4423-a087-dfcfaa3a891f completed successfully
+2025-07-29 23:19:31.289 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 3d259825-53eb-49df-a025-285c9e755be4
+2025-07-29 23:19:31.290 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 3d259825-53eb-49df-a025-285c9e755be4 is starting execution - Type: data_processing, Description: Process evening batch data
+2025-07-29 23:19:31.290 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing job 3d259825-53eb-49df-a025-285c9e755be4 of type data_processing
+2025-07-29 23:19:31.290 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Processing data for job 3d259825-53eb-49df-a025-285c9e755be4
+2025-07-29 23:19:31.396 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Data processing completed successfully - processed 1000 records
+2025-07-29 23:19:31.396 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 26dc04b2-e84e-4e18-9f08-621484939f38 completed successfully
+2025-07-29 23:19:31.396 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 26dc04b2-e84e-4e18-9f08-621484939f38 completed successfully
+2025-07-29 23:19:31.397 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: c349aa7b-98dc-42be-a301-1178923db901
+2025-07-29 23:19:31.397 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job c349aa7b-98dc-42be-a301-1178923db901 is starting execution - Type: notification, Description: Send daily summary notifications
+2025-07-29 23:19:31.397 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing job c349aa7b-98dc-42be-a301-1178923db901 of type notification
+2025-07-29 23:19:31.397 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Sending notifications for job c349aa7b-98dc-42be-a301-1178923db901
+2025-07-29 23:19:31.712 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:19:31.897 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Notifications sent to 10 recipients
+2025-07-29 23:19:31.897 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job c349aa7b-98dc-42be-a301-1178923db901 completed successfully
+2025-07-29 23:19:31.898 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job c349aa7b-98dc-42be-a301-1178923db901 completed successfully
+2025-07-29 23:19:31.898 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: b030427c-0ca9-478a-acd7-2c1af0392470
+2025-07-29 23:19:31.898 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job b030427c-0ca9-478a-acd7-2c1af0392470 is starting execution - Type: report_generation, Description: Generate weekly performance report
+2025-07-29 23:19:31.898 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Executing job b030427c-0ca9-478a-acd7-2c1af0392470 of type report_generation
+2025-07-29 23:19:31.898 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Generating report for job b030427c-0ca9-478a-acd7-2c1af0392470
+2025-07-29 23:19:32.713 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:19:33.290 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Data processing completed with warnings for job 3d259825-53eb-49df-a025-285c9e755be4
+2025-07-29 23:19:33.291 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 3d259825-53eb-49df-a025-285c9e755be4 completed with warnings
+2025-07-29 23:19:33.291 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 3d259825-53eb-49df-a025-285c9e755be4 completed with warnings
+2025-07-29 23:19:33.713 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 1
+2025-07-29 23:19:34.714 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 1
+2025-07-29 23:19:34.898 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Report generated successfully - report_b030427c-0ca9-478a-acd7-2c1af0392470.pdf
+2025-07-29 23:19:34.898 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job b030427c-0ca9-478a-acd7-2c1af0392470 completed successfully
+2025-07-29 23:19:34.899 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job b030427c-0ca9-478a-acd7-2c1af0392470 completed successfully
+2025-07-29 23:19:35.714 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:19:35.714 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Stopping job processing...
+2025-07-29 23:19:35.715 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - Stopping JobExecutor...
+2025-07-29 23:19:35.716 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor stopped. Final metrics: JobExecutorMetrics{totalProcessed=9, succeeded=6, failed=0, warnings=3, retried=0, timedOut=0, successRate=66.67%, avgExecutionTime=1723.00ms}
+2025-07-29 23:19:37.221 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Job retrieval stopped
+2025-07-29 23:19:37.224 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Application shutdown complete
+2025-07-29 23:19:37.236 [Thread-2] INFO  c.example.jobexecutor.JobExecutorApp - Shutdown hook triggered, stopping JobExecutor...
+2025-07-29 23:30:05.043 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Starting JobExecutor Demo Application
+2025-07-29 23:30:05.050 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - ExampleJobHandler initialized with 6 jobs
+2025-07-29 23:30:05.051 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job 6d157760-8f7f-4bbe-9db5-c3c101392220 to available jobs queue
+2025-07-29 23:30:05.051 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job 4bd116c8-5225-42d8-a665-542b831f50c1 to available jobs queue
+2025-07-29 23:30:05.051 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job e3b89c05-2cd1-4840-ad63-a749b5cd3e04 to available jobs queue
+2025-07-29 23:30:05.051 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Added additional jobs to the handler
+2025-07-29 23:30:05.055 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor initialized with config: JobExecutorConfig{maxConcurrentJobs=2, noJobWaitTime=PT2S, shutdownTimeout=PT30S, maxQueueSize=100, maxRetryAttempts=3, retryDelay=PT5S, jobTimeout=PT10M, enableRetry=true, enableTimeout=true}
+2025-07-29 23:30:05.075 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - JobExecutor starting. Main thread will handle job retrieval...
+2025-07-29 23:30:05.076 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting JobExecutor with 2 concurrent workers
+2025-07-29 23:30:05.077 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting job retrieval and processing in main thread
+2025-07-29 23:30:05.077 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 3e442ec9-be77-4b51-bd25-8159a0ac6423 from queue
+2025-07-29 23:30:05.079 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 9858941f-c35e-4169-bd4c-2511eced7f05 from queue
+2025-07-29 23:30:05.080 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 9858941f-c35e-4169-bd4c-2511eced7f05
+2025-07-29 23:30:05.080 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 3e442ec9-be77-4b51-bd25-8159a0ac6423
+2025-07-29 23:30:05.081 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 9858941f-c35e-4169-bd4c-2511eced7f05 is starting execution
+2025-07-29 23:30:05.080 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 82e93cef-2444-4011-8a60-2da03eab32cd from queue
+2025-07-29 23:30:05.082 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 3e442ec9-be77-4b51-bd25-8159a0ac6423 is starting execution
+2025-07-29 23:30:05.083 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job c4e41917-ca47-40c4-a8a6-d60c2f15bd7c from queue
+2025-07-29 23:30:05.083 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 5e6a47da-7225-4198-a0f3-053271410b78 from queue
+2025-07-29 23:30:05.084 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job bedcbc12-fba4-410b-ac2d-aa56aa08911d from queue
+2025-07-29 23:30:05.084 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 6d157760-8f7f-4bbe-9db5-c3c101392220 from queue
+2025-07-29 23:30:05.085 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 4bd116c8-5225-42d8-a665-542b831f50c1 from queue
+2025-07-29 23:30:05.085 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job e3b89c05-2cd1-4840-ad63-a749b5cd3e04 from queue
+2025-07-29 23:30:05.405 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 9858941f-c35e-4169-bd4c-2511eced7f05 completed successfully
+2025-07-29 23:30:05.406 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 9858941f-c35e-4169-bd4c-2511eced7f05 completed successfully
+2025-07-29 23:30:05.407 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 82e93cef-2444-4011-8a60-2da03eab32cd
+2025-07-29 23:30:05.407 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 82e93cef-2444-4011-8a60-2da03eab32cd is starting execution
+2025-07-29 23:30:05.409 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 3e442ec9-be77-4b51-bd25-8159a0ac6423 completed with warnings
+2025-07-29 23:30:05.409 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 3e442ec9-be77-4b51-bd25-8159a0ac6423 completed with warnings
+2025-07-29 23:30:05.410 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: c4e41917-ca47-40c4-a8a6-d60c2f15bd7c
+2025-07-29 23:30:05.410 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job c4e41917-ca47-40c4-a8a6-d60c2f15bd7c is starting execution
+2025-07-29 23:30:05.881 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job c4e41917-ca47-40c4-a8a6-d60c2f15bd7c completed successfully
+2025-07-29 23:30:05.881 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job c4e41917-ca47-40c4-a8a6-d60c2f15bd7c completed successfully
+2025-07-29 23:30:05.881 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 5e6a47da-7225-4198-a0f3-053271410b78
+2025-07-29 23:30:05.882 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 5e6a47da-7225-4198-a0f3-053271410b78 is starting execution
+2025-07-29 23:30:05.929 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 82e93cef-2444-4011-8a60-2da03eab32cd completed with warnings
+2025-07-29 23:30:05.930 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 82e93cef-2444-4011-8a60-2da03eab32cd completed with warnings
+2025-07-29 23:30:05.930 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: bedcbc12-fba4-410b-ac2d-aa56aa08911d
+2025-07-29 23:30:05.930 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job bedcbc12-fba4-410b-ac2d-aa56aa08911d is starting execution
+2025-07-29 23:30:06.076 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:30:06.219 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job bedcbc12-fba4-410b-ac2d-aa56aa08911d completed successfully
+2025-07-29 23:30:06.220 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job bedcbc12-fba4-410b-ac2d-aa56aa08911d completed successfully
+2025-07-29 23:30:06.220 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 6d157760-8f7f-4bbe-9db5-c3c101392220
+2025-07-29 23:30:06.221 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 6d157760-8f7f-4bbe-9db5-c3c101392220 is starting execution
+2025-07-29 23:30:06.290 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 5e6a47da-7225-4198-a0f3-053271410b78 completed with warnings
+2025-07-29 23:30:06.290 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 5e6a47da-7225-4198-a0f3-053271410b78 completed with warnings
+2025-07-29 23:30:06.290 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 4bd116c8-5225-42d8-a665-542b831f50c1
+2025-07-29 23:30:06.291 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 4bd116c8-5225-42d8-a665-542b831f50c1 is starting execution
+2025-07-29 23:30:06.610 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 4bd116c8-5225-42d8-a665-542b831f50c1 completed successfully
+2025-07-29 23:30:06.611 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 4bd116c8-5225-42d8-a665-542b831f50c1 completed successfully
+2025-07-29 23:30:06.611 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: e3b89c05-2cd1-4840-ad63-a749b5cd3e04
+2025-07-29 23:30:06.612 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job e3b89c05-2cd1-4840-ad63-a749b5cd3e04 is starting execution
+2025-07-29 23:30:06.709 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 6d157760-8f7f-4bbe-9db5-c3c101392220 completed successfully
+2025-07-29 23:30:06.710 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 6d157760-8f7f-4bbe-9db5-c3c101392220 completed successfully
+2025-07-29 23:30:07.077 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 1
+2025-07-29 23:30:07.086 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job e3b89c05-2cd1-4840-ad63-a749b5cd3e04 completed successfully
+2025-07-29 23:30:07.087 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job e3b89c05-2cd1-4840-ad63-a749b5cd3e04 completed successfully
+2025-07-29 23:30:08.077 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:09.078 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:10.078 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:11.079 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:12.079 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:13.080 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:14.080 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:15.081 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:16.081 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:17.082 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:18.090 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:19.090 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:20.091 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:30:20.091 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Stopping job processing...
+2025-07-29 23:30:20.091 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - Stopping JobExecutor...
+2025-07-29 23:30:20.092 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor stopped. Final metrics: JobExecutorMetrics{totalProcessed=9, succeeded=6, failed=0, warnings=3, retried=0, timedOut=0, successRate=66.67%, avgExecutionTime=402.33ms}
+2025-07-29 23:30:21.090 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Job retrieval stopped
+2025-07-29 23:30:21.090 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Application shutdown complete
+2025-07-29 23:30:21.107 [Thread-2] INFO  c.example.jobexecutor.JobExecutorApp - Shutdown hook triggered, stopping JobExecutor...
+2025-07-29 23:38:19.793 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Starting JobExecutor Demo Application
+2025-07-29 23:38:19.800 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - ExampleJobHandler initialized with 6 jobs
+2025-07-29 23:38:19.801 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job 052fa8a6-e533-4e33-834f-c7f14fe25e37 to available jobs queue
+2025-07-29 23:38:19.802 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job 80888371-2da5-410b-8142-30c8ba0f3d52 to available jobs queue
+2025-07-29 23:38:19.803 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job 4b5b32cd-5dc6-4a47-b2da-5ae9afc3fe88 to available jobs queue
+2025-07-29 23:38:19.803 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Added additional jobs to the handler
+2025-07-29 23:38:19.807 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor initialized with config: JobExecutorConfig{maxConcurrentJobs=2, noJobWaitTime=PT2S, shutdownTimeout=PT30S, maxQueueSize=100, maxRetryAttempts=3, retryDelay=PT5S, jobTimeout=PT10M, enableRetry=true, enableTimeout=true}
+2025-07-29 23:38:19.827 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - JobExecutor starting. Main thread will handle job retrieval...
+2025-07-29 23:38:19.829 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting JobExecutor with 2 concurrent workers
+2025-07-29 23:38:19.829 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting job retrieval and processing in main thread
+2025-07-29 23:38:19.829 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job e9931069-361a-43d5-a947-ea3e2762d804 from queue
+2025-07-29 23:38:19.832 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 4c3e0b27-e5cd-4902-ad5a-3dcdc2595a8a from queue
+2025-07-29 23:38:19.833 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 6916ec69-c8bb-4784-b923-5b235c0a25ca from queue
+2025-07-29 23:38:19.833 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 42df002a-2dae-498a-a24f-87857db4cd4c from queue
+2025-07-29 23:38:19.839 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 5870d961-cabf-49dd-a5db-2dd3e298472b from queue
+2025-07-29 23:38:19.839 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: e9931069-361a-43d5-a947-ea3e2762d804
+2025-07-29 23:38:19.839 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 4f7e1de7-f31d-4031-8ed5-816d32ff7576 from queue
+2025-07-29 23:38:19.839 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 4c3e0b27-e5cd-4902-ad5a-3dcdc2595a8a
+2025-07-29 23:38:19.839 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 052fa8a6-e533-4e33-834f-c7f14fe25e37 from queue
+2025-07-29 23:38:19.840 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 80888371-2da5-410b-8142-30c8ba0f3d52 from queue
+2025-07-29 23:38:19.840 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 4b5b32cd-5dc6-4a47-b2da-5ae9afc3fe88 from queue
+2025-07-29 23:38:19.839 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job e9931069-361a-43d5-a947-ea3e2762d804 is starting execution
+2025-07-29 23:38:19.840 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 4c3e0b27-e5cd-4902-ad5a-3dcdc2595a8a is starting execution
+2025-07-29 23:38:20.349 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job e9931069-361a-43d5-a947-ea3e2762d804 completed with warnings
+2025-07-29 23:38:20.350 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job e9931069-361a-43d5-a947-ea3e2762d804 completed with warnings
+2025-07-29 23:38:20.351 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 6916ec69-c8bb-4784-b923-5b235c0a25ca
+2025-07-29 23:38:20.351 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 6916ec69-c8bb-4784-b923-5b235c0a25ca is starting execution
+2025-07-29 23:38:20.366 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 4c3e0b27-e5cd-4902-ad5a-3dcdc2595a8a completed successfully
+2025-07-29 23:38:20.366 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 4c3e0b27-e5cd-4902-ad5a-3dcdc2595a8a completed successfully
+2025-07-29 23:38:20.366 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 42df002a-2dae-498a-a24f-87857db4cd4c
+2025-07-29 23:38:20.367 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 42df002a-2dae-498a-a24f-87857db4cd4c is starting execution
+2025-07-29 23:38:20.469 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 6916ec69-c8bb-4784-b923-5b235c0a25ca completed successfully
+2025-07-29 23:38:20.469 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 6916ec69-c8bb-4784-b923-5b235c0a25ca completed successfully
+2025-07-29 23:38:20.469 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 5870d961-cabf-49dd-a5db-2dd3e298472b
+2025-07-29 23:38:20.470 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 5870d961-cabf-49dd-a5db-2dd3e298472b is starting execution
+2025-07-29 23:38:20.726 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 42df002a-2dae-498a-a24f-87857db4cd4c completed successfully
+2025-07-29 23:38:20.726 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 42df002a-2dae-498a-a24f-87857db4cd4c completed successfully
+2025-07-29 23:38:20.726 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 4f7e1de7-f31d-4031-8ed5-816d32ff7576
+2025-07-29 23:38:20.727 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 4f7e1de7-f31d-4031-8ed5-816d32ff7576 is starting execution
+2025-07-29 23:38:20.827 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:38:21.064 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 5870d961-cabf-49dd-a5db-2dd3e298472b completed successfully
+2025-07-29 23:38:21.064 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 5870d961-cabf-49dd-a5db-2dd3e298472b completed successfully
+2025-07-29 23:38:21.065 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 052fa8a6-e533-4e33-834f-c7f14fe25e37
+2025-07-29 23:38:21.065 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 052fa8a6-e533-4e33-834f-c7f14fe25e37 is starting execution
+2025-07-29 23:38:21.277 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 4f7e1de7-f31d-4031-8ed5-816d32ff7576 completed successfully
+2025-07-29 23:38:21.277 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 4f7e1de7-f31d-4031-8ed5-816d32ff7576 completed successfully
+2025-07-29 23:38:21.277 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 80888371-2da5-410b-8142-30c8ba0f3d52
+2025-07-29 23:38:21.277 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 80888371-2da5-410b-8142-30c8ba0f3d52 is starting execution
+2025-07-29 23:38:21.429 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 052fa8a6-e533-4e33-834f-c7f14fe25e37 completed with warnings
+2025-07-29 23:38:21.429 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 052fa8a6-e533-4e33-834f-c7f14fe25e37 completed with warnings
+2025-07-29 23:38:21.430 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 4b5b32cd-5dc6-4a47-b2da-5ae9afc3fe88
+2025-07-29 23:38:21.430 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 4b5b32cd-5dc6-4a47-b2da-5ae9afc3fe88 is starting execution
+2025-07-29 23:38:21.639 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 80888371-2da5-410b-8142-30c8ba0f3d52 completed successfully
+2025-07-29 23:38:21.639 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 80888371-2da5-410b-8142-30c8ba0f3d52 completed successfully
+2025-07-29 23:38:21.738 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 4b5b32cd-5dc6-4a47-b2da-5ae9afc3fe88 completed successfully
+2025-07-29 23:38:21.738 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 4b5b32cd-5dc6-4a47-b2da-5ae9afc3fe88 completed successfully
+2025-07-29 23:38:21.827 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:22.828 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:23.829 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:24.829 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:25.830 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:26.830 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:27.831 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:28.831 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:29.832 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:30.832 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:31.833 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:32.834 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:33.834 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:34.834 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:38:34.835 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Stopping job processing...
+2025-07-29 23:38:34.835 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - Stopping JobExecutor...
+2025-07-29 23:38:34.837 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor stopped. Final metrics: JobExecutorMetrics{totalProcessed=9, succeeded=7, failed=0, warnings=2, retried=0, timedOut=0, successRate=77.78%, avgExecutionTime=409.78ms}
+2025-07-29 23:38:35.841 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Job retrieval stopped
+2025-07-29 23:38:35.842 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Application shutdown complete
+2025-07-29 23:38:35.862 [Thread-2] INFO  c.example.jobexecutor.JobExecutorApp - Shutdown hook triggered, stopping JobExecutor...
+2025-07-29 23:43:37.339 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Starting JobExecutor Demo Application
+2025-07-29 23:43:37.346 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - ExampleJobHandler initialized with 6 jobs
+2025-07-29 23:43:37.347 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job b0b2bd09-881d-439d-924b-75033103fc6c to available jobs queue
+2025-07-29 23:43:37.348 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job 22181c7d-30d5-4606-ae33-9421cd31fc81 to available jobs queue
+2025-07-29 23:43:37.348 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job 968d0da4-4607-46b8-a808-c8ce71472a46 to available jobs queue
+2025-07-29 23:43:37.348 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Added additional jobs to the handler
+2025-07-29 23:43:37.354 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor initialized with config: JobExecutorConfig{maxConcurrentJobs=2, noJobWaitTime=PT2S, shutdownTimeout=PT30S, maxQueueSize=100, maxRetryAttempts=3, retryDelay=PT5S, jobTimeout=PT10M, enableRetry=true, enableTimeout=true}
+2025-07-29 23:43:37.378 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - JobExecutor starting. Main thread will handle job retrieval...
+2025-07-29 23:43:37.379 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting JobExecutor with 2 concurrent workers
+2025-07-29 23:43:37.379 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting job retrieval and processing in main thread
+2025-07-29 23:43:37.380 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 6a4ec72a-d8f2-49d4-ade5-21b205c6ab9e from queue
+2025-07-29 23:43:37.382 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job e8e90d67-977c-4546-883f-259a4c8ca3e3 from queue
+2025-07-29 23:43:37.383 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 4f56f56b-df02-4c33-9688-b9eed73d226b from queue
+2025-07-29 23:43:37.383 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 7e73c940-4587-4c50-8dcc-cce24f0ea1f6 from queue
+2025-07-29 23:43:37.383 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 9afa9c83-4d80-40d7-86b6-9f9fa3c54018 from queue
+2025-07-29 23:43:37.383 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 33fbf932-2deb-40f9-b113-b58b40e3917f from queue
+2025-07-29 23:43:37.383 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job b0b2bd09-881d-439d-924b-75033103fc6c from queue
+2025-07-29 23:43:37.383 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 22181c7d-30d5-4606-ae33-9421cd31fc81 from queue
+2025-07-29 23:43:37.383 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 968d0da4-4607-46b8-a808-c8ce71472a46 from queue
+2025-07-29 23:43:37.384 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 6a4ec72a-d8f2-49d4-ade5-21b205c6ab9e
+2025-07-29 23:43:37.384 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: e8e90d67-977c-4546-883f-259a4c8ca3e3
+2025-07-29 23:43:37.385 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job e8e90d67-977c-4546-883f-259a4c8ca3e3 is starting execution
+2025-07-29 23:43:37.384 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 6a4ec72a-d8f2-49d4-ade5-21b205c6ab9e is starting execution
+2025-07-29 23:43:37.626 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job e8e90d67-977c-4546-883f-259a4c8ca3e3 completed successfully
+2025-07-29 23:43:37.626 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job e8e90d67-977c-4546-883f-259a4c8ca3e3 completed successfully
+2025-07-29 23:43:37.627 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 4f56f56b-df02-4c33-9688-b9eed73d226b
+2025-07-29 23:43:37.628 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 4f56f56b-df02-4c33-9688-b9eed73d226b is starting execution
+2025-07-29 23:43:37.868 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 6a4ec72a-d8f2-49d4-ade5-21b205c6ab9e completed with warnings
+2025-07-29 23:43:37.869 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 6a4ec72a-d8f2-49d4-ade5-21b205c6ab9e completed with warnings
+2025-07-29 23:43:37.869 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 7e73c940-4587-4c50-8dcc-cce24f0ea1f6
+2025-07-29 23:43:37.869 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 7e73c940-4587-4c50-8dcc-cce24f0ea1f6 is starting execution
+2025-07-29 23:43:38.104 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 4f56f56b-df02-4c33-9688-b9eed73d226b completed with warnings
+2025-07-29 23:43:38.104 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 4f56f56b-df02-4c33-9688-b9eed73d226b completed with warnings
+2025-07-29 23:43:38.105 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 9afa9c83-4d80-40d7-86b6-9f9fa3c54018
+2025-07-29 23:43:38.105 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 9afa9c83-4d80-40d7-86b6-9f9fa3c54018 is starting execution
+2025-07-29 23:43:38.381 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 9afa9c83-4d80-40d7-86b6-9f9fa3c54018 completed with warnings
+2025-07-29 23:43:38.381 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 9afa9c83-4d80-40d7-86b6-9f9fa3c54018 completed with warnings
+2025-07-29 23:43:38.381 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 33fbf932-2deb-40f9-b113-b58b40e3917f
+2025-07-29 23:43:38.381 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 33fbf932-2deb-40f9-b113-b58b40e3917f is starting execution
+2025-07-29 23:43:38.382 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:43:38.427 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 7e73c940-4587-4c50-8dcc-cce24f0ea1f6 completed successfully
+2025-07-29 23:43:38.428 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 7e73c940-4587-4c50-8dcc-cce24f0ea1f6 completed successfully
+2025-07-29 23:43:38.428 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: b0b2bd09-881d-439d-924b-75033103fc6c
+2025-07-29 23:43:38.428 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job b0b2bd09-881d-439d-924b-75033103fc6c is starting execution
+2025-07-29 23:43:38.643 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 33fbf932-2deb-40f9-b113-b58b40e3917f completed successfully
+2025-07-29 23:43:38.643 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 33fbf932-2deb-40f9-b113-b58b40e3917f completed successfully
+2025-07-29 23:43:38.643 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 22181c7d-30d5-4606-ae33-9421cd31fc81
+2025-07-29 23:43:38.643 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 22181c7d-30d5-4606-ae33-9421cd31fc81 is starting execution
+2025-07-29 23:43:38.691 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job b0b2bd09-881d-439d-924b-75033103fc6c completed with warnings
+2025-07-29 23:43:38.691 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job b0b2bd09-881d-439d-924b-75033103fc6c completed with warnings
+2025-07-29 23:43:38.691 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 968d0da4-4607-46b8-a808-c8ce71472a46
+2025-07-29 23:43:38.691 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 968d0da4-4607-46b8-a808-c8ce71472a46 is starting execution
+2025-07-29 23:43:38.778 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 22181c7d-30d5-4606-ae33-9421cd31fc81 completed successfully
+2025-07-29 23:43:38.778 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 22181c7d-30d5-4606-ae33-9421cd31fc81 completed successfully
+2025-07-29 23:43:39.269 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 968d0da4-4607-46b8-a808-c8ce71472a46 completed successfully
+2025-07-29 23:43:39.270 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 968d0da4-4607-46b8-a808-c8ce71472a46 completed successfully
+2025-07-29 23:43:39.382 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:40.383 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:41.383 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:42.384 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:43.384 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:44.385 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:45.385 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:46.385 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:47.386 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:48.386 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:49.394 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:50.395 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:51.395 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:52.396 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:43:52.396 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Stopping job processing...
+2025-07-29 23:43:52.396 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - Stopping JobExecutor...
+2025-07-29 23:43:52.398 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor stopped. Final metrics: JobExecutorMetrics{totalProcessed=9, succeeded=5, failed=0, warnings=4, retried=0, timedOut=0, successRate=55.56%, avgExecutionTime=363.44ms}
+2025-07-29 23:43:53.385 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Job retrieval stopped
+2025-07-29 23:43:53.385 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Application shutdown complete
+2025-07-29 23:43:53.415 [Thread-2] INFO  c.example.jobexecutor.JobExecutorApp - Shutdown hook triggered, stopping JobExecutor...
+2025-07-29 23:48:50.522 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Starting JobExecutor Demo Application
+2025-07-29 23:48:50.529 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - ExampleJobHandler initialized with 6 jobs
+2025-07-29 23:48:50.531 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job e6e80955-cf69-41a1-ba80-bcef89b980f4 to available jobs queue
+2025-07-29 23:48:50.531 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job 550c7f83-6906-46a2-8037-9a5943d89d79 to available jobs queue
+2025-07-29 23:48:50.531 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Added job d2b55e78-2ffd-4ac7-9a8b-4357e6819f0e to available jobs queue
+2025-07-29 23:48:50.531 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Added additional jobs to the handler
+2025-07-29 23:48:50.535 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor initialized with config: JobExecutorConfig{maxConcurrentJobs=2, noJobWaitTime=PT2S, shutdownTimeout=PT30S, maxQueueSize=100, maxRetryAttempts=3, retryDelay=PT5S, jobTimeout=PT10M, enableRetry=true, enableTimeout=true}
+2025-07-29 23:48:50.554 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - JobExecutor starting. Main thread will handle job retrieval...
+2025-07-29 23:48:50.555 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting JobExecutor with 2 concurrent workers
+2025-07-29 23:48:50.555 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Starting job retrieval and processing in main thread
+2025-07-29 23:48:50.556 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job aa6beaf0-08fc-4014-92a9-f6276acc73e3 from queue
+2025-07-29 23:48:50.557 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job e53308b7-45a3-49b5-b874-c425651f8907 from queue
+2025-07-29 23:48:50.557 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: aa6beaf0-08fc-4014-92a9-f6276acc73e3
+2025-07-29 23:48:50.557 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 1a1dbf7b-9548-446b-a9d2-9bdebfb229ac from queue
+2025-07-29 23:48:50.558 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job aa6beaf0-08fc-4014-92a9-f6276acc73e3 is starting execution
+2025-07-29 23:48:50.557 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: e53308b7-45a3-49b5-b874-c425651f8907
+2025-07-29 23:48:50.558 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job de178999-5942-4a28-8c0c-a438995011fd from queue
+2025-07-29 23:48:50.558 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job e53308b7-45a3-49b5-b874-c425651f8907 is starting execution
+2025-07-29 23:48:50.558 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job cef3f95a-6974-4ffd-af49-d3703adf195c from queue
+2025-07-29 23:48:50.558 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job de638634-1768-42e8-aba6-35625fe6c6bb from queue
+2025-07-29 23:48:50.558 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job e6e80955-cf69-41a1-ba80-bcef89b980f4 from queue
+2025-07-29 23:48:50.559 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job 550c7f83-6906-46a2-8037-9a5943d89d79 from queue
+2025-07-29 23:48:50.559 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.j.handler.impl.ExampleJobHandler - Retrieved job d2b55e78-2ffd-4ac7-9a8b-4357e6819f0e from queue
+2025-07-29 23:48:50.726 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job e53308b7-45a3-49b5-b874-c425651f8907 completed successfully
+2025-07-29 23:48:50.727 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job e53308b7-45a3-49b5-b874-c425651f8907 completed successfully
+2025-07-29 23:48:50.729 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 1a1dbf7b-9548-446b-a9d2-9bdebfb229ac
+2025-07-29 23:48:50.729 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 1a1dbf7b-9548-446b-a9d2-9bdebfb229ac is starting execution
+2025-07-29 23:48:50.882 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job aa6beaf0-08fc-4014-92a9-f6276acc73e3 completed successfully
+2025-07-29 23:48:50.882 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job aa6beaf0-08fc-4014-92a9-f6276acc73e3 completed successfully
+2025-07-29 23:48:50.882 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: de178999-5942-4a28-8c0c-a438995011fd
+2025-07-29 23:48:50.882 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job de178999-5942-4a28-8c0c-a438995011fd is starting execution
+2025-07-29 23:48:51.167 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job 1a1dbf7b-9548-446b-a9d2-9bdebfb229ac completed with warnings
+2025-07-29 23:48:51.167 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job 1a1dbf7b-9548-446b-a9d2-9bdebfb229ac completed with warnings
+2025-07-29 23:48:51.167 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: cef3f95a-6974-4ffd-af49-d3703adf195c
+2025-07-29 23:48:51.167 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job cef3f95a-6974-4ffd-af49-d3703adf195c is starting execution
+2025-07-29 23:48:51.268 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job de178999-5942-4a28-8c0c-a438995011fd completed successfully
+2025-07-29 23:48:51.268 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job de178999-5942-4a28-8c0c-a438995011fd completed successfully
+2025-07-29 23:48:51.268 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: de638634-1768-42e8-aba6-35625fe6c6bb
+2025-07-29 23:48:51.268 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job de638634-1768-42e8-aba6-35625fe6c6bb is starting execution
+2025-07-29 23:48:51.443 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job de638634-1768-42e8-aba6-35625fe6c6bb completed successfully
+2025-07-29 23:48:51.443 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job de638634-1768-42e8-aba6-35625fe6c6bb completed successfully
+2025-07-29 23:48:51.443 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: e6e80955-cf69-41a1-ba80-bcef89b980f4
+2025-07-29 23:48:51.444 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job e6e80955-cf69-41a1-ba80-bcef89b980f4 is starting execution
+2025-07-29 23:48:51.480 [JobExecutor-Worker] WARN  c.e.jobexecutor.executor.JobExecutor - Job cef3f95a-6974-4ffd-af49-d3703adf195c completed with warnings
+2025-07-29 23:48:51.480 [JobExecutor-Worker] WARN  c.e.j.handler.impl.ExampleJobHandler - Job cef3f95a-6974-4ffd-af49-d3703adf195c completed with warnings
+2025-07-29 23:48:51.480 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: 550c7f83-6906-46a2-8037-9a5943d89d79
+2025-07-29 23:48:51.480 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 550c7f83-6906-46a2-8037-9a5943d89d79 is starting execution
+2025-07-29 23:48:51.554 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 2
+2025-07-29 23:48:51.600 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job e6e80955-cf69-41a1-ba80-bcef89b980f4 completed successfully
+2025-07-29 23:48:51.600 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job e6e80955-cf69-41a1-ba80-bcef89b980f4 completed successfully
+2025-07-29 23:48:51.600 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Starting execution of job: d2b55e78-2ffd-4ac7-9a8b-4357e6819f0e
+2025-07-29 23:48:51.600 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job d2b55e78-2ffd-4ac7-9a8b-4357e6819f0e is starting execution
+2025-07-29 23:48:51.696 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job 550c7f83-6906-46a2-8037-9a5943d89d79 completed successfully
+2025-07-29 23:48:51.696 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job 550c7f83-6906-46a2-8037-9a5943d89d79 completed successfully
+2025-07-29 23:48:51.745 [JobExecutor-Worker] INFO  c.e.jobexecutor.executor.JobExecutor - Job d2b55e78-2ffd-4ac7-9a8b-4357e6819f0e completed successfully
+2025-07-29 23:48:51.745 [JobExecutor-Worker] INFO  c.e.j.handler.impl.ExampleJobHandler - Job d2b55e78-2ffd-4ac7-9a8b-4357e6819f0e completed successfully
+2025-07-29 23:48:52.555 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:48:53.555 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:48:54.556 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:48:55.556 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:48:56.557 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:48:57.557 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:48:58.558 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:48:59.559 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:49:00.559 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:49:01.560 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:49:02.560 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:49:03.561 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:49:04.561 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:49:05.562 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Status - Queue size: 0, Active workers: 0
+2025-07-29 23:49:05.562 [Thread-3] INFO  c.example.jobexecutor.JobExecutorApp - Stopping job processing...
+2025-07-29 23:49:05.562 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - Stopping JobExecutor...
+2025-07-29 23:49:05.564 [Thread-3] INFO  c.e.jobexecutor.executor.JobExecutor - JobExecutor stopped. Final metrics: JobExecutorMetrics{totalProcessed=9, succeeded=7, failed=0, warnings=2, retried=0, timedOut=0, successRate=77.78%, avgExecutionTime=257.00ms}
+2025-07-29 23:49:06.561 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.e.jobexecutor.executor.JobExecutor - Job retrieval stopped
+2025-07-29 23:49:06.561 [com.example.jobexecutor.JobExecutorApp.main()] INFO  c.example.jobexecutor.JobExecutorApp - Application shutdown complete
+2025-07-29 23:49:06.584 [Thread-2] INFO  c.example.jobexecutor.JobExecutorApp - Shutdown hook triggered, stopping JobExecutor...

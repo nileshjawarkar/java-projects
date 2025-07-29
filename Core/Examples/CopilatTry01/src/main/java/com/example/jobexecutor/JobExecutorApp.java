@@ -3,6 +3,7 @@ package com.example.jobexecutor;
 import com.example.jobexecutor.executor.JobExecutor;
 import com.example.jobexecutor.handler.impl.ExampleJobHandler;
 import com.example.jobexecutor.model.Job;
+import com.example.jobexecutor.model.SimpleJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,7 +29,6 @@ public class JobExecutorApp {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("Shutdown hook triggered, stopping JobExecutor...");
             jobExecutor.stop();
-            jobHandler.close();
         }));
         
         // Create a separate thread to monitor and eventually stop the executor
@@ -60,16 +60,15 @@ public class JobExecutorApp {
             
         } finally {
             // Ensure resources are cleaned up
-            jobHandler.close();
             logger.info("Application shutdown complete");
         }
     }
     
     private static void addMoreJobsToHandler(ExampleJobHandler jobHandler) {
         // Add some additional jobs to demonstrate continuous processing
-        jobHandler.addJob(new Job("data_processing", "Process evening batch data"));
-        jobHandler.addJob(new Job("notification", "Send daily summary notifications"));
-        jobHandler.addJob(new Job("report_generation", "Generate weekly performance report"));
+        jobHandler.addJob(new SimpleJob("data_processing", "Process evening batch data"));
+        jobHandler.addJob(new SimpleJob("notification", "Send daily summary notifications"));
+        jobHandler.addJob(new SimpleJob("report_generation", "Generate weekly performance report"));
         
         logger.info("Added additional jobs to the handler");
     }

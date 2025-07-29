@@ -27,14 +27,16 @@ public interface JobHandler {
     void onJobStart(Job job);
     
     /**
-     * Executes the actual job logic.
+     * Executes the actual job logic by calling the job's execute method.
      * This is the main method where the job's work is performed.
      * 
      * @param job The job to execute
      * @return The status of job execution (OK, FAILED, or WARNING)
      * @throws Exception if job execution fails
      */
-    JobStatus execute(Job job) throws Exception;
+    default JobStatus execute(Job job) throws Exception {
+        return job.execute();
+    }
     
     /**
      * Called when a job completes execution (either successfully or with failure).

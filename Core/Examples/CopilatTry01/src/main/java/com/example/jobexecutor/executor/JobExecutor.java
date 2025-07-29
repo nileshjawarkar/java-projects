@@ -4,6 +4,7 @@ import com.example.jobexecutor.config.JobExecutorConfig;
 import com.example.jobexecutor.handler.JobHandler;
 import com.example.jobexecutor.metrics.JobExecutorMetrics;
 import com.example.jobexecutor.model.Job;
+import com.example.jobexecutor.model.QueuedJob;
 import com.example.jobexecutor.model.JobStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +40,8 @@ public class JobExecutor implements AutoCloseable {
     private final AtomicInteger activeWorkers;
     
     // Job queues
-    private final BlockingQueue<Job> retrievedJobsQueue;
-    private final BlockingQueue<Job> retryQueue;
+    private final BlockingQueue<QueuedJob> retrievedJobsQueue;
+    private final BlockingQueue<QueuedJob> retryQueue;
     private final ConcurrentHashMap<String, Long> retryTimestamps;
     
     /**
@@ -98,14 +99,25 @@ public class JobExecutor implements AutoCloseable {
             
             logger.info("Starting job retrieval and processing in main thread");
             
+            // Cache current time to reduce System.currentTimeMillis() calls
+            long lastTimeUpdate = System.currentTimeMillis();
+            long cachedCurrentTime = lastTimeUpdate;
+            final long TIME_CACHE_DURATION_MS = 100; // Update cached time every 100ms
+            
             // Main thread handles job retrieval and delegates processing to executor service
             while (isRunning.get()) {
                 try {
+                    // Update cached time periodically to reduce system calls
+                    if (cachedCurrentTime - lastTimeUpdate > TIME_CACHE_DURATION_MS) {
+                        cachedCurrentTime = System.currentTimeMillis();
+                        lastTimeUpdate = cachedCurrentTime;
+                    }
+                    
                     // Retrieve job (checks queue first, then retry queue, then JobHandler.retrieve())
-                    Optional<Job> jobOptional = retrieveJob();
+                    Optional<QueuedJob> jobOptional = retrieveJob(cachedCurrentTime);
                     
                     if (jobOptional.isPresent()) {
-                        Job job = jobOptional.get();
+                        QueuedJob job = jobOptional.get();
                         // Submit job for processing using executor service
                         executorService.submit(() -> {
                             activeWorkers.incrementAndGet();
@@ -118,6 +130,9 @@ public class JobExecutor implements AutoCloseable {
                     } else {
                         // No job available, wait before trying again
                         Thread.sleep(config.getNoJobWaitTime().toMillis());
+                        // Update time after sleep
+                        cachedCurrentTime = System.currentTimeMillis();
+                        lastTimeUpdate = cachedCurrentTime;
                     }
                     
                 } catch (InterruptedException e) {
@@ -128,6 +143,9 @@ public class JobExecutor implements AutoCloseable {
                     logger.error("Error in main thread job retrieval", e);
                     try {
                         Thread.sleep(config.getNoJobWaitTime().toMillis());
+                        // Update time after sleep
+                        cachedCurrentTime = System.currentTimeMillis();
+                        lastTimeUpdate = cachedCurrentTime;
                     } catch (InterruptedException ie) {
                         Thread.currentThread().interrupt();
                         break;
@@ -191,11 +209,12 @@ public class JobExecutor implements AutoCloseable {
      * 3. JobHandler.retrieve() (new jobs)
      * This method runs in the main thread and handles all job retrieval logic.
      * 
+     * @param currentTime Current time in milliseconds (cached to reduce system calls)
      * @return An Optional containing a job to process, or Optional.empty() if no job is available
      */
-    private Optional<Job> retrieveJob() {
+    private Optional<QueuedJob> retrieveJob(long currentTime) {
         // Priority 1: Check retrieved jobs queue first (non-blocking)
-        Job job = retrievedJobsQueue.poll();
+        QueuedJob job = retrievedJobsQueue.poll();
         
         if (job != null) {
             logger.debug("Retrieved job {} from retrieved jobs queue", job.getId());
@@ -209,12 +228,12 @@ public class JobExecutor implements AutoCloseable {
             
             // Ensure timestamp exists - if missing, create one now
             if (retryTime == null) {
-                retryTime = System.currentTimeMillis() + config.getRetryDelay().toMillis();
+                retryTime = currentTime + config.getRetryDelay().toMillis();
                 retryTimestamps.put(job.getId(), retryTime);
                 logger.warn("Missing retry timestamp for job {}, created new timestamp", job.getId());
             }
             
-            if (System.currentTimeMillis() >= retryTime) {
+            if (currentTime >= retryTime) {
                 // Ready for retry - remove from queue and timestamps
                 job = retryQueue.poll();
                 retryTimestamps.remove(job.getId());
@@ -234,10 +253,11 @@ public class JobExecutor implements AutoCloseable {
         
         // Priority 3: Get new job from JobHandler
         try {
-            job = jobHandler.retrieve();
-            if (job != null) {
-                logger.debug("Retrieved new job {} from JobHandler", job.getId());
-                return Optional.of(job);
+            Job newJob = jobHandler.retrieve();
+            if (newJob != null) {
+                QueuedJob queuedJob = new QueuedJob(newJob);
+                logger.debug("Retrieved new job {} from JobHandler", queuedJob.getId());
+                return Optional.of(queuedJob);
             }
             return Optional.empty();
         } catch (Exception e) {
@@ -249,9 +269,9 @@ public class JobExecutor implements AutoCloseable {
     /**
      * Execute a single job with error handling (no timeout wrapper).
      */
-    private void executeJob(Job job) {
+    private void executeJob(QueuedJob job) {
         logger.info("Starting execution of job: {}", job.getId());
-        long startTime = System.currentTimeMillis();
+        long startTimeNanos = System.nanoTime(); // Use nanoTime for precise duration measurement
         
         try {
             // Set job status to running
@@ -259,32 +279,32 @@ public class JobExecutor implements AutoCloseable {
             job.setStartedAt(LocalDateTime.now());
             
             // Call job start handler
-            jobHandler.onJobStart(job);
+            jobHandler.onJobStart(job.getWrappedJob());
             
             // Execute job directly (no timeout wrapper)
-            JobStatus result = jobHandler.execute(job);
-            long executionTime = System.currentTimeMillis() - startTime;
+            JobStatus result = jobHandler.execute(job.getWrappedJob());
+            long executionTimeMs = (System.nanoTime() - startTimeNanos) / 1_000_000; // Convert to milliseconds
             
             // Update job status based on result
             switch (result) {
                 case OK:
                     job.setStatus(JobStatus.COMPLETED);
                     job.setResult("Job completed successfully");
-                    metrics.recordJobCompleted(executionTime, true, false, false);
+                    metrics.recordJobCompleted(executionTimeMs, true, false, false);
                     logger.info("Job {} completed successfully", job.getId());
                     break;
                 case WARNING:
                     job.setStatus(JobStatus.COMPLETED);
                     job.setResult("Job completed with warnings");
-                    metrics.recordJobCompleted(executionTime, true, true, false);
+                    metrics.recordJobCompleted(executionTimeMs, true, true, false);
                     logger.warn("Job {} completed with warnings", job.getId());
                     break;
                 case FAILED:
-                    handleJobFailure(job, executionTime);
+                    handleJobFailure(job, executionTimeMs);
                     break;
                 default:
                     logger.warn("Unexpected job result: {}", result);
-                    handleJobFailure(job, executionTime);
+                    handleJobFailure(job, executionTimeMs);
                     break;
             }
             
@@ -292,40 +312,41 @@ public class JobExecutor implements AutoCloseable {
             
             // Call job end handler with proper signature
             boolean success = (result == JobStatus.OK || result == JobStatus.WARNING);
-            jobHandler.onJobEnd(job, success, result, null);
+            jobHandler.onJobEnd(job.getWrappedJob(), success, result, null);
             
         } catch (Exception e) {
-            long executionTime = System.currentTimeMillis() - startTime;
+            long executionTimeMs = (System.nanoTime() - startTimeNanos) / 1_000_000; // Convert to milliseconds
             logger.error("Error executing job {}", job.getId(), e);
-            handleJobFailure(job, executionTime, e);
+            handleJobFailure(job, executionTimeMs, e);
         }
     }
     
     /**
      * Handle job failure with retry logic.
      */
-    private void handleJobFailure(Job job, long executionTime) {
+    private void handleJobFailure(QueuedJob job, long executionTime) {
         handleJobFailure(job, executionTime, null);
     }
     
     /**
      * Handle job failure with retry logic and exception.
      */
-    private void handleJobFailure(Job job, long executionTime, Exception error) {
+    private void handleJobFailure(QueuedJob job, long executionTime, Exception error) {
         job.setStatus(JobStatus.FAILED);
         job.setErrorMessage(error != null ? error.getMessage() : "Job execution failed");
         job.setCompletedAt(LocalDateTime.now());
         metrics.recordJobCompleted(executionTime, false, false, false);
         
         // Call job end handler
-        jobHandler.onJobEnd(job, false, JobStatus.FAILED, error);
+        jobHandler.onJobEnd(job.getWrappedJob(), false, JobStatus.FAILED, error);
         
         if (job.canRetry()) {
             logger.info("Scheduling job {} for retry (attempt {}/3)", 
                        job.getId(), job.getRetryCount() + 1);
             
-            // Calculate retry time and store it atomically with queue addition
-            long retryTime = System.currentTimeMillis() + config.getRetryDelay().toMillis();
+            // Calculate retry time - get current time once for efficiency
+            long currentTime = System.currentTimeMillis();
+            long retryTime = currentTime + config.getRetryDelay().toMillis();
             
             // Atomic operation: timestamp first, then queue
             retryTimestamps.put(job.getId(), retryTime);
