@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build and Run Job Executor",
+			"type": "shell",
+			"command": "mvn clean compile exec:java -Dexec.mainClass=\"com.example.jobexecutor.JobExecutorApp\"",
+			"group": "build",
+			"isBackground": false,
+			"problemMatcher": [
+				"$javac"
+			]
+		}
+	]
+}
