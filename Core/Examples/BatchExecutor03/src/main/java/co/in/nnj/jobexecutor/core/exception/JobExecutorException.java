@@ -1,4 +1,4 @@
-package com.example.jobexecutor.exception;
+package co.in.nnj.jobexecutor.core.exception;
 
 /**
  * Base exception for JobExecutor related errors

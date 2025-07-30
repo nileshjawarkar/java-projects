@@ -1,9 +1,9 @@
-package com.example.jobexecutor;
+package co.in.nnj.jobexecutor.impl.app;
 
-import com.example.jobexecutor.executor.JobExecutor;
-import com.example.jobexecutor.handler.impl.ExampleJobHandler;
-import com.example.jobexecutor.model.Job;
-import com.example.jobexecutor.model.SimpleJob;
+import co.in.nnj.jobexecutor.core.executor.JobExecutor;
+import co.in.nnj.jobexecutor.core.config.JobExecutorConfig;
+import co.in.nnj.jobexecutor.impl.handler.ExampleJobHandler;
+import co.in.nnj.jobexecutor.impl.job.SimpleJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,5 +1,7 @@
-package com.example.jobexecutor.model;
+package co.in.nnj.jobexecutor.impl.job;
 
+import co.in.nnj.jobexecutor.core.model.Job;
+import co.in.nnj.jobexecutor.core.model.JobStatus;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;

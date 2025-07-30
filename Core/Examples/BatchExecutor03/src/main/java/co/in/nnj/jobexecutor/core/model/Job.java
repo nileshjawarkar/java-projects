@@ -1,4 +1,4 @@
-package com.example.jobexecutor.model;
+package co.in.nnj.jobexecutor.core.model;
 
 /**
  * Interface for jobs that can be executed by the JobExecutor.

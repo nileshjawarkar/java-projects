@@ -1,4 +1,4 @@
-package com.example.jobexecutor.config;
+package co.in.nnj.jobexecutor.core.config;
 
 import java.time.Duration;
 

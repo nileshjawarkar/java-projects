@@ -1,4 +1,4 @@
-package com.example.jobexecutor.model;
+package co.in.nnj.jobexecutor.core.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -24,6 +24,7 @@ public final class QueuedJob {
     private LocalDateTime completedAt;
     private int retryCount;
     private final int maxRetries;
+    private long retryTimestamp; // When this job can be retried (0 = can retry now)
     
     public QueuedJob(Job job) {
         this(job, 3); // Default max retries
@@ -79,6 +80,19 @@ public final class QueuedJob {
         return status == JobStatus.FAILED && retryCount < maxRetries;
     }
     
+    // Retry timestamp management
+    public void setRetryTimestamp(long timestamp) {
+        this.retryTimestamp = timestamp;
+    }
+    
+    public long getRetryTimestamp() {
+        return retryTimestamp;
+    }
+    
+    public boolean isReadyForRetry(long currentTime) {
+        return canRetry() && currentTime >= retryTimestamp;
+    }
+    
     // Required by JobExecutor to prepare job for retry
     public void prepareForRetry() {
         if (!canRetry()) {
@@ -87,6 +101,7 @@ public final class QueuedJob {
         this.status = JobStatus.PENDING;
         this.result = null;
         this.errorMessage = null;
+        this.retryTimestamp = 0; // Reset retry timestamp
         this.startedAt = null;
         this.completedAt = null;
         this.retryCount++;
@@ -144,6 +159,7 @@ public final class QueuedJob {
                 ", status=" + status +
                 ", retryCount=" + retryCount +
                 ", maxRetries=" + maxRetries +
+                ", retryTimestamp=" + retryTimestamp +
                 '}';
     }
 }

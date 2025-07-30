@@ -1,4 +1,4 @@
-package com.example.jobexecutor.metrics;
+package co.in.nnj.jobexecutor.core.metrics;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;

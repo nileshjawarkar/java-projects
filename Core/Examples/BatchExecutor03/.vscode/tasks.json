@@ -4,7 +4,7 @@
 		{
 			"label": "Build and Run Job Executor",
 			"type": "shell",
-			"command": "mvn clean compile exec:java -Dexec.mainClass=\"com.example.jobexecutor.JobExecutorApp\"",
+			"command": "mvn clean compile exec:java -Dexec.mainClass=\"co.in.nnj.jobexecutor.impl.app.JobExecutorApp\"",
 			"group": "build",
 			"isBackground": false,
 			"problemMatcher": [

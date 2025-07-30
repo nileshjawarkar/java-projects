@@ -1,4 +1,4 @@
-package com.example.jobexecutor.model;
+package co.in.nnj.jobexecutor.core.model;
 
 /**
  * Represents the status of a job
@@ -11,5 +11,6 @@ public enum JobStatus {
     
     // Execution result statuses
     OK,         // Job executed successfully
-    WARNING     // Job executed with warnings
+    WARNING,    // Job executed with warnings
+    INIT_REQUIRED  // New status to trigger re-initialization
 }
