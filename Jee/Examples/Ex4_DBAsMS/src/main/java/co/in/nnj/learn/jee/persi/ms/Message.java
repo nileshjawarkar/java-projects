@@ -17,7 +17,7 @@ public class Message {
     private String payload;
 
     @Column(nullable = false)
-    private String status; // NEW, INWORK, DONE
+    private String status; // NEW, INWORK
 
     public Long getId() {
         return id;

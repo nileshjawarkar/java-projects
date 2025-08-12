@@ -494,9 +494,976 @@
           }
         }
       ]
+    },
+    {
+      "entity": {
+        "type": "Project",
+        "id": "9f479456-d6b1-4f4c-966b-ba3fb245252f",
+        "name": "eduinst"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"Computer Engineering\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "744c82fc-8c98-4e1c-a431-0985cfd34a6a",
+            "name": "a01#create_dep_computer",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"Production Engineering\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": " ${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "1bbd7baf-1121-4d7f-998f-a3813b396fa7",
+            "name": "a02#create_dep_production",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "47f95389-c7c0-4a1b-84b9-088b31df652c",
+            "name": "a03#get_all_departments",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"production enggg.\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/${ \"DEPT_ID\" }"
+            },
+            "id": "08fe297a-7490-43ac-9f3a-ace4bf0cd3fd",
+            "name": "a04#get_dep_by_dep_id",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "name",
+                    "value": "Production Engineering"
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": " ${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "397204a8-173b-484d-a0ad-5da0d6cf753a",
+            "name": "a05#get_dept_with_dept_name",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "function",
+                    "value": "TEACHING"
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department"
+            },
+            "id": "cef6bb24-ac2d-4cac-80b2-ee644edc5f17",
+            "name": "a05#get_dept_with_dept_type",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Ramesh\", \"lname\" : \"Kulkarni\", \n \"dob\" : \"1988-07-05\", \"doj\" : \"2001-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/${ \"DEPT_ID\" }/employee"
+            },
+            "id": "2748e020-b384-467e-971a-2a7f770421f5",
+            "name": "a06#add_employee_1",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Parvati\", \"lname\" : \"Mahadevan\", \n \"dob\" : \"2010-12-09\", \"doj\" : \"2024-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\", \"paddress\" : {\n   \"street\" : \"C Wing, Flat No - 110, Aashirwad Resi.\",\n   \"city\" : \"Narayangaon\",\n   \"state\" : \"MH\",\n   \"country\" : \"India\",\n   \"pin\" : \"41441414\",\n   \"landscape\" : \"someting\"\n  }\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/${ \"DEPT_ID\" }/employee"
+            },
+            "id": "fa8260d8-6f21-4bcb-b6ed-70630a3002e3",
+            "name": "a07#add_employee_2",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Riddhi\", \"lname\" : \"Jawarkar\", \n \"dob\" : \"2010-12-09\", \"doj\" : \"2024-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/employee"
+            },
+            "id": "fb528441-d801-42dc-bbf3-1123d8e97796",
+            "name": "a08#get_all_employee",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Riddhi\", \"lname\" : \"Jawarkar\", \n \"dob\" : \"2010-12-09\", \"doj\" : \"2024-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/${ \"DEPT_ID\" }/employee"
+            },
+            "id": "a5ffed44-6d0e-40bc-ab74-38c650d1d93d",
+            "name": "a09#get_all_employee_of_dept",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Riddhi\", \"lname\" : \"Jawarkar\", \n \"dob\" : \"2010-12-09\", \"doj\" : \"2024-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/employee/${ \"EMP_ID\" }"
+            },
+            "id": "01d42624-0a3c-4ef3-8ad5-f83b45d9b165",
+            "name": "a09#get_employee_with_id",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Riddhi\", \"lname\" : \"Jawarkar\", \n \"dob\" : \"2010-12-09\", \"doj\" : \"2024-11-03\",\n \"qualification\" : \"BE\", \"experties\" : \"Computers\",\n \"type\" : \"TEACHER\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": [
+                  {
+                    "enabled": true,
+                    "name": "fname",
+                    "value": "Ramesh"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "lname",
+                    "value": "Kulkarni"
+                  }
+                ]
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/employee"
+            },
+            "id": "21ede390-28e9-4e0a-8c47-53cecd046e40",
+            "name": "a10#get_employee_with_name",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+              "name": "PUT"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"production engineering.\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/${ \"DEPT_ID\" }"
+            },
+            "id": "02a9eee6-2ebd-4af6-903f-47aa14b21f8d",
+            "name": "a11#update_dep_by_dep_id",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+              "name": "PUT"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"fname\" : \"Rakesh\", \"lname\" : \"Kulkarni\", \n \"qualification\" : \"Bachelor of engineering\", \"experties\" : \"Computers\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/employee/${ \"EMP_ID\" }"
+            },
+            "id": "5005be64-45bb-4001-af8c-a400f2f7e7b8",
+            "name": "a12#update_emp",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+              "name": "DELETE"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"production engineering.\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/department/${ \"DEPT_ID\" }"
+            },
+            "id": "f370a88b-a1c6-4d0c-ae99-ff990011659c",
+            "name": "a13#delete_dep_by_dep_id",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+              "name": "DELETE"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBodyEditorHeight": 150,
+              "textBody": "{\"name\" : \"production engineering.\", \"function\" : \"TEACHING\"}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"MYAPP\" }",
+              "path": "/employee/${ \"EMP_ID\" }"
+            },
+            "id": "c6ecb9d7-0b2c-4792-9ba2-5d198404c1c4",
+            "name": "a14#delete_emp_by_emp_id",
+            "headers": []
+          }
+        }
+      ]
+    },
+    {
+      "entity": {
+        "type": "Project",
+        "id": "b68a8d0e-07dc-4758-b458-1f144622f175",
+        "name": "forum"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"post\" : {\n    \"title\" : \"title1\",\n    \"body\" : \"dadadadadad adadfaadadada ttwtwt\",\n    \"user_id\" : 1\n  }\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"SERVERURL\" }",
+              "path": "/api/posts"
+            },
+            "id": "8e5bc367-33a3-495c-a2c3-1726b3f0a301",
+            "name": "a#create_post",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"user\" : {\n    \"name\" : \"xxxxyyddyzzz\",\n    \"email\" : \"xxxxyddyyzzz@email.com\"\n  }\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"SERVERURL\" }",
+              "path": "/api/users"
+            },
+            "id": "07fa68f5-cb58-4046-8406-de7cf97c193d",
+            "name": "a1#create_user",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"post\" : {\n    \"title\" : \"title1\",\n    \"body\" : \"dadadadadad adadfaadadada ttwtwt\"\n  }\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"SERVERURL\" }",
+              "path": "/api/posts"
+            },
+            "id": "0203ffc3-b07f-499a-8a49-eb4e7874b7e3",
+            "name": "b#get_posts",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"post\" : {\n    \"title\" : \"title1\",\n    \"body\" : \"dadadadadad adadfaadadada ttwtwt\"\n  }\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"SERVERURL\" }",
+              "path": "/api/users/1"
+            },
+            "id": "c460e96d-feba-47fb-a333-7a1eea299a48",
+            "name": "b1#get_user",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"post\" : {\n    \"title\" : \"title1\",\n    \"body\" : \"dadadadadad adadfaadadada ttwtwt\"\n  }\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"SERVERURL\" }",
+              "path": "/api/posts/1"
+            },
+            "id": "fca2db3b-ac01-458b-99a9-b82d7637701b",
+            "name": "c#get_post",
+            "headers": []
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+              "name": "PUT"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"post\" : {\n    \"title\" : \"title1111111\"\n  }\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"SERVERURL\" }",
+              "path": "/api/posts/1"
+            },
+            "id": "192eaa28-aeba-403d-955b-66dee4970fdb",
+            "name": "d#update_post",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "entity": {
+        "type": "Project",
+        "id": "681f1d69-7ecd-47e7-b825-69284cbfe129",
+        "name": "ms"
+      },
+      "children": [
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "requestBody": true,
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+              "name": "POST"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"payload\": \"This is simple payload 03\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"SERVERURL\" }",
+              "path": "/api/message"
+            },
+            "id": "fab10456-543e-4bfe-a6b9-c1bb8d9609cf",
+            "name": "a1#add_message",
+            "headers": [
+              {
+                "enabled": true,
+                "name": "Content-Type",
+                "value": "application/json"
+              }
+            ]
+          }
+        },
+        {
+          "entity": {
+            "type": "Request",
+            "method": {
+              "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+              "name": "GET"
+            },
+            "body": {
+              "formBody": {
+                "overrideContentType": true,
+                "encoding": "application/x-www-form-urlencoded",
+                "items": []
+              },
+              "bodyType": "Text",
+              "textBody": "{\n  \"payload\": \"This is simple payload 02\"\n}"
+            },
+            "uri": {
+              "query": {
+                "delimiter": "&",
+                "items": []
+              },
+              "scheme": {
+                "name": "http",
+                "version": "V11"
+              },
+              "host": "${ \"SERVERURL\" }",
+              "path": "/api/message"
+            },
+            "id": "a646a73c-0702-4e5e-9224-df4320cb0f9a",
+            "name": "a2#get_message",
+            "headers": []
+          }
+        }
+      ]
     }
   ],
   "environments": [
+    {
+      "id": "2d424ad6-c353-4a0a-9f69-364a3cb4878c",
+      "name": "EDUINST",
+      "variables": {
+        "bd93ba6a-5272-4c81-87ce-90fc6f2c0d7f": {
+          "createdAt": "2025-06-21T21:47:00.530+05:30",
+          "name": "MYAPP",
+          "value": "localhost:8080/myapp/api",
+          "enabled": true,
+          "private": false
+        },
+        "4b4ea005-f126-4a7b-9019-60ff75a8ac9f": {
+          "createdAt": "2025-06-23T21:52:02.769+05:30",
+          "name": "DEPT_ID",
+          "value": "c0b4fe32-73bf-4bd1-adac-78ea44978ccd",
+          "enabled": true,
+          "private": false
+        },
+        "8cc97a33-a8d8-4123-9f4c-54668ebdce51": {
+          "createdAt": "2025-06-28T07:48:17.585+05:30",
+          "name": "EMP_ID",
+          "value": "51f63f05-ec5a-4a39-9ed1-14a4aa15f519",
+          "enabled": true,
+          "private": false
+        }
+      }
+    },
     {
       "id": "66389a1b-35af-44a5-960c-8cd98e2c5307",
       "name": "STUDYEE",
@@ -533,6 +1500,32 @@
           "createdAt": "2025-07-12T20:22:34.475+05:30",
           "name": "STUDID",
           "value": "1",
+          "enabled": true,
+          "private": false
+        }
+      }
+    },
+    {
+      "id": "bc463f4c-c39e-464f-98eb-4e96ed0c8fd2",
+      "name": "MSERV",
+      "variables": {
+        "8dca23e7-13fc-4c1e-87fb-195831df34e2": {
+          "createdAt": "2025-08-12T22:51:10.526+05:30",
+          "name": "SERVERURL",
+          "value": "localhost:8080/myapp",
+          "enabled": true,
+          "private": false
+        }
+      }
+    },
+    {
+      "id": "f1fb4f59-d7a4-49aa-bf55-5a569f444ffc",
+      "name": "FORUM",
+      "variables": {
+        "900cdc5c-1725-42a6-99ab-21cfd69d887d": {
+          "createdAt": "2025-07-22T18:02:41.185+05:30",
+          "name": "SERVERURL",
+          "value": "192.168.122.235:4000",
           "enabled": true,
           "private": false
         }

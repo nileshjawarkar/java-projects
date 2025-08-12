@@ -23,8 +23,11 @@ public class MessageController {
 
     @POST
     public Response addMessage(final JsonObject payLoad) {
-        repo.addNew(payLoad.toString());
-        return Response.ok().build();
+        final long msgId = repo.addNew(payLoad.toString());
+        if (msgId > 0) {
+            return Response.ok(Json.createObjectBuilder().add("id", msgId).build()).build();
+        }
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
     }
 
     @GET
