@@ -192,6 +192,7 @@
       <module>Ex1_ManyToOne</module>
       <module>Ex2_OneToOne</module>
       <module>Ex3_ManyToMany</module>
+      <module>Ex4_DBAsMS</module>
       <module>Exx_Tests</module>
       <module>Study_webapp</module>
    </modules>
