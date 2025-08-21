@@ -25,9 +25,14 @@ public class Ex9_FlatMap {
          **/
         try {
             final Path path = Paths.get(Ex9_FlatMap.class.getResource("Words.txt").toURI());
-            final List<String> allLines = Files.readAllLines(path);
+
+            /*final List<String> allLines = Files.readAllLines(path);
             allLines.stream().flatMap(line -> Arrays.stream(line.split(" ")))
-                    .forEach(System.out::println);
+                    .forEach(System.out::println); */
+
+            Files.lines(path).flatMap(line -> Arrays.stream(line.split(" ")))
+                .forEach(System.out::println);
+
         } catch (final URISyntaxException | IOException e) {
             e.printStackTrace();
         }
