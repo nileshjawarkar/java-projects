@@ -1,0 +1,10 @@
+27827,Richard,M,Boston,Developer,60000.00
+27828,John,M,Boston,Architect,150000.00
+27829,David,M,Newyork City,Manager,145000.00
+27830,Meenal,F,Austin,Developer,65000.00
+27831,Ginni,F,Delhi,Developer,72000.00
+27832,Tom,M,Banglore,Developer,69000.00
+27833,Michael,M,London,Lead,87000.00
+27834,Alexa,F,Newyork City,Developer,65000.00
+27835,Peter,M,London,Developer,63000.00
+27836,Parvati,F,Jaipur,Lead,89000.00

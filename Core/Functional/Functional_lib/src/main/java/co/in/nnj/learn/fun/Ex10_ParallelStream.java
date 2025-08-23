@@ -33,7 +33,10 @@ public class Ex10_ParallelStream {
             final Random random = new Random();
             final String name = "name-" + random.nextInt(1, 100000);
             final double sal = random.nextDouble(10000, 200000);
-            return new Employee(name, sal);
+            return Employee.builder()
+                    .withName(name).withSalary(sal)
+                    .withCity("Pune").withDesignation("Developer")
+                    .build();
         }).limit(5000).collect(Collectors.toList());
 
         final TimeLogger logger = new TimeLogger();
