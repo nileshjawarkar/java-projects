@@ -21,7 +21,7 @@ public class Ex11_Collectors {
             final Path path = Paths.get(Ex11_Collectors.class.getResource("EmpData.txt").toURI());
             try (Stream<String> lineStream = Files.lines(path);) {
                 final Stream<String> wordStream = lineStream.flatMap(line -> Arrays.stream(line.split(",")));
-                final EmployeeSplitrator spliterator = new EmployeeSplitrator(wordStream.spliterator());
+                final EmployeeSpliterator spliterator = new EmployeeSpliterator(wordStream.spliterator());
                 final List<Employee> emps = StreamSupport.stream(spliterator, false).collect(Collectors.toList());
                 //-- System.out.println(emps);
                 
