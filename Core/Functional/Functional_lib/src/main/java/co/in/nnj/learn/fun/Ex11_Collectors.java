@@ -6,8 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -23,26 +25,55 @@ public class Ex11_Collectors {
                 final Stream<String> wordStream = lineStream.flatMap(line -> Arrays.stream(line.split(",")));
                 final EmployeeSpliterator spliterator = new EmployeeSpliterator(wordStream.spliterator());
                 final List<Employee> emps = StreamSupport.stream(spliterator, false).collect(Collectors.toList());
-                //-- System.out.println(emps);
-                
-                //-- Print emp ids
-                final Set<Long> empIds = emps.stream().map( e -> e.getId()).collect(Collectors.toSet());
+                // -- System.out.println(emps);
+
+                // -- Print emp ids
+                final Set<Long> empIds = emps.stream().map(e -> e.getId()).collect(Collectors.toSet());
                 System.out.println(empIds);
                 System.out.println("------x---------(Set)---------x--------");
 
-                //-- Print sorted list by salary
-                final TreeSet<Employee> sortedList = emps.stream().collect(Collectors.toCollection(() -> new TreeSet<>()));
+                // -- Print sorted list by salary
+                final TreeSet<Employee> sortedList = emps.stream()
+                        .collect(Collectors.toCollection(() -> new TreeSet<>()));
                 System.out.println(sortedList);
                 System.out.println("------x---------(Collection)---------x--------");
 
-                final Map<Long, String> empNames = emps.stream().collect(Collectors.toMap(e -> e.getId(), e -> e.getName()));
+                final Map<Long, String> empNames = emps.stream()
+                        .collect(Collectors.toMap(e -> e.getId(), e -> e.getName()));
                 System.out.println(empNames);
                 System.out.println("------x---------(Map)---------x--------");
 
-                //-- Group by
-                final Map<String, List<Employee>> groupByList = emps.stream().collect(Collectors.groupingBy(e -> e.getDesignation()));
+                // -- Group by
+                final Map<String, List<Employee>> groupByList = emps.stream()
+                        .collect(Collectors.groupingBy(e -> e.getDesignation()));
                 System.out.println(groupByList);
                 System.out.println("------x---------(Map - Group by designation)---------x--------");
+
+                // -- Example of downstrea collectors.
+                // -------------------------------------
+                // -- Find number of employees in each group
+                final Map<Object, Long> groupByEmps = emps.stream()
+                        .collect(Collectors.groupingBy(e -> e.getDesignation(), Collectors.counting()));
+                System.out.println(groupByEmps);
+                System.out.println("------x---------(Map - Num of employees in each group ---------x--------");
+                final Map<Object, Double> totSalForGrp = emps.stream()
+                        .collect(Collectors.groupingBy(e -> e.getDesignation(),
+                                Collectors.summingDouble(e -> e.getSalary())));
+                System.out.println(totSalForGrp);
+                System.out.println("------x---------(Map - Total salary for the group ---------x--------");
+                final Map<Object, Optional<Employee>> maxSalEmpForGrp = emps.stream()
+                        .collect(Collectors.groupingBy(e -> e.getDesignation(),
+                                Collectors.maxBy(Comparator.comparing(e -> e.getSalary()))));
+                System.out.println(maxSalEmpForGrp);
+                System.out.println("------x---------(Map - Employee with max salary for the group ---------x--------");
+                final Map<String, Optional<Double>> maxSalForGrp = emps.stream().collect(
+                        Collectors.groupingBy(
+                                e -> e.getDesignation(),
+                                Collectors.mapping(
+                                        e -> e.getSalary(),
+                                        Collectors.maxBy(Comparator.comparing(sal -> sal)))));
+                System.out.println(maxSalForGrp);
+                System.out.println("------x---------(Map - Max salary for the group ---------x--------");
             }
         } catch (final URISyntaxException | IOException e) {
             e.printStackTrace();
