@@ -56,29 +56,29 @@ class Book {
 
     @Override
     public String toString() {
-        return "Book{title=" + title + ", category=" + category + ", ratting=" + ratting + "}";
+        return "Book{title=" + title + ", category=" + category + ", ratting=" + ratting + ", price=" + price + "}";
     }
 
     public static List<Book> getBooks() {
         final Book b1 = new Book("book1", "horror");
         b1.setRatting(2);
-        b1.setPrice(100.0);
+        b1.setPrice(101.0);
 
         final Book b2 = new Book("Horror Cocktail", "horror");
         b2.setRatting(4);
-        b2.setPrice(100.0);
+        b2.setPrice(90.0);
 
         final Book b3 = new Book("House of Leaves", "Horror");
         b3.setRatting(5);
-        b3.setPrice(100.0);
+        b3.setPrice(200.0);
 
         final Book b4 = new Book("The Notebook", "Romance");
         b4.setRatting(4);
-        b4.setPrice(100.0);
+        b4.setPrice(110.0);
 
         final Book b5 = new Book("The Alchemist", "Adventure");
         b5.setRatting(5);
-        b5.setPrice(100.0);
+        b5.setPrice(50.0);
 
         return List.of(b1, b2, b3, b4, b5);
     }
