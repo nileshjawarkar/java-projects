@@ -19,7 +19,8 @@ public class Ex12_Collections {
         highPriceBooks.forEach(System.out::println);
 
         System.out.println("-----x--(map)---x--------");
-        final Set<Double> prices = books.stream().map(b -> b.getPrice()).collect(Collectors.toSet());
+        final Set<Double> prices = books.stream()
+                .map(b -> b.getPrice()).collect(Collectors.toSet());
         prices.forEach(System.out::println);
 
         // -- Set
@@ -34,9 +35,8 @@ public class Ex12_Collections {
         // -- List to map coversion
         final Map<String, Book> titleToBookMap = books.stream().collect(Collectors.toMap(b -> b.getTitle(), b -> b));
 
-        //-- Filter
-        titleToBookMap.entrySet()
-                .stream()
+        // -- Filter
+        titleToBookMap.entrySet().stream()
                 .filter(e -> e.getValue().getPrice() > 150)
                 .forEach(System.out::println);
     }
